@@ -13,6 +13,7 @@ import org.mea.models.Atividades;
 import org.mea.models.Estado;
 import org.mea.models.Funcionarios;
 import org.mea.models.Prioridade;
+import org.mea.models.RepFuncionarios;
 import org.mea.validation.AtividadesValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,30 +54,58 @@ public class AtividadesController {
 											   //oq torna possível o lance de não apagar os outros campos
 											   //quando ocorre um erro em um campo
 		ModelAndView modelandview = new ModelAndView("atividades/form");
-		List<Funcionarios> funcionarios = funcionariosDAO.listar();
+		List<RepFuncionarios> repFuncionarios = funcionariosDAO.listar();
 		
 //		Funcionarios funcionarios2 = new Funcionarios();
 //		funcionarios2.setNome(nome);
 		
 		modelandview.addObject("estados", Estado.values());//values é um método que puxa todos os valores do enum
 		modelandview.addObject("prioridades", Prioridade.values());
-		modelandview.addObject("funcionarios", funcionarios);
+		modelandview.addObject("repFuncionarios", repFuncionarios);
+		
+		for(int i=0; i<repFuncionarios.size(); i++) {
+			try {
+				System.out.println("fun: "+repFuncionarios.get(i).getNome());
+				System.out.println("i: "+i);
+			} catch (NullPointerException e) {
+				// TODO Auto-generated catch block
+				System.out.println("num tem");
+			} catch (IndexOutOfBoundsException e) {
+				// TODO Auto-generated catch block
+				System.out.println(i+"saiu");
+			}
+			
+		}
+		
 		return modelandview;
 	}
 	
 	@RequestMapping( method=RequestMethod.POST)
 		//(original)
 		//public ModelAndView gravar(MultipartFile sumario ,@Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes) {
-		public ModelAndView gravar(@Valid Atividades atividade, BindingResult result, String func) {
+		public ModelAndView gravar(@Valid Atividades atividade, BindingResult result) {
 		
 		System.out.println(atividade.getDescricao());
 		System.out.println(atividade.getDataInicio());
 		
-				
-		System.out.println("func: "+func);
 		
-		Funcionarios f = new Funcionarios();
-		f.setNome(func); 
+		
+		for(int i=0; i<6; i++) {
+			try {
+				System.out.println("fun: "+atividade.getFunc().get(i).getNome());
+				System.out.println("i: "+i);
+			} catch (NullPointerException ignore) {
+				// TODO Auto-generated catch block
+			} catch (IndexOutOfBoundsException e) {
+				// TODO Auto-generated catch block
+				System.out.println(i+"saiu");
+			}
+			
+		}
+				
+		
+		
+		
 	
 		
 		
@@ -103,7 +132,7 @@ public class AtividadesController {
 		 * é o nome da pasta e o sumario é o arquivo produto.setSumarioPath(path);
 		 *///aqui é pra gravar no bd a localizção do arquivo
 	    
-	     //atividadeDAO.gravar(atividade);
+	     atividadeDAO.gravar(atividade);
 		 return new ModelAndView("/atividades/painelAtividades");//o redirect devolve um código 302 que é via get e não tem o problema
 		 											  //de quando vc atualiza e fica criando o produto de novo
 		}

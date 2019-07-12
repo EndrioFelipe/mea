@@ -4,12 +4,15 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,11 +25,9 @@ public class Atividades {
 	private String descricao;
 	@DateTimeFormat
 	private Calendar dataInicio;
-	@ManyToMany(fetch=FetchType.EAGER, cascade = {CascadeType.ALL})//O mapeamento será de um usuário para muitas permissões.
-	 //Queremos também que ao carregar o usuário, as permissões sejam carregadas por meio 
-	 //do fetch=FetchType.EAGER, significa que a lista de permissões será carregada no momento 
+	@ElementCollection 
 	 //em que o sistema carregar o usuário
-	private List<Funcionarios> funcionarios;
+	private List<Funcionarios> func;
 //	private Estado status;
 	private int porcentagem;
 //	private String observacoes;
@@ -50,14 +51,17 @@ public class Atividades {
 	public void setDataInicio(Calendar dataInicio) {
 		this.dataInicio = dataInicio;
 	}
-	
-	public List<Funcionarios> getFuncionarios() {
-		return funcionarios;
+		
+	public List<Funcionarios> getFunc() {
+		
+		return func;
 	}
-	public void setFuncionarios(List<Funcionarios> funcionarios) {
-		this.funcionarios = funcionarios;
+	public void setFunc(List<Funcionarios> func) {
+		
+		System.out.println("o q ta recebendo: "+func);
+		this.func = func;
 	}
-//	public Estado getStatus() {
+	//	public Estado getStatus() {
 //		return status;
 //	}
 //	public void setStatus(Estado status) {
