@@ -3,16 +3,13 @@ package org.mea.models;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.Lob;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,13 +22,15 @@ public class Atividades {
 	private String descricao;
 	@DateTimeFormat
 	private Calendar dataInicio;
+	
 	@ElementCollection 
-	 //em que o sistema carregar o usuário
 	private List<Funcionarios> func;
-//	private Estado status;
+	private String status;
 	private int porcentagem;
-//	private String observacoes;
-//	private Prioridade prioridade;
+	
+	@Lob
+	private String observacoes;
+	private String prioridade;
 	
 	public int getId() {
 		return id;
@@ -60,31 +59,32 @@ public class Atividades {
 		
 		System.out.println("o q ta recebendo: "+func);
 		this.func = func;
+	}	
+	
+	public String getStatus() {
+		return status;
 	}
-	//	public Estado getStatus() {
-//		return status;
-//	}
-//	public void setStatus(Estado status) {
-//		this.status = status;
-//	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public int getPorcentagem() {
 		return porcentagem;
 	}
 	public void setPorcentagem(int porcentagem) {
 		this.porcentagem = porcentagem;
 	}
-//	public String getObservacoes() {
-//		return observacoes;
-//	}
-//	public void setObservacoes(String observacoes) {
-//		this.observacoes = observacoes;
-//	}
-//	public Prioridade getPrioridade() {
-//		return prioridade;
-//	}
-//	public void setPrioridade(Prioridade prioridade) {
-//		this.prioridade = prioridade;
-//	}
+	public String getObservacoes() {
+		return observacoes;
+	}
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
+	}
+	public String getPrioridade() {
+		return prioridade;
+	}
+	public void setPrioridade(String prioridade) {
+		this.prioridade = prioridade;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -105,11 +105,6 @@ public class Atividades {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
-	
+		
 	
 }

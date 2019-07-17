@@ -24,7 +24,7 @@ public class JPAConfiguration {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setUsername("endrio");
         dataSource.setPassword("password");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/mea");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/mea?characterEncoding=UTF-8");
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 
         factoryBean.setDataSource(dataSource);
@@ -33,6 +33,12 @@ public class JPAConfiguration {
         props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         props.setProperty("hibernate.show_sql", "true");
         props.setProperty("hibernate.hbm2ddl.auto", "update");
+        
+        props.setProperty("hibernate.connection.CharSet", "utf8");
+        props.setProperty("hibernate.connection.characterEncoding", "utf8");
+        props.setProperty("hibernate.connection.useUnicode", "true");
+        
+        
 
         factoryBean.setJpaProperties(props);
 

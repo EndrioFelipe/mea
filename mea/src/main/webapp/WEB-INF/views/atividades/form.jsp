@@ -1,19 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file = "/WEB-INF/views/cabecalho.jsp" %>   
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+
+
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <c:url value="/resources" var="Path"/>
+<link rel="stylesheet" href="${Path}/css/bootstrap.min.css" /> 
+<script src="${Path}/js/bootstrap.min.js"></script>
 <script src="${Path}/js/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 <title>Insert title here</title>
 </head>
-<body>
+<body class="container">
 	
-	<form:form action="${ s:mvcUrl('AC#gravar').build() }" method="post" commandName="atividade" id="meuForm">
+	<form:form class="form-group" action="${ s:mvcUrl('AC#gravar').build() }" method="post" commandName="atividade" id="meuForm">
 		<!-- a tag mvcUrl que gera uma URL de acordo com um determinado controller -->
 		<!-- passarmos as iniciais PC para se referir a ProdutosController, o Spring já conseguirá fazer a relação entre os dois. -->
 	    <!-- Precisamos passar uma segunda informação para a tag: o método para qual os dados serão enviados. Neste caso, o método será o gravar. -->
@@ -21,106 +30,76 @@
 	    algo como: commandName="produto". Dessa forma, nas tags de erros (form:errors) não precisaremos colocar o prefixo produto.. Colocareamos então  só o nome do atributo. -->
 	    <!-- enctype="multipart/form-data": É para enviar requisições multipart q podem fazer envios de arquivos, no caso, no sumário -->
 		    
-	    <div>
+	    <div class="form-group">
 	        <label>Descrição</label>
-	        <textarea rows="10" cols="20" name="descricao"></textarea>
+	        <textarea class="form-control" rows="3" cols="20" name="descricao"></textarea>
 	    </div>
+	    
 	    <div>
 	        <label>Data de Início</label>
-	        <input type="text" name="dataInicio" />
+	        <input id="datepicker" data-date-format="dd/mm/yyyy" type="text" name="dataInicio" />
 	    </div>
 		
-	   
-	   	<%-- <c:forEach items="${funcionarios}" varStatus="cont" >
-	   		
-		         <input type="checkbox" name="funcionarios[${cont.index}].nome" value="${funcionarios[cont.index].nome}">${funcionarios[cont.index].nome}<br>
-		   
-				
-		</c:forEach> --%> 
-		
-		
-		<%-- <select multiple name="funcionarios[0].nome">
-			 <c:forEach items="${funcionarios}"  >
-				<tr>
-					 <option value="${funcionarios[0].nome}"  >
-					 	${funcionarios[0].nome}
-					 </option>
-				</tr>
-			</c:forEach> 	
-		</select>  --%>
-		
-		
-		<%-- <c:forEach items="${repFuncionarios}" varStatus="cont" >
+		   		
+		 <c:forEach items="${repFuncionarios}" varStatus="cont" >
 			<div class="form-check">
-			  <label class="form-check-label"  >
-			    ${repFuncionarios[cont.index].nome}
-			  </label>
-			  <input class="form-check-input" type="checkbox"  name="func[${cont.index}].nome" value="${repFuncionarios[cont.index].nome}" id="check" onchange="desabilitar()" disabled />
-						  
-			</div>
+				<input class="form-check-input" type="checkbox"  name="" value="${repFuncionarios[cont.index].nome}" id="check${cont.index}"  />
+				<label >
+					${repFuncionarios[cont.index].nome}
+				</label>
+							  
+			</div>		
+		</c:forEach> 
+			
 		
-		</c:forEach> --%>
-		
-		<div class="form-check">
-			  <label class="form-check-label"  >
-			    ${repFuncionarios[0].nome}
-			  </label>
-			  <input class="form-check-input" type="checkbox"  name="func[0].nome" value="${repFuncionarios[0].nome}" id="check" "  />
-						  
+		<div class="form-group">
+			<label for="status">Status</label>
+			<select class="form-control" name="status" >
+				<option value="Não Iniciada">Não Iniciada</option>
+				<option value="Em Andamento">Em Andamento</option>
+				<option value="Concluída">Concluída</option>
+			</select>
 		</div>
-		
-		
-		
-		<div class="form-check">
-			  <label class="form-check-label"  >
-			    ${repFuncionarios[2].nome}
-			  </label>
-			  <input class="form-check-input" type="checkbox"  name="func[2].nome" value="${repFuncionarios[2].nome}" id="check"   />
-						  
+	      
+		 <div class="form-group">
+	        <label>Porcentagem de Conclusão</label>
+	        <input class="form-control" type="number" name="porcentagem" />
+	    </div>
+	    
+	    <div class="form-group">
+			<label for="prioridade">Prioridade</label>
+			<select class="form-control" name="prioridade" >
+				<option value="Baixa">Baixa</option>
+				<option value="Média">Média</option>
+				<option value="Alta">Alta</option>
+			</select>
 		</div>
+	    
+	    <div class="form-group">
+	        <label>observações</label>
+	        <textarea class="form-control" rows="3" cols="20" name="observacoes"></textarea>
+	    </div>
 		
-		
-		
-		
-		<%-- <tr>
-					
-			<td > ${repFuncionarios[0].nome}</td>
-			<input type="type" name="func[1].nome" value="${repFuncionarios[0].nome}">
-			 --%>
-		</tr>  
-			<button type="submit" class="btn btn-primary submitForm" >Cadastrar</button>
+	
+			<button type="submit" class="btn btn-primary submitForm" onClick="desabilitar()">Cadastrar</button>
 		</form:form>
 		
 	<script type="text/javascript">
-	//function desabilitar () {
-			/* alert('ddd');
-	        
-	       // for(var i=0 ; i<6; i++){
-	        	var nomecheck = document.querySelector('#check');
-	        	if(nomecheck.checked == false){
-	        		alert('aqui');
-	        		nomecheck.disabled = true;
-	        		if(nomecheck.disabled == true){
-	        			alert('aqui2');
-	        		}
-	        		
-	        	}
-	        	console.log(nomecheck.checked == true);
-	        	alert('acabou.'); */
-	        //}
-	        
-	        /* if(nomecheck.unChecked ) {
-	        	alert('aqui');
-	        	nomecheck.disabled = true;
-	        }  */
-	        
-	        var el = document.getElementById('check2');
-	        el.remove(); // Remove o div com o id 'div-02'
-	       
-			
-	//}
-		
-		    
+	
+		$('#datepicker').datepicker({
+	        uiLibrary: 'bootstrap4'
+	    });
+     
+	
+		function desabilitar () {
+	        	var x  = document.querySelectorAll(".form-check-input");
+	        	for(var i = 0, j = 0; i < x.length; i++){
+	        		if(document.querySelector("#check"+i).checked){
+	        			document.getElementById("check"+i).setAttribute("name", "func["+j+"].nome");
+	        			j++;	        			
+	        		}	        		
+	        	}   
+	        }
 	</script>
 </body>
 </html>

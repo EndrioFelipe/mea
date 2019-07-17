@@ -1,5 +1,7 @@
 package org.mea.daos;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -16,12 +18,18 @@ public class AtividadeDAO {
     private EntityManager manager;
 	
 	public void gravar(Atividades atividade){
-		Funcionarios f = new Funcionarios();
-		System.out.println("descricao: "+atividade.getDescricao());
-		atividade.setPorcentagem(51);
         manager.persist(atividade);
     }
 	
 	
+	public List<Atividades> listar() {
+		return manager.createQuery("select distinct(a) from Atividades a join fetch a.func", 
+				Atividades.class).getResultList();
+	}
+	
+	public List<Atividades> listarFunc() {
+		return manager.createQuery("select distinct(a) from Atividades a join fetch a.func", 
+				Atividades.class).getResultList();
+	}
 	
 }
