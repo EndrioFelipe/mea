@@ -22,7 +22,7 @@
 </head>
 <body class="container">
 	
-	<form:form class="form-group" action="${ s:mvcUrl('AC#gravar').build() }" method="post" commandName="atividade" id="meuForm">
+	<form:form class="form-group" action="${ s:mvcUrl('AC#gravar').build() }" method="post" commandName="atividade" id="meuForm" enctype="multipart/form-data">
 		<!-- a tag mvcUrl que gera uma URL de acordo com um determinado controller -->
 		<!-- passarmos as iniciais PC para se referir a ProdutosController, o Spring já conseguirá fazer a relação entre os dois. -->
 	    <!-- Precisamos passar uma segunda informação para a tag: o método para qual os dados serão enviados. Neste caso, o método será o gravar. -->
@@ -79,6 +79,8 @@
 	        <label>observações</label>
 	        <textarea class="form-control" rows="3" cols="20" name="observacoes"></textarea>
 	    </div>
+	    
+	    <td><input type="file" name="file" /></td>
 		
 	
 			<button type="submit" class="btn btn-primary submitForm" onClick="desabilitar()">Cadastrar</button>
