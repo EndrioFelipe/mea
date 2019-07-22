@@ -4,6 +4,7 @@ package org.mea.config;
 
 import org.mea.controllers.HomeController;
 import org.mea.daos.AtividadeDAO;
+import org.mea.infra.FileSaver;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -23,7 +24,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 
 @EnableWebMvc
-@ComponentScan(basePackageClasses= {HomeController.class, AtividadeDAO.class}) //aqui o spring vai atrás do pacote de controller automaticamente
+@ComponentScan(basePackageClasses= {HomeController.class, AtividadeDAO.class, FileSaver.class}) //aqui o spring vai atrás do pacote de controller automaticamente
 public class AppWebConfiguration extends WebMvcConfigurerAdapter{ //tem que estender essa classe pra habilitar os js e css do bootstrap
 	//basicamente toda classe q tá marcada com @Component tá nesse basePackageClasses, o erro q aparece é aquele dizendo que não
 	//tem um bean qualificado

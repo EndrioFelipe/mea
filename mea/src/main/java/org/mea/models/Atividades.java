@@ -31,6 +31,8 @@ public class Atividades {
 	@Lob
 	private String observacoes;
 	private String prioridade;
+	private String arquivoPath;
+	
 	
 	public int getId() {
 		return id;
@@ -84,6 +86,13 @@ public class Atividades {
 	}
 	public void setPrioridade(String prioridade) {
 		this.prioridade = prioridade;
+	}
+	
+	public String getArquivoPath() {
+		return arquivoPath;
+	}
+	public void setArquivoPath(String arquivoPath) {
+		this.arquivoPath = arquivoPath;
 	}
 	@Override
 	public int hashCode() {

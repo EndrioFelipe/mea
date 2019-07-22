@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.mea.daos.AtividadeDAO;
 import org.mea.daos.FuncionariosDAO;
+import org.mea.infra.FileSaver;
 import org.mea.models.Atividades;
 import org.mea.models.RepFuncionarios;
 import org.mea.validation.AtividadesValidation;
@@ -34,6 +35,9 @@ public class AtividadesController {
 	
 	@Autowired	
     private FuncionariosDAO funcionariosDAO;
+	
+	@Autowired
+	private FileSaver fileSaver;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder){
@@ -71,18 +75,22 @@ public class AtividadesController {
 	@RequestMapping( method=RequestMethod.POST)
 		//(original)
 		//public ModelAndView gravar(MultipartFile sumario ,@Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes) {
-		public ModelAndView gravar(@RequestParam MultipartFile file, @Valid Atividades atividade, BindingResult result, ModelMap modelMap)  {
+		public ModelAndView gravar(MultipartFile file, @Valid Atividades atividade, BindingResult result, ModelMap modelMap)  {
 		
 		
 		
-		modelMap.addAttribute("file", file);
+		if(file != null && !file.getOriginalFilename().isEmpty()) {
+			System.out.println("dfsggdf");
+			String path = fileSaver.write("resources/arquivos", file);
+			atividade.setArquivoPath(path);
+		}
 					
 		if(result.hasErrors()){
 	        return form(atividade);
 	    }		
 	    
 	     //atividadeDAO.gravar(atividade);
-		 return new ModelAndView("/atividades/arquivo");
+		 return new ModelAndView("redirect:atividades");
 		}
 	
 	
