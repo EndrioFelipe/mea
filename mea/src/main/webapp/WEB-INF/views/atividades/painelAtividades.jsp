@@ -13,7 +13,7 @@
 </head>
 <body class="container">
 	<h1>Painel de Atividades</h1>
-	<a href="${s:mvcUrl('AC#form').build() }">Cadastro de Atividades</a>
+	<a class="nav-link" href="/mea/atividades/form">cadastro atividades</a>
 	
 	<table class="table table-bordered table-striped table-hover">
 		<tr>

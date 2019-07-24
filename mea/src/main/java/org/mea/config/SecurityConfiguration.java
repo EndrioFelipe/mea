@@ -1,12 +1,16 @@
+
 package org.mea.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 
 
@@ -17,11 +21,51 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{ //preci
 	//ao entrar em http://localhost:8080/casadocodigo/login já é possível ver uma página de login gerada automaticamente
 	
 	
+	///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////	ATENÇÃO
+////	TEM QUE DAR UPDATE PROJECT PRO RESOURCES FUNCIONAR DIREITO
+///////////////////////////////////////////////////////////////////////////////////
+	
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		// TODO Auto-generated method stub
-		super.configure(http);
-	}
+		protected void configure(HttpSecurity http) throws Exception {
+		
+		
+///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////	Resolver o Erro do Encoding com Spring security
+///////////////////////////////////////////////////////////////////////////////////
+		
+		CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+        http.addFilterBefore(filter,CsrfFilter.class);
+		
+		 http.authorizeRequests() 
+		 	.antMatchers("/atividades/form").hasRole("admin")
+	        .antMatchers("/atividades/**").permitAll()
+	        .antMatchers("/resources/**").permitAll()
+	        .antMatchers("/").permitAll()
+	        .anyRequest().authenticated()
+	        .and().formLogin();
+		 	
+		}
+	
+		
+	
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//		// TODO Auto-generated method stub
+//		http.authorizeRequests()
+//		.antMatchers("/atividades/form").hasRole("ADMIN")
+//	    .antMatchers("/atividades").permitAll()
+//	    .antMatchers("/").permitAll()	    
+//	    .anyRequest().authenticated()
+//	    .and().formLogin();
+//	}
+	
+	 
 	
 	
 //	@Autowired

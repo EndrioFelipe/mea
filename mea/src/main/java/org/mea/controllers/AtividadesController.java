@@ -54,7 +54,7 @@ public class AtividadesController {
 	    return modelAndView;
 	}
 	
-	@RequestMapping("/form")
+	@RequestMapping("form")
 	public ModelAndView form(Atividades atividade) {//Para que o objeto do tipo Produto fique disponível em nosso formulário
 											   //assim o produto já fica disponível no formulário
 											   //oq torna possível o lance de não apagar os outros campos
@@ -72,7 +72,7 @@ public class AtividadesController {
 		return modelandview;
 	}
 	
-	@RequestMapping( method=RequestMethod.POST)
+	@RequestMapping(method=RequestMethod.POST)
 		//(original)
 		//public ModelAndView gravar(MultipartFile sumario ,@Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes) {
 		public ModelAndView gravar(MultipartFile file, @Valid Atividades atividade, BindingResult result, ModelMap modelMap)  {
