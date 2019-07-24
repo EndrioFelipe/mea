@@ -44,7 +44,7 @@
 						<td>${atividade.status }</td>
 						<td>${atividade.porcentagem }</td> 
 						<td>${atividade.prioridade }</td> 
-						<td>${atividade.observacoes }</td>  
+						<td>${atividade.observacoes }</td>   
 					</tr>
 				</c:forEach>
 			

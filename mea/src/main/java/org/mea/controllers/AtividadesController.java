@@ -77,7 +77,7 @@ public class AtividadesController {
 		//public ModelAndView gravar(MultipartFile sumario ,@Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes) {
 		public ModelAndView gravar(MultipartFile file, @Valid Atividades atividade, BindingResult result, ModelMap modelMap)  {
 		
-		
+		System.out.println("descrição: "+atividade.getDescricao());
 		
 		if(file != null && !file.getOriginalFilename().isEmpty()) {
 			System.out.println("dfsggdf");
@@ -89,7 +89,7 @@ public class AtividadesController {
 	        return form(atividade);
 	    }		
 	    
-	     //atividadeDAO.gravar(atividade);
+	     atividadeDAO.gravar(atividade);
 		 return new ModelAndView("redirect:atividades");
 		}
 	

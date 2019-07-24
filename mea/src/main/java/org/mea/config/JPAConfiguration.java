@@ -24,7 +24,7 @@ public class JPAConfiguration {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setUsername("endrio");
         dataSource.setPassword("password");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/mea?characterEncoding=UTF-8");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/mea");
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 
         factoryBean.setDataSource(dataSource);

@@ -8,7 +8,7 @@
 
 
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html >
 <head>
 <meta charset="UTF-8">
 <c:url value="/resources" var="Path"/>
@@ -18,7 +18,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-<title>Insert title here</title>
+<title>página genérica</title>
 </head>
 <body class="container">
 	
