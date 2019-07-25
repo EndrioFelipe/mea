@@ -1,13 +1,13 @@
-1. IDENTIFICAÇÃO DO PROJETO
-TÍTULO DO PROJETO
-Mapeamento e Acompanhamento das Atividades do SIAUD
-DEMANDANTE DO PROJETO
-Serviço de Inteligência Previdenciária
-ELABORADO POR
-Pedro Henrique Cavalcante de Oliveira
-A SER DESENVOLVIDO POR 
-Endrio Felipe Assis de Souza
-DATA DE ELABORAÇÃO VERSÃO
+1. IDENTIFICAÇÃO DO PROJETO </br>
+TÍTULO DO PROJETO </br>
+Mapeamento e Acompanhamento das Atividades do SIAUD </br>
+DEMANDANTE DO PROJETO </br>
+Serviço de Inteligência Previdenciária </br>
+ELABORADO POR </br>
+Pedro Henrique Cavalcante de Oliveira </br>
+A SER DESENVOLVIDO POR  </br>
+Endrio Felipe Assis de Souza </br>
+DATA DE ELABORAÇÃO VERSÃO </br>
 18/06/2019 1.6
 
 2. HISTÓRICO
@@ -24,7 +24,7 @@ Interno da Instituição.
 
 Tal iniciativa poderá ser estendida para toda AUDGER e suas Regionais após
 
-aprovação e homologação das chefias superiores.
+aprovação e homologação das chefias superiores. 
 3. CARACTERIZAÇÃO DO PROBLEMA
 
 A ausência de mapeamento de todos os processos e de um ambiente adequado para
