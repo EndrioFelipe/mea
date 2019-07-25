@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body class="container">
 	<h1>Painel de Atividades</h1>

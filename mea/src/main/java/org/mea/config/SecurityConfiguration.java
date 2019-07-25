@@ -1,6 +1,7 @@
 
 package org.mea.config;
 
+import org.mea.daos.UsuarioDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -19,7 +20,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{ //precisa estender essa WebSecurityConfigurerAdapter pra sanar o erro "Hinte try extends WebSecurityConfigurerAdapter"
 	//Na verdade a Anotação só habilita o que a WebSecurityConfigurerAdapter faz, que é a configuração
 	//ao entrar em http://localhost:8080/casadocodigo/login já é possível ver uma página de login gerada automaticamente
-	
+	@Autowired
+    private UsuarioDAO usuarioDao;
 	
 	///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
@@ -43,14 +45,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{ //preci
         http.addFilterBefore(filter,CsrfFilter.class);
 		
 		 http.authorizeRequests() 
-		 	.antMatchers("/atividades/form").hasRole("admin")
+		 	.antMatchers("/atividades/form").hasRole("funcMaster")
+		 	.antMatchers("/resources/arquivos/**").permitAll()
 	        .antMatchers("/atividades/**").permitAll()
 	        .antMatchers("/resources/**").permitAll()
 	        .antMatchers("/").permitAll()
 	        .anyRequest().authenticated()
-	        .and().formLogin();
+	        .and().formLogin().loginPage("/login").permitAll();
 		 	
 		}
+	
+		@Override
+	    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+	        auth.userDetailsService(usuarioDao)
+	        .passwordEncoder(new BCryptPasswordEncoder());
+	    }
+		
+		
 	
 		
 	
