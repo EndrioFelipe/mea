@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.mea.models.Usuario;
+import org.mea.models.UsuarioF;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,7 +20,7 @@ public class UsuarioDAO implements UserDetailsService{
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		List<Usuario> usuarios = manager.createQuery("select u from Usuario u where u.userName = :userName", Usuario.class)
+		List<UsuarioF> usuarios = manager.createQuery("select u from Usuario u where u.userName = :userName", UsuarioF.class)
                 .setParameter("userName", userName).getResultList();
 
         if (usuarios.isEmpty()) {

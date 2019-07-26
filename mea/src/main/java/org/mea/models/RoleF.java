@@ -6,11 +6,15 @@ import javax.persistence.Id;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
-public class Role implements GrantedAuthority{
-    private static final long serialVersionUID = 1L;
+public class RoleF implements GrantedAuthority{
 	
-    @Id
-    private String nome;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	String nome;
 
 	public String getNome() {
 		return nome;
@@ -25,6 +29,5 @@ public class Role implements GrantedAuthority{
 		// TODO Auto-generated method stub
 		return this.nome;
 	}
-    
-    
+	
 }

@@ -12,19 +12,23 @@ import javax.persistence.OneToMany;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+
+
 @Entity
-public class Usuario implements UserDetails{
- 	
+public class UsuarioF implements UserDetails{
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-    private String userName;
-    private String nome;
+	private String userName;
+	private String nome;
     private String senha;
-    
     @OneToMany(fetch=FetchType.EAGER)
-    private List<Role> roles = new ArrayList<Role>();
-	
-    public String getUserName() {
+    private List<RoleF> roles = new ArrayList<RoleF>();
+    
+    
+	public String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
@@ -42,16 +46,16 @@ public class Usuario implements UserDetails{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public List<Role> getRoles() {
+	public List<RoleF> getRoles() {
 		return roles;
 	}
-	public void setRoles(List<Role> roles) {
+	public void setRoles(List<RoleF> roles) {
 		this.roles = roles;
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return this.roles;
+		return this.roles;//aqui reclama pq pede que a classe Role implemente GrantedAuthority
 	}
 	@Override
 	public String getPassword() {
@@ -66,7 +70,7 @@ public class Usuario implements UserDetails{
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		return true;
+		return true;//true pq a gente não quer que a conte expire
 	}
 	@Override
 	public boolean isAccountNonLocked() {
@@ -83,6 +87,10 @@ public class Usuario implements UserDetails{
 		// TODO Auto-generated method stub
 		return true;
 	}
-    
-    
+	
+	
+
+	
+	
+	
 }
