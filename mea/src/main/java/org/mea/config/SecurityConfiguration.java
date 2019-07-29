@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 
@@ -45,13 +46,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{ //preci
         http.addFilterBefore(filter,CsrfFilter.class);
 		
 		 http.authorizeRequests() 
-		 	.antMatchers("/atividades/form").hasRole("funcMaster")
+		 	.antMatchers("/atividades/form").hasAnyRole("FUNCMASTER")
 		 	.antMatchers("/resources/arquivos/**").permitAll()
 	        .antMatchers("/atividades/**").permitAll()
 	        .antMatchers("/resources/**").permitAll()
 	        .antMatchers("/").permitAll()
 	        .anyRequest().authenticated()
-	        .and().formLogin().loginPage("/login").permitAll();
+	        .and()
+            .formLogin()
+            .loginPage("/login")
+            .failureUrl("/login?error=true")            
+            .permitAll()
+            .and().logout()
+            .logoutSuccessUrl("/")
+            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+           // .deleteCookies("JSESSIONID");
+            //.logoutUrl("/logout");
 		 	
 		}
 	
@@ -62,50 +72,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{ //preci
 	    }
 		
 		
-	
-		
-	
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		// TODO Auto-generated method stub
-//		http.authorizeRequests()
-//		.antMatchers("/atividades/form").hasRole("ADMIN")
-//	    .antMatchers("/atividades").permitAll()
-//	    .antMatchers("/").permitAll()	    
-//	    .anyRequest().authenticated()
-//	    .and().formLogin();
-//	}
-	
-	 
-	
-	
-//	@Autowired
-//	private UsuarioDAO usuarioDao;
-//	
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		//a ordem dos métodos que vem a seguir importa, pois não adianta liberar tudo e depois bloquear. O ideal é
-//		//fazer os bloqueios primeiro e depois liberar.
-//	    http.authorizeRequests()
-//	    .antMatchers("/resources/**").permitAll()
-//	    .antMatchers("/carrinho/**").permitAll()
-//	    .antMatchers("/pagamento/**").permitAll()
-//	    .antMatchers("/produtos/form").hasRole("ADMIN")//No BD a gente colocou ROLE_ADMIN, mas aqui não precisa do ROLE pq o hasRole já coloca automaticamente o ROLE_
-//	    .antMatchers(HttpMethod.POST, "/produtos").hasRole("ADMIN")
-//	    .antMatchers(HttpMethod.GET, "/produtos").hasRole("ADMIN")
-//	    .antMatchers("/produtos/**").permitAll()
-//	    .antMatchers("/").permitAll() 
-//	    .anyRequest().authenticated()
-//	    .and().formLogin();
-//	  // .antMatchers("/produtos/**").permitAll()aqui libera produtos/detalhe por exemplo
-//	  //home da casa do código
-//	}
-//	
-//	
-//	@Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(usuarioDao)//userDetailsService é um método de uma interface do Spring q trabalha com as configurações de autenticação, logo, UsuarioDAO deve implementar UserDetailsService
-//        	.passwordEncoder(new BCryptPasswordEncoder());//esse BCryptPasswordEncoder() vai ser o encodificador da senha
-//    }
+
 	
 }

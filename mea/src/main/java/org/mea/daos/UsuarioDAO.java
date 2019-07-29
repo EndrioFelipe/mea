@@ -20,7 +20,7 @@ public class UsuarioDAO implements UserDetailsService{
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		List<UsuarioF> usuarios = manager.createQuery("select u from Usuario u where u.userName = :userName", UsuarioF.class)
+		List<UsuarioF> usuarios = manager.createQuery("select u from UsuarioF u where u.userName = :userName", UsuarioF.class)
                 .setParameter("userName", userName).getResultList();
 
         if (usuarios.isEmpty()) {

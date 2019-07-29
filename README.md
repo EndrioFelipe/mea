@@ -3,6 +3,8 @@ TÍTULO DO PROJETO
 Mapeamento e Acompanhamento das Atividades do SIAUD
 DEMANDANTE DO PROJETO
 Serviço de Inteligência Previdenciária
+DESENVOLVIDO POR
+Endrio Felipe Assis de Souza
 ELABORADO POR
 Pedro Henrique Cavalcante de Oliveira
 DATA DE ELABORAÇÃO VERSÃO

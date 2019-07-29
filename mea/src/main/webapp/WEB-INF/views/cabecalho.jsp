@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,6 +48,18 @@
 	          <div class="dropdown-divider"></div>
 	          <a class="dropdown-item" href="#">Something else here</a>
 	        </div>
+	      </li>	
+	            
+	      <li class="nav-item navbar-nav navbar-right">
+			<a class="nav-link navbar-right" href="#">
+			<security:authorize access="isAuthenticated()">
+			    <security:authentication property="principal" var="usuario"/>
+			    Usuário: ${usuario.username}
+			</security:authorize>	
+			<security:authorize access="!isAuthenticated()">
+			    <button >Login</button>
+			</security:authorize>			
+			</a>	        
 	      </li>
 	    </ul>
 	  </div>
