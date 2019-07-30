@@ -17,5 +17,12 @@ public class HomeController {
 		return modelAndView;
 	}
 	
+	@RequestMapping("/acesso")
+	public ModelAndView acessoNegado() {	
+		ModelAndView modelAndView = new ModelAndView("acesso/acessoProibido");
+		
+		return modelAndView;
+	}
+	
 	
 }

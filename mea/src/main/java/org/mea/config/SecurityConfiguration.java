@@ -48,6 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{ //preci
 		 http.authorizeRequests() 
 		 	.antMatchers("/atividades/form").hasAnyRole("FUNCMASTER")
 		 	.antMatchers("/resources/arquivos/**").permitAll()
+		 	.antMatchers("/paginas/**").permitAll()
 	        .antMatchers("/atividades/**").permitAll()
 	        .antMatchers("/resources/**").permitAll()
 	        .antMatchers("/").permitAll()
@@ -59,9 +60,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{ //preci
             .permitAll()
             .and().logout()
             .logoutSuccessUrl("/")
-            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
-           // .deleteCookies("JSESSIONID");
-            //.logoutUrl("/logout");
+            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            .and()
+            .exceptionHandling()
+            .accessDeniedPage("/acesso");
 		 	
 		}
 	
