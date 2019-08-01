@@ -14,7 +14,7 @@
 </head>
 <body class="container">
 	<h1>Painel de Atividades</h1>
-	<a class="nav-link" href="/mea/atividades/form">cadastro atividades</a>
+	<a class="nav-link" href="${pageContext.request.contextPath}/atividades/form">cadastro atividades</a>
 	
 	<table class="table table-bordered table-striped table-hover">
 		<tr>

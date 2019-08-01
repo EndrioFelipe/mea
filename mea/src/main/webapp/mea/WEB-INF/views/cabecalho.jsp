@@ -18,10 +18,10 @@
 
 
 </head>
-<body>
+<body class="container">
 	 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	  
-	  <a class="navbar-brand" href="#">
+	  <a class="navbar-brand" href="/mea">
 	    <img src="${Path}/arquivos/index.jpeg" width="45" height="30" alt="">
 	  </a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@
 	        <a class="nav-link" href="#">Atividades</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">Pricing</a>
+	        <a class="nav-link" href="/mea/paginas/equipe">Equipe</a>
 	      </li>
 	      <li class="nav-item dropdown">
 	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

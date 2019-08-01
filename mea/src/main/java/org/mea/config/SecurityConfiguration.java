@@ -47,10 +47,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{ //preci
 		
 		 http.authorizeRequests() 
 		 	.antMatchers("/atividades/form").hasAnyRole("FUNCMASTER")
-		 	.antMatchers("/resources/arquivos/**").permitAll()
 		 	.antMatchers("/paginas/**").permitAll()
 	        .antMatchers("/atividades/**").permitAll()
 	        .antMatchers("/resources/**").permitAll()
+	        .antMatchers("/login/**").permitAll()
 	        .antMatchers("/").permitAll()
 	        .anyRequest().authenticated()
 	        .and()

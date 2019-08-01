@@ -144,69 +144,26 @@
 	    <div class="row heading heading-icon">
 	        <h2>Equipe da Auditoria</h2>
 	    </div> 
+	    
+	    <a class="nav-link" href="${pageContext.request.contextPath}/paginas/form">cadastro de equipe</a>
+	    
+	    
 	    <ul class="row">
-	      <li class="col-12 col-md-6 col-lg-3">
-	          <div class="cnt-block equal-hight" style="height: 349px;">
-	            <figure><img src="${Path}/arquivos/ash.png" class="img-responsive" alt=""></figure>
-	            <h3><a href="#">Ash</a></h3>
-	            <p>Estagiário</p>
-	            <ul class="follow-us clearfix">
-	              <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-	              <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-	              <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-	            </ul>
-	          </div>
-	      </li>
-	      <li class="col-12 col-md-6 col-lg-3">
-	          <div class="cnt-block equal-hight" style="height: 349px;">
-	            <figure><img src="${Path}/arquivos/pikachu.jpg" class="img-responsive" alt=""></figure>
-	            <h3><a href="#">Pichaku</a></h3>
-	            <p>Pokémon do Estagiário</p>
-	            <ul class="follow-us clearfix">
-	              <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-	              <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-	              <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-	            </ul>
-	          </div>
-	      </li>
-	      <li class="col-12 col-md-6 col-lg-3">
-	          <div class="cnt-block equal-hight" style="height: 349px;">
-	            <figure><img src="${Path}/arquivos/dopefish.png" class="img-responsive" alt=""></figure>
-	            <h3><a href="http://www.webcoderskull.com/">Dopefish </a></h3>
-	            <p>Peixe</p>
-	            <ul class="follow-us clearfix">
-	              <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-	              <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-	              <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-	            </ul>
-	          </div>
-	       </li>
-	      <li class="col-12 col-md-6 col-lg-3">
-	          <div class="cnt-block equal-hight" style="height: 349px;">
-	            <figure><img src="${Path}/arquivos/meninosonic.png" class="img-responsive" alt=""></figure>
-	            <h3><a href="http://www.webcoderskull.com/">Sonic</a></h3>
-	            <p>Sub-Estagiário</p>
-	            <ul class="follow-us clearfix">
-	              <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-	              <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-	              <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-	            </ul>
-	          </div>
-	      </li>
-	      <li class="col-12 col-md-6 col-lg-3">
-	          <div class="cnt-block equal-hight" style="height: 349px;">
-	            <figure><img src="${Path}/arquivos/mario.png" class="img-responsive" alt=""></figure>
-	            <h3><a href="http://www.webcoderskull.com/">Mário abrindo a </a></h3>
-	            <p>Chefe</p>
-	            <ul class="follow-us clearfix">
-	              <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-	              <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-	              <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-	            </ul>
-	          </div>
-	      </li>
-	    </ul>
-	  </div>
+	      <c:forEach items="${funcionarios}" var="funcionario" >
+		      <li class="col-12 col-md-6 col-lg-3">
+		          <div class="cnt-block equal-hight" style="height: 349px;">
+			            <figure><img src="${pageContext.request.contextPath}/${funcionario.caminhoFoto}" class="img-responsive" alt=""></figure>
+			            <h3><a href="#">${funcionario.nomeCurto }</a></h3>
+			            <p>${funcionario.cargo }</p>
+			            <ul class="follow-us clearfix">
+			              <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+			              <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+			              <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+			            </ul>
+			          </div>
+		      </li>
+	      </c:forEach>
+	      </ul>
 	</section>
 		
 	

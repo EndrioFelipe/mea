@@ -10,7 +10,7 @@
 	<meta charset="UTF-8">
 	<title>Home</title>
 </head>
-<body>
+<body class="container">
 
 	
 	<div class="container">
@@ -19,6 +19,7 @@
 		<security:authorize access="hasRole('FUNCMASTER')">	
 			<a class="nav-link" href="${s:mvcUrl('AC#form').build()}">cadastro atividades</a>
 		</security:authorize>
+		<a class="nav-link" href="${s:mvcUrl('PC#listar').build()}">Equipe</a>
 	</div>	
 	
 	
