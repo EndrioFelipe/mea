@@ -17,7 +17,12 @@ public class UsuarioDAO implements UserDetailsService{
     @PersistenceContext
     private EntityManager manager;
     
-
+    public List<UsuarioF> listar() {
+		return manager.createQuery("select distinct(u) from UsuarioF u", 
+				UsuarioF.class).getResultList();
+	}
+    
+    
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		List<UsuarioF> usuarios = manager.createQuery("select u from UsuarioF u where u.userName = :userName", UsuarioF.class)
@@ -29,6 +34,12 @@ public class UsuarioDAO implements UserDetailsService{
 
         return usuarios.get(0);
     }
+	
+	public UsuarioF find(String userName) {
+		
+		return manager.createQuery("select distinct(u) from UsuarioF u where u.userName = :userName", 
+				UsuarioF.class).setParameter("userName", userName).getSingleResult();
+	}
 	
 
 }

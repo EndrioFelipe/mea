@@ -3,6 +3,7 @@ package org.mea.config;
 
 import org.mea.daos.UsuarioDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -48,7 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{ //preci
 		 http.authorizeRequests() 
 		 	.antMatchers("/atividades/form").hasAnyRole("FUNCMASTER")
 		 	.antMatchers("/paginas/**").permitAll()
-	        .antMatchers("/atividades/**").permitAll()
+	        .antMatchers("/atividades/**").authenticated()
 	        .antMatchers("/resources/**").permitAll()
 	        .antMatchers("/login/**").permitAll()
 	        .antMatchers("/").permitAll()
@@ -71,9 +73,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{ //preci
 	    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 	        auth.userDetailsService(usuarioDao)
 	        .passwordEncoder(new BCryptPasswordEncoder());
-	    }
-		
-		
+			
+	        
+//	        auth
+//				.inMemoryAuthentication().withUser("admin").password("admin123")
+//				.roles("ADMIN")
+//				.and().withUser("usuario").password("user123").roles("USER")
+//				.and().withUser("endrio").password("endrio123").roles("USER");
+		}
+//		
+//		@Bean
+//		PasswordEncoder passwordEncoder() {
+//			return new BCryptPasswordEncoder();
+//		}
 
 	
 }

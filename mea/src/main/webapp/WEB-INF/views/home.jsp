@@ -15,6 +15,9 @@
 	
 	<div class="container">
 		<h1>Página Inicial</h1>
+		
+		
+		<%-- <a href="${s:mvcUrl('UC#detalhe').arg(0,usuario.userName).build()}" rel="nofollow">Usuário</a> --%>
 		<a class="nav-link" href="${s:mvcUrl('AC#listar').build()}">Painel Atividades</a>
 		<security:authorize access="hasRole('FUNCMASTER')">	
 			<a class="nav-link" href="${s:mvcUrl('AC#form').build()}">cadastro atividades</a>

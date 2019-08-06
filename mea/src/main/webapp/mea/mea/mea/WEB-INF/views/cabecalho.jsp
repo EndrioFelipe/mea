@@ -54,7 +54,8 @@
 			<security:authorize access="isAuthenticated()">
 			    <security:authentication property="principal" var="usuario"/>
 			     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          Usuário: ${usuario.username}
+		          
+		          <a href="${s:mvcUrl('UC#detalhe').arg(0,usuario.userName).build()}" rel="nofollow">Usuário: ${usuario.username}</a>
 		        </a>
 		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 		        	<a class="dropdown-item" href="/mea/login">Trocar Usuário</a>
