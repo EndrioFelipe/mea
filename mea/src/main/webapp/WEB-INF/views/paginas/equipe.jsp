@@ -1,25 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file = "/WEB-INF/views/cabecalho.jsp" %>   
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
 
 
-<!DOCTYPE html>
-<html >
-<head>
-<meta charset="UTF-8">
-<c:url value="/resources" var="Path"/>
-<link rel="stylesheet" href="/mea/login/bootstrap.min.css" /> 
-<script src="${Path}/js/bootstrap.min.js"></script>
-<script src="${Path}/js/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<title>página genérica</title>
+<tags:pageTemplate titulo="Equipe">
 
 <style>
 .row.heading h2 {
@@ -136,8 +124,7 @@
 </style>
 
 
-</head>
-<body class="container">
+
 	
 	<section class="our-webcoderskull padding-lg">
 	  <div class="container">
@@ -165,8 +152,8 @@
 	      </c:forEach>
 	      </ul>
 	</section>
-		
-	
-</body>
-</html>
-<%@ include file = "/WEB-INF/views/rodape.jsp" %>  
+
+</tags:pageTemplate>
+
+
+  

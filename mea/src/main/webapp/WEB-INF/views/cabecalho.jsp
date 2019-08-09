@@ -1,24 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%> 
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<c:url value="/resources" var="Path"/>
-<link href="${Path}/css/cssTest.css" rel="stylesheet" type="text/css"  />
-<link rel="stylesheet" href="${Path}/css/bootstrap.min.css" /> 
-<script src="${Path}/js/jquery.min.js"></script>
-<script src="${Path}/js/popper.min.js"></script>  
-<script src="${Path}/js/bootstrap.min.js"></script>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 
 
-<title>Insert title here</title>
-
-
-</head>
-<body class="container">
 	 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	  
 	  <a class="navbar-brand" href="/mea">
@@ -53,26 +39,39 @@
 	      <li class="nav-item dropdown">
 			<security:authorize access="isAuthenticated()">
 			    <security:authentication property="principal" var="usuario"/>
-			     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          
-		          <a href="${s:mvcUrl('UC#detalhe').arg(0,usuario.userName).build()}" rel="nofollow">Usuário: ${usuario.username}</a>
-		        </a>
+			     
+		          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          Usuário: ${usuario.username}
+			        </a>
+		        
 		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		        	<a class="dropdown-item" href="${s:mvcUrl('UC#detalhe').arg(0,usuario.userName).build()}" rel="nofollow">profile</a>
 		        	<a class="dropdown-item" href="/mea/login">Trocar Usuário</a>
 		          <a class="dropdown-item" href="/mea/logout">Logout</a>
 		        </div>
 			</security:authorize>	
 			<security:authorize access="!isAuthenticated()">
-			    <a class="nav-link" href="/mea/login">Login</a>
+			    <form:form id="login-form" cssClass="form" action="${pageContext.request.contextPath}/login" method="post">
+                            <h3 class="text-center text-info">Login</h3>
+                            <div class="form-group">
+                                <label for="username" class="text-info">Username:</label><br>
+                                <input type="text" name="username" id="username" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-info">Senha:</label><br>
+                                <input type="password" name="password" id="password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                            	<label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                            </div> 
+                        </form:form>
 			</security:authorize>			
 			
 				        
 	      </li>
-	      
 	    </ul>
 	  </div>
 	</nav>
 
    
-</body>
-</html>

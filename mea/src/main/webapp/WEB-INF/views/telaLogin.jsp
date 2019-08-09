@@ -78,12 +78,6 @@
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
                             </div> 
                         </form:form>
-                       
-                        <c:forEach items="${usuarios }" var="usuario">
-			<tr>
-				<td> <a href="${s:mvcUrl('UC#detalhe').arg(0,usuario.userName).build()}" rel="nofollow">Usuário</a></td>
-			</tr>
-		</c:forEach>
                         
                         
                     </div>

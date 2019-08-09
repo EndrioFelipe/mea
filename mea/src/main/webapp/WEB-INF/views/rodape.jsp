@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -142,17 +141,11 @@
 	  <!-- Footer Links -->
 	
 	  <!-- Copyright -->
-	  <div class="footer-copyright text-center py-3" id="data">© 2018 Copyright:
+	  <div class="footer-copyright text-center py-3" id="data">� 2018 Copyright:
 	    <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>
 	  </div>
 	  <!-- Copyright -->
 	
 	</footer>
 	
-	<script>
-		var dataT = document.querySelector('#data');
-		data = new Date().getFullYear();
-		dataT.textContent = "©"+data+" Todos os direitos reservados. \Endrio Felipe Assis de Souza";
-	</script>
-</body>
-</html>
+	
