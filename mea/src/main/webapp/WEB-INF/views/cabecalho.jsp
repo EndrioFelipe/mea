@@ -16,7 +16,7 @@
 	  <div class="collapse navbar-collapse" id="navbarNavDropdown">
 	    <ul class="navbar-nav">
 	      <li class="nav-item active">
-	        <a class="nav-link" href="#">ServiÃ§os <span class="sr-only">(current)</span></a>
+	        <a class="nav-link" href="#">Serviços <span class="sr-only">(current)</span></a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="#">Atividades</a>
@@ -41,12 +41,12 @@
 			    <security:authentication property="principal" var="usuario"/>
 			     
 		          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			          UsuÃ¡rio: ${usuario.username}
+			          Usuário: ${usuario.username}
 			        </a>
 		        
 		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		        	<a class="dropdown-item" href="${s:mvcUrl('UC#detalhe').arg(0,usuario.userName).build()}" rel="nofollow">profile</a>
-		        	<a class="dropdown-item" href="/mea/login">Trocar UsuÃ¡rio</a>
+		        	<a class="dropdown-item" href="${pageContext.request.contextPath}/profile/${usuario.userName}" rel="nofollow">profile</a>
+		        	<a class="dropdown-item" href="/mea/login">Trocar Usuário</a>
 		          <a class="dropdown-item" href="/mea/logout">Logout</a>
 		        </div>
 			</security:authorize>	
@@ -62,7 +62,7 @@
                                 <input type="password" name="password" id="password" class="form-control">
                             </div>
                             <div class="form-group">
-                            	<label for="remember-me" class="text-info"><span>Remember me</span>Â <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
+                            	<label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
                             </div> 
                         </form:form>
