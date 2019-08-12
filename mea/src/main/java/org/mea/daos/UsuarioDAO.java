@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.mea.models.Atividades;
 import org.mea.models.UsuarioF;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,6 +22,10 @@ public class UsuarioDAO implements UserDetailsService{
 		return manager.createQuery("select distinct(u) from UsuarioF u", 
 				UsuarioF.class).getResultList();
 	}
+    
+    public void gravarUsuarioTemp(Atividades atividade){
+        manager.persist(atividade);
+    }
     
     
 	@Override

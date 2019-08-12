@@ -1,19 +1,17 @@
 package org.mea.controllers;
 
 import java.security.Principal;
-import java.util.List;
 
 import javax.servlet.ServletContext;
 
 import org.mea.daos.UsuarioDAO;
 import org.mea.models.UsuarioF;
+import org.mea.models.UsuarioTemp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -34,8 +32,6 @@ public class UsuarioController {
 		System.out.println("principal: "+principal.getName());
 
 		UsuarioF usuario = usuarioDAO.find(userName);
-	    System.out.println("usuario: "+userName.length());
-	    System.out.println("principal: "+principal.getName().length());
 	    
 		if(userName.equals(principal.getName())) {
 			System.out.println("aqui");
@@ -51,5 +47,32 @@ public class UsuarioController {
 	    
 	    
 	}
+	
+	@RequestMapping("verificacaoCadastro")
+	public ModelAndView form() {
+		ModelAndView modelAndView = new ModelAndView("/profile/verificacaoCadastro");
+		return modelAndView;
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public ModelAndView gravar(UsuarioTemp usuarioTemp)  {
+		
+		
+		
+	return null;	
+		
+//	System.out.println("descrição: "+atividade.getDescricao());
+//	
+//	
+//				
+//	if(result.hasErrors()){
+//        return form(atividade);
+//    }		
+//    
+//     atividadeDAO.gravar(atividade);
+//	 return new ModelAndView("redirect:atividades");
+	}
+	
+	
 	
 }
