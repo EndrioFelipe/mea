@@ -1,11 +1,11 @@
 package org.mea.models;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 
-@Embeddable 
+@Embeddable
 public class Funcionarios {
-	
-	
+
 	private String nome;
 		
 	public String getNome() {

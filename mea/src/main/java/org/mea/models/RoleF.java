@@ -1,13 +1,12 @@
 package org.mea.models;
 
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import org.springframework.security.core.GrantedAuthority;
 
-@Embeddable 
+//@Embeddable
+@Entity
 public class RoleF implements GrantedAuthority{
 	
 	/**
@@ -15,7 +14,7 @@ public class RoleF implements GrantedAuthority{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
+	@Id
 	String nome;
 	
 	public String getNome() {

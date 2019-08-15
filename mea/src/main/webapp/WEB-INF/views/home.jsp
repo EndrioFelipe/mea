@@ -14,6 +14,12 @@
 	<div class="container">
 		<h1>Página Inicial</h1>
 		
+		<div class="alert alert-success">
+		  <strong id="sucesso">${resposta }</strong> 
+		</div>
+		
+		<a class="nav-link" href="#">Pendências(${pendencias.abc})</a>
+		
 		
 		<%-- <a href="${s:mvcUrl('UC#detalhe').arg(0,usuario.userName).build()}" rel="nofollow">Usuário</a> --%>
 		<a class="nav-link" href="${s:mvcUrl('AC#listar').build()}">Painel Atividades</a>
@@ -23,6 +29,15 @@
 		<a class="nav-link" href="${s:mvcUrl('PC#listar').build()}">Equipe</a>
 	</div>	
 	
+	
+	<script>
+		  var element = document.querySelector(".alert");
+		  if(document.getElementById("sucesso").textContent == ""){
+			  element.classList.remove("alert");
+			  element.classList.remove("alert-success");
+		  }
+		  
+	</script>
 	
 </tags:pageTemplate>
 

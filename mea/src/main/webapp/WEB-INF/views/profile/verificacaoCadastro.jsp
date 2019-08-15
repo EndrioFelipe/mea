@@ -11,7 +11,11 @@
 <title>Insert title here</title>
 </head>
 	<body class="container">
-		<form:form class="form-group" action="${ s:mvcUrl('UC#verificar').build() }" method="post" commandName="repFuncionarios" id="meuForm" enctype="multipart/form-data">
+	
+	<a>asdfa</a>
+		<div>${sucesso }</div>
+	
+		<form:form class="form-group" action="${pageContext.request.contextPath}/profile" method="post" id="meuForm" >
 			
 			<div class="form-group">
 		        <label>Digite o número SIAPE</label>

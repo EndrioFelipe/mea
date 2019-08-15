@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +24,9 @@ public class UsuarioF implements UserDetails{
 	private String userName;
 	private String nome;
     private String senha;
-    @ElementCollection(fetch=FetchType.EAGER)
+    
+//    @ElementCollection(fetch=FetchType.EAGER)
+    @ManyToMany(fetch=FetchType.EAGER)
     private List<RoleF> roles = new ArrayList<RoleF>();
     
     

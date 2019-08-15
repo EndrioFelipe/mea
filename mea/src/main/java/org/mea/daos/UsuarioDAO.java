@@ -6,6 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.mea.models.Atividades;
+import org.mea.models.RepFuncionarios;
+import org.mea.models.UsrRep;
 import org.mea.models.UsuarioF;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -44,6 +46,12 @@ public class UsuarioDAO implements UserDetailsService{
 		
 		return manager.createQuery("select distinct(u) from UsuarioF u where u.userName = :userName", 
 				UsuarioF.class).setParameter("userName", userName).getSingleResult();
+	}
+	
+	public UsrRep findUserRep(String siape) {
+		//1011886
+		return manager.createQuery("select distinct(u) from UsrRep u where u.siape = :siape", 
+				UsrRep.class).setParameter("siape", siape).getSingleResult();
 	}
 	
 

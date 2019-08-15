@@ -22,6 +22,9 @@
 	        <a class="nav-link" href="#">Atividades</a>
 	      </li>
 	      <li class="nav-item">
+	        <a class="nav-link" href="#">Pendências(${pendencias.quantidade})</a>
+	      </li>
+	      <li class="nav-item">
 	        <a class="nav-link" href="/mea/paginas/equipe">Equipe</a>
 	      </li>
 	      <li class="nav-item dropdown">
