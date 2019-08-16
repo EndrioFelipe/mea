@@ -3,8 +3,10 @@ package org.mea.controllers;
 import java.util.List;
 
 import org.mea.daos.FuncionariosDAO;
+import org.mea.daos.PendenciaDAO;
 import org.mea.infra.FileSaver;
 import org.mea.models.RepFuncionarios;
+import org.mea.models.TiposPendencias;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,11 +24,25 @@ public class PaginasController {
 	@Autowired
 	FileSaver fileSaver;
 	
-	@RequestMapping("equipe")
-    public ModelAndView pagEquipe(){
-		ModelAndView modelandview = new ModelAndView("paginas/equipe");
+	@Autowired 
+	PendenciaDAO pendenciaDAO;
+	
+	
+	@RequestMapping("pendencias")
+    public ModelAndView pagPendencias(){
+		List<TiposPendencias> pendencias = pendenciaDAO.listar();
+		ModelAndView modelandview = new ModelAndView("paginas/pendencias");
+		modelandview.addObject("tiposPendencias", pendencias);
         return modelandview;
     }
+	
+//	@RequestMapping(value="equipe", method=RequestMethod.GET)
+//	public ModelAndView listar(){
+//		List<RepFuncionarios> repFuncionarios = funcionariosDAO.listar();
+//	    ModelAndView modelAndView = new ModelAndView("paginas/equipe");
+//	    modelAndView.addObject("funcionarios", repFuncionarios);
+//	    return modelAndView;
+//	}
 	
 	@RequestMapping("form")
     public ModelAndView form(RepFuncionarios repFuncionarios){
@@ -37,7 +53,7 @@ public class PaginasController {
 	@RequestMapping(value="equipe", method=RequestMethod.GET)
 	public ModelAndView listar(){
 		List<RepFuncionarios> repFuncionarios = funcionariosDAO.listar();
-	    ModelAndView modelAndView = new ModelAndView("/paginas/equipe");
+	    ModelAndView modelAndView = new ModelAndView("paginas/equipe");
 	    modelAndView.addObject("funcionarios", repFuncionarios);
 	    return modelAndView;
 	}

@@ -29,7 +29,7 @@
 	<script>
 		var dataT = document.querySelector('#data');
 		data = new Date().getFullYear();
-		dataT.textContent = "©"+data+" Todos os direitos reservados. \Endrio Felipe Assis de Souza";
+		dataT.textContent = "©"+data+" Todos os direitos reservados.";
 	</script>
 	</body>
 </html>

@@ -16,13 +16,13 @@
 	  <div class="collapse navbar-collapse" id="navbarNavDropdown">
 	    <ul class="navbar-nav">
 	      <li class="nav-item active">
-	        <a class="nav-link" href="#">Serviços <span class="sr-only">(current)</span></a>
+	        <a class="nav-link" href="/mea">Home <span class="sr-only">(current)</span></a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">Atividades</a>
+	        <a class="nav-link" href="/mea/atividades">Atividades</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">Pendências(${pendencias.quantidade})</a>
+	        <a class="nav-link" href="/mea/paginas/pendencias">Pendências(${pendencias.quantidade})</a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="/mea/paginas/equipe">Equipe</a>

@@ -1,5 +1,7 @@
 package org.mea.daos;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -16,5 +18,10 @@ public class PendenciaDAO {
 	
 	public void gravar(TiposPendencias pendencia){
         manager.persist(pendencia);
-    }		
+    }
+	
+	public List<TiposPendencias> listar() {
+		return manager.createQuery("select tp from TiposPendencias tp", 
+				TiposPendencias.class).getResultList();
+	}
 }	

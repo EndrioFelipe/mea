@@ -77,7 +77,7 @@ public class UsuarioController {
 			usuarioDAO.findUserRep(usuarioTemp.getSiape());
 			UsrRep usrRep = usuarioDAO.findUserRep(usuarioTemp.getSiape());
 			pendenciaDAO.gravar(new TiposPendencias(usuarioTemp.getSiape(), usuarioTemp.getNome(), "Cadastro de Usuário", true));
-			pendencias.add(usuarioTemp.getSiape());
+//			pendencias.add(usuarioTemp.getSiape());
 			redirectAttributes.addFlashAttribute("resposta", "requisição enviada para homologação.");
 		} catch (NoResultException e) {
 			redirectAttributes.addFlashAttribute("resposta", "Seu número de siape não consta no nosso banco de dados.");
