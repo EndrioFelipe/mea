@@ -5,8 +5,10 @@ import java.security.Principal;
 import javax.persistence.NoResultException;
 import javax.servlet.ServletContext;
 
+import org.mea.daos.PendenciaDAO;
 import org.mea.daos.UsuarioDAO;
 import org.mea.models.Pendencias;
+import org.mea.models.TiposPendencias;
 import org.mea.models.UsrRep;
 import org.mea.models.UsuarioF;
 import org.mea.models.UsuarioTemp;
@@ -33,6 +35,9 @@ public class UsuarioController {
 	
 	@Autowired
 	Pendencias pendencias;
+	
+	@Autowired
+	PendenciaDAO pendenciaDAO;
 	
 	
 	
@@ -68,11 +73,10 @@ public class UsuarioController {
 		
 		System.out.println(usuarioTemp.getSiape());
 		
-		//List<String> lista = new ArrayList();
 		try {
 			usuarioDAO.findUserRep(usuarioTemp.getSiape());
 			UsrRep usrRep = usuarioDAO.findUserRep(usuarioTemp.getSiape());
-			System.out.println(usrRep.getNome());
+			pendenciaDAO.gravar(new TiposPendencias(usuarioTemp.getSiape(), usuarioTemp.getNome(), "Cadastro de Usuário", true));
 			pendencias.add(usuarioTemp.getSiape());
 			redirectAttributes.addFlashAttribute("resposta", "requisição enviada para homologação.");
 		} catch (NoResultException e) {

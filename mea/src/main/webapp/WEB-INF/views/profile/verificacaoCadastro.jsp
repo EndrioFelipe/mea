@@ -36,6 +36,7 @@
 		        <label>Digite o nome de sua Regional</label>
 		        <input class="form-control" type="text" name="regional" />
 		    </div>
+		    <input type="hidden" value="Cadastro de Usuário" name="tipoPendencia"/>
 		    
 		   			
 		

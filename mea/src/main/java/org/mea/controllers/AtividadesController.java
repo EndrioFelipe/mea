@@ -10,6 +10,7 @@ import org.mea.daos.AtividadeDAO;
 import org.mea.daos.FuncionariosDAO;
 import org.mea.infra.FileSaver;
 import org.mea.models.Atividades;
+import org.mea.models.Estados;
 import org.mea.models.RepFuncionarios;
 import org.mea.validation.AtividadesValidation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +64,7 @@ public class AtividadesController {
 		
 //		Funcionarios funcionarios2 = new Funcionarios();
 //		funcionarios2.setNome(nome);
-		
+		modelandview.addObject("estados", Estados.values());
 		modelandview.addObject("repFuncionarios", repFuncionarios);
 		
 		

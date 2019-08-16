@@ -24,14 +24,12 @@ public class PaginasController {
 	
 	@RequestMapping("equipe")
     public ModelAndView pagEquipe(){
-		System.out.println("sadfdasfdasfasdfdasfdasfasdfadsfads");
 		ModelAndView modelandview = new ModelAndView("paginas/equipe");
         return modelandview;
     }
 	
 	@RequestMapping("form")
     public ModelAndView form(RepFuncionarios repFuncionarios){
-		System.out.println("sadfdasfdasfasdfdasfdasfasdfadsfads");
 		ModelAndView modelandview = new ModelAndView("paginas/form");
         return modelandview;
     }

@@ -130,3 +130,17 @@ Obs.: Dificuldades pontuais, que possam ocorrer em momentos distintos aos previs
 ordinariamente, serão tratadas oportunamente.
 
 Brasília-DF, 18 de junho de 2019
+
+
+
+use mea;
+SET NAMES 'utf8';
+LOAD DATA LOCAL INFILE  
+'/home/inss/Downloads/siape.csv'
+INTO TABLE UsrRep 
+CHARACTER SET 'utf8' 
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(siape, nome, codeUo, nomeReg, aaa, ddd);

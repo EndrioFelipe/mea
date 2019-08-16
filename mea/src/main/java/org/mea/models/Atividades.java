@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +27,9 @@ public class Atividades {
 	
 	@ElementCollection 
 	private List<Funcionarios> func;
-	private String status;
+	
+	@Enumerated(EnumType.STRING)
+	private Estados status;
 	private int porcentagem;
 	
 	@Lob
@@ -61,12 +65,12 @@ public class Atividades {
 		
 		System.out.println("o q ta recebendo: "+func);
 		this.func = func;
-	}	
+	}		
 	
-	public String getStatus() {
+	public Estados getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(Estados status) {
 		this.status = status;
 	}
 	public int getPorcentagem() {
