@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,6 +36,12 @@ public class PaginasController {
 		modelandview.addObject("tiposPendencias", pendencias);
         return modelandview;
     }
+	
+	@RequestMapping("/checa")
+    public @ResponseBody String gato(String name) {
+		System.out.println("checa: "+name);
+		return "ok";
+	}
 	
 //	@RequestMapping(value="equipe", method=RequestMethod.GET)
 //	public ModelAndView listar(){
