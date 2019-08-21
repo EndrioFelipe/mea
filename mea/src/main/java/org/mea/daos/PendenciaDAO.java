@@ -24,4 +24,17 @@ public class PendenciaDAO {
 		return manager.createQuery("select tp from TiposPendencias tp", 
 				TiposPendencias.class).getResultList();
 	}
+	
+	public String atualizar() {
+		
+		manager.createQuery("update TiposPendencias tp set tp.nomeRquisitante=:nome where tp.codigoPendencia = :siape ")
+		.setParameter("siape", "1038485")
+		.setParameter("nome", "Gervásio")
+		.executeUpdate();
+		
+		return manager.createQuery("select tp from TiposPendencias tp where tp.codigoPendencia = :siape ", 
+				TiposPendencias.class).setParameter("siape", "1038485").getSingleResult().getNomeRquisitante();
+		
+
+	}
 }	

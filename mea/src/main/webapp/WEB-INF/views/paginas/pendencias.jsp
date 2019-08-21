@@ -48,12 +48,11 @@
 				<td class="idt${cont.index} negrito">${tp.nomeRquisitante }</td> 
 				<td class="idt${cont.index} negrito">${tp.tipoPendencia }</td>
 			</tr> --%>
-			
-			<tr onClick="gato(4)">
+			<tr onClick="gato(${tp.codigoPendencia }, ${cont.index }, ${tp.situacao })">
 				<c:choose>
 				    <c:when test="${tp.situacao eq true}">
 				      	<td class="negrito">${tp.codigoPendencia }</td> 
-						<td class="negrito">${tp.nomeRquisitante }</td> 
+						<td id="trocaNome${cont.index }" class="negrito">${tp.nomeRquisitante }</td> 
 						<td class="negrito">${tp.tipoPendencia }</td>
 				    </c:when>
 				    <c:otherwise>
@@ -84,53 +83,23 @@
 } */
 
 
-function gato(a) {
-	var b = a;
-		console.log('esse é o b:'+ b);
-	$.post("/mea/paginas/checa",	{	
-			name: b }   
-		      ,	function(response) {
-		
-		seleciona.innerHTML = '';
-		let e ="";
-		let att="";
-		
-		let opcao = document.createElement("option");
-		opcao.textContent = 'qualquer';
-		
-		for(var i=-1; i<response.length; i++){
-			e = document.createElement("option");
-			att = document.createAttribute("value");
-			att.value = response[i];
-			e.setAttributeNode(att);
-
-									
-			/* for(var i = 0 ; i >= 5){
-				
-			} */
-
-			let data = new Date(response[i]);
-			let data2 = new Date(response[i-1]);
-
-			console.log(data>data2);
-
-			console.log("data: "+data);
+function gato(codigoPendencia, cont, situacao) {
+	/*tem que ir testando trocando get por post e vice-versa nesse $.get. Use o chrome pra ver os erros*/
+	console.log("sit: "+situacao);
+	if(situacao){
+		$.get("${pageContext.request.contextPath}/paginas/checa",	{	
+				codigo: codigoPendencia }   
+			      ,	function(response) {
+			    	  
+			console.log("response: "+response);
+			document.querySelector("#trocaNome"+cont).textContent = response;
 			
-			
-			let dataFormatada = data.getDate()+"/"+(data.getMonth()+1)+"/"+data.getFullYear();
-
-
-
-			
-			e.textContent = dataFormatada;
-			
-			seleciona.appendChild(i == -1 ? opcao : e);
-
-		}
+		});
 		
-		//response.map(item => seleciona.appendChild(e));
-	});
-} 
+	}
+}
+	
+
 
 
 

@@ -38,18 +38,10 @@ public class PaginasController {
     }
 	
 	@RequestMapping("/checa")
-    public @ResponseBody String gato(String name) {
-		System.out.println("checa: "+name);
-		return "ok";
+    public @ResponseBody String gato(String codigo) {
+		String resposta = pendenciaDAO.atualizar();
+		return resposta;
 	}
-	
-//	@RequestMapping(value="equipe", method=RequestMethod.GET)
-//	public ModelAndView listar(){
-//		List<RepFuncionarios> repFuncionarios = funcionariosDAO.listar();
-//	    ModelAndView modelAndView = new ModelAndView("paginas/equipe");
-//	    modelAndView.addObject("funcionarios", repFuncionarios);
-//	    return modelAndView;
-//	}
 	
 	@RequestMapping("form")
     public ModelAndView form(RepFuncionarios repFuncionarios){
