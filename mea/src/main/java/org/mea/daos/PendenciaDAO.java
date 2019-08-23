@@ -25,15 +25,20 @@ public class PendenciaDAO {
 				TiposPendencias.class).getResultList();
 	}
 	
-	public String atualizar() {
+	public List<TiposPendencias> listarChecados() {
+		return manager.createQuery("select tp from TiposPendencias tp where tp.situacao=:naoChecado", 
+				TiposPendencias.class).setParameter("naoChecado", true).getResultList();
+	}
+	
+	public boolean atualizar(String codigo) {
 		
-		manager.createQuery("update TiposPendencias tp set tp.nomeRquisitante=:nome where tp.codigoPendencia = :siape ")
-		.setParameter("siape", "1038485")
-		.setParameter("nome", "Gervásio")
+		manager.createQuery("update TiposPendencias tp set tp.situacao=:stn where tp.codigoPendencia = :siape ")
+		.setParameter("siape", codigo)
+		.setParameter("stn", false)
 		.executeUpdate();
 		
 		return manager.createQuery("select tp from TiposPendencias tp where tp.codigoPendencia = :siape ", 
-				TiposPendencias.class).setParameter("siape", "1038485").getSingleResult().getNomeRquisitante();
+				TiposPendencias.class).setParameter("siape", codigo).getSingleResult().isSituacao();
 		
 
 	}

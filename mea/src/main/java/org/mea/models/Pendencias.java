@@ -24,7 +24,7 @@ public class Pendencias implements Serializable{
 	}
 	
 	public int getQuantidade(){
-		List<TiposPendencias> pendenciasQtd = pendenciaDAO.listar();
+		List<TiposPendencias> pendenciasQtd = pendenciaDAO.listarChecados();
 		System.out.println(" método getQuantidade sem parâmetros");
 		
 		//return pendenciasQtd.values().stream().reduce(0, (itensDaLista, oCaraQueSoma) -> itensDaLista + oCaraQueSoma);

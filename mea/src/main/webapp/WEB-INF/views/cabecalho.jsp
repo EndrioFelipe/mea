@@ -22,7 +22,7 @@
 	        <a class="nav-link" href="/mea/atividades">Atividades</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/mea/paginas/pendencias">Pendências(${pendencias.quantidade})</a>
+	        <a class="nav-link" id="nPend" href="/mea/paginas/pendencias">Pendências(${pendencias.quantidade})</a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="/mea/paginas/equipe">Equipe</a>

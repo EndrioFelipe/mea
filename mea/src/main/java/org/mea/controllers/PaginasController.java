@@ -5,6 +5,7 @@ import java.util.List;
 import org.mea.daos.FuncionariosDAO;
 import org.mea.daos.PendenciaDAO;
 import org.mea.infra.FileSaver;
+import org.mea.models.Pendencias;
 import org.mea.models.RepFuncionarios;
 import org.mea.models.TiposPendencias;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class PaginasController {
 	@Autowired 
 	PendenciaDAO pendenciaDAO;
 	
+	@Autowired 
+	Pendencias pend;
+	
 	
 	@RequestMapping("pendencias")
     public ModelAndView pagPendencias(){
@@ -38,9 +42,9 @@ public class PaginasController {
     }
 	
 	@RequestMapping("/checa")
-    public @ResponseBody String gato(String codigo) {
-		String resposta = pendenciaDAO.atualizar();
-		return resposta;
+    public @ResponseBody Integer gato(String codigo) {
+		pendenciaDAO.atualizar(codigo);
+		return pend.getQuantidade();
 	}
 	
 	@RequestMapping("form")

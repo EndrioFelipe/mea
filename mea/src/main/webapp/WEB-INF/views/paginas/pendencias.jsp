@@ -37,28 +37,32 @@
 
 <table class="table ">
 	<tr>
-		<th>Código da Pendencia</th>
+		<th>Código da Pendência</th>
 		<th>Nome do Requisitante</th>
 		<th>Tipo de Pendência</th>
 	</tr>
 	<c:forEach items="${tiposPendencias}" var="tp" varStatus="cont" >
-			<%-- <tr onclick="ancora(${cont.index})">
-				
-				<td class="idt${cont.index} negrito">${tp.codigoPendencia }</td> 
-				<td class="idt${cont.index} negrito">${tp.nomeRquisitante }</td> 
-				<td class="idt${cont.index} negrito">${tp.tipoPendencia }</td>
-			</tr> --%>
 			<tr onClick="gato(${tp.codigoPendencia }, ${cont.index }, ${tp.situacao })">
 				<c:choose>
 				    <c:when test="${tp.situacao eq true}">
-				      	<td class="negrito">${tp.codigoPendencia }</td> 
-						<td id="trocaNome${cont.index }" class="negrito">${tp.nomeRquisitante }</td> 
-						<td class="negrito">${tp.tipoPendencia }</td>
+				      	<td id="idt${cont.index }" class="negrito">${tp.codigoPendencia }</td> 
+						<td id="idt${cont.index }" class="negrito">${tp.nomeRquisitante }</td> 
+						<td id="idt${cont.index }" class="negrito">${tp.tipoPendencia }</td>
+						<td id="idt${cont.index }" class="negrito">
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+							  Cadastrar Usuário
+							</button>
+						</td>
 				    </c:when>
 				    <c:otherwise>
 				        <td class="">${tp.codigoPendencia }</td> 
 						<td class="">${tp.nomeRquisitante }</td> 
 						<td class="">${tp.tipoPendencia }</td>
+						<td class="">
+							<a  href="#" data-toggle="modal" data-target="#myModal">
+							  Cadastrar Usuário
+							</a>
+						</td>
 				    </c:otherwise>
 				</c:choose>
 			</tr>
@@ -66,43 +70,57 @@
 	</c:forEach>
 </table>	
 
-<a href="/mea/paginas/checa">teste</a>
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        Modal body..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
 
 
 <script>
 
-/* function ancora (b){
-	console.log("b: "+b);
-	let dados = document.querySelectorAll('.idt'+b);
-	
-	
-	dados.forEach(dado => {
-        console.log(dado.textContent);
-        dado.classList.remove('negrito');
-	});
-} */
-
-
-function gato(codigoPendencia, cont, situacao) {
-	/*tem que ir testando trocando get por post e vice-versa nesse $.get. Use o chrome pra ver os erros*/
-	console.log("sit: "+situacao);
-	if(situacao){
-		$.get("${pageContext.request.contextPath}/paginas/checa",	{	
-				codigo: codigoPendencia }   
-			      ,	function(response) {
-			    	  
-			console.log("response: "+response);
-			document.querySelector("#trocaNome"+cont).textContent = response;
-			
-		});
-		
+	function gato(codigoPendencia, cont, situacao) {
+		/*tem que ir testando trocando get por post e vice-versa nesse $.get. Use o chrome pra ver os erros*/
+		console.log("sit: "+situacao);
+		console.log(document.querySelector("#nPend").textContent);
+		if(situacao){
+			$.get("${pageContext.request.contextPath}/paginas/checa",	{	
+					codigo: codigoPendencia }
+				      ,	function(response) {	
+				    	  console.log("response: "+response)
+				    	  document.querySelector("#nPend").textContent = "Pendências("+response+")";
+				    	  
+				    	  let dados = document.querySelectorAll('#idt'+cont);			    		
+				    		
+				    		dados.forEach(dado => {
+				    	        console.log(dado.textContent);
+				    	        dado.classList.remove('negrito');
+				    		});
+			});
+		}
 	}
-}
 	
-
-
-
-
 </script>
 
 </tags:pageTemplate>
