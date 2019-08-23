@@ -45,24 +45,14 @@
 			<tr onClick="gato(${tp.codigoPendencia }, ${cont.index }, ${tp.situacao })">
 				<c:choose>
 				    <c:when test="${tp.situacao eq true}">
-				      	<td id="idt${cont.index }" class="negrito">${tp.codigoPendencia }</td> 
+				      	<td id="idt${cont.index }" class="negrito siape${cont.index }">${tp.codigoPendencia }</td> 
 						<td id="idt${cont.index }" class="negrito">${tp.nomeRquisitante }</td> 
 						<td id="idt${cont.index }" class="negrito">${tp.tipoPendencia }</td>
-						<td id="idt${cont.index }" class="negrito">
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-							  Cadastrar Usuário
-							</button>
-						</td>
 				    </c:when>
 				    <c:otherwise>
-				        <td class="">${tp.codigoPendencia }</td> 
-						<td class="">${tp.nomeRquisitante }</td> 
-						<td class="">${tp.tipoPendencia }</td>
-						<td class="">
-							<a  href="#" data-toggle="modal" data-target="#myModal">
-							  Cadastrar Usuário
-							</a>
-						</td>
+				        <td id="idt${cont.index }" class="siape${cont.index }">${tp.codigoPendencia }</td> 
+						<td id="idt${cont.index }" class="">${tp.nomeRquisitante }</td> 
+						<td id="idt${cont.index }" class="">${tp.tipoPendencia }</td>
 				    </c:otherwise>
 				</c:choose>
 			</tr>
@@ -83,7 +73,7 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        Modal body..
+        <h2 id="codSiape"></h2>
       </div>
 
       <!-- Modal footer -->
@@ -99,9 +89,11 @@
 
 
 <script>
-
+	
+	
 	function gato(codigoPendencia, cont, situacao) {
 		/*tem que ir testando trocando get por post e vice-versa nesse $.get. Use o chrome pra ver os erros*/
+		
 		console.log("sit: "+situacao);
 		console.log(document.querySelector("#nPend").textContent);
 		if(situacao){
@@ -119,6 +111,8 @@
 				    		});
 			});
 		}
+		$("#myModal").modal();
+		document.querySelector("#codSiape").textContent = document.querySelector('.siape'+cont).textContent;
 	}
 	
 </script>
