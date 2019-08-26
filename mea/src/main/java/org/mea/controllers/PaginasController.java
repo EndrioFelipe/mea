@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.mea.daos.FuncionariosDAO;
 import org.mea.daos.PendenciaDAO;
+import org.mea.daos.UsuarioDAO;
 import org.mea.infra.FileSaver;
 import org.mea.models.Pendencias;
 import org.mea.models.RepFuncionarios;
 import org.mea.models.TiposPendencias;
 import org.mea.models.UserQTD;
 import org.mea.models.UsrRep;
+import org.mea.models.UsuarioTemp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -35,6 +37,9 @@ public class PaginasController {
 	@Autowired 
 	Pendencias pend;
 	
+	@Autowired 
+	UsuarioDAO usuarioDAO;
+	
 	
 	@RequestMapping("pendencias")
     public ModelAndView pagPendencias(){
@@ -48,9 +53,12 @@ public class PaginasController {
     public @ResponseBody UserQTD gato(String codigo) {
 		pendenciaDAO.atualizar(codigo);
 		UserQTD userQTD = new UserQTD();
-		UsrRep userRep = new UsrRep();
-		userRep.setNome("Endrio");
-		userQTD.setUerRep(userRep);
+		UsrRep usrRep = new UsrRep();
+		UsuarioTemp usrTemp = new UsuarioTemp();
+		usrRep = usuarioDAO.findUserRep(codigo);
+		usrTemp = usuarioDAO.findUsuarioTemp(codigo);
+		userQTD.setUsrRep(usrRep);
+		userQTD.setUsrTemp(usrTemp);
 		userQTD.setQuantidade(pend.getQuantidade());
 		return userQTD;
 	}

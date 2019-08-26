@@ -9,16 +9,14 @@ import org.mea.daos.PendenciaDAO;
 import org.mea.daos.UsuarioDAO;
 import org.mea.models.Pendencias;
 import org.mea.models.TiposPendencias;
-import org.mea.models.UsrRep;
 import org.mea.models.UsuarioF;
 import org.mea.models.UsuarioTemp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -62,11 +60,7 @@ public class UsuarioController {
 	    
 	}
 	
-	@RequestMapping("verificacaoCadastro")
-	public ModelAndView form() {
-		ModelAndView modelAndView = new ModelAndView("/profile/verificacaoCadastro");		
-		return modelAndView;
-	}
+	
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ModelAndView gravar(UsuarioTemp usuarioTemp, RedirectAttributes redirectAttributes) {
@@ -75,27 +69,26 @@ public class UsuarioController {
 		
 		try {
 			usuarioDAO.findUserRep(usuarioTemp.getSiape());
-			UsrRep usrRep = usuarioDAO.findUserRep(usuarioTemp.getSiape());
+			pendenciaDAO.gravarUsuarioTemp(usuarioTemp);
 			pendenciaDAO.gravar(new TiposPendencias(usuarioTemp.getSiape(), usuarioTemp.getNome(), "Cadastro de Usuário", true));
-//			pendencias.add(usuarioTemp.getSiape());
 			redirectAttributes.addFlashAttribute("resposta", "requisição enviada para homologação.");
 		} catch (NoResultException e) {
+			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("resposta", "Seu número de siape não consta no nosso banco de dados.");
+
+		} catch (DataIntegrityViolationException e) {
+			e.printStackTrace();
+			redirectAttributes.addFlashAttribute("resposta", "Você já fez uma requisição, aguarde o encerramento da mesma.");
 
 		}
 		
 		return new ModelAndView("redirect:../mea");	
-		
-//	System.out.println("descrição: "+atividade.getDescricao());
-//	
-//	
-//				
-//	if(result.hasErrors()){
-//        return form(atividade);
-//    }		
-//    
-//     atividadeDAO.gravar(atividade);
-//	 return new ModelAndView("redirect:atividades");
+	}
+	
+	@RequestMapping("verificacaoCadastro")
+	public ModelAndView form() {
+		ModelAndView modelAndView = new ModelAndView("/profile/verificacaoCadastro");		
+		return modelAndView;
 	}
 	
 	

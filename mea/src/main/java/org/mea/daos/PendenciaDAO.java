@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.mea.models.TiposPendencias;
+import org.mea.models.UsuarioTemp;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,10 @@ public class PendenciaDAO {
 	
 	public void gravar(TiposPendencias pendencia){
         manager.persist(pendencia);
+    }
+	
+	public void gravarUsuarioTemp(UsuarioTemp userTemp){
+        manager.persist(userTemp);
     }
 	
 	public List<TiposPendencias> listar() {
@@ -38,8 +43,6 @@ public class PendenciaDAO {
 		.executeUpdate();
 		
 		return manager.createQuery("select tp from TiposPendencias tp where tp.codigoPendencia = :siape ", 
-				TiposPendencias.class).setParameter("siape", codigo).getSingleResult().isSituacao();
-		
-
+				TiposPendencias.class).setParameter("siape", codigo).getSingleResult().isSituacao();		
 	}
 }	

@@ -5,10 +5,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.mea.models.Atividades;
-import org.mea.models.RepFuncionarios;
 import org.mea.models.UsrRep;
 import org.mea.models.UsuarioF;
+import org.mea.models.UsuarioTemp;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,11 +22,8 @@ public class UsuarioDAO implements UserDetailsService{
     public List<UsuarioF> listar() {
 		return manager.createQuery("select distinct(u) from UsuarioF u", 
 				UsuarioF.class).getResultList();
-	}
+	}    
     
-    public void gravarUsuarioTemp(Atividades atividade){
-        manager.persist(atividade);
-    }
     
     
 	@Override
@@ -49,9 +45,13 @@ public class UsuarioDAO implements UserDetailsService{
 	}
 	
 	public UsrRep findUserRep(String siape) {
-		//1011886
 		return manager.createQuery("select distinct(u) from UsrRep u where u.siape = :siape", 
 				UsrRep.class).setParameter("siape", siape).getSingleResult();
+	}
+	
+	public UsuarioTemp findUsuarioTemp(String siape) {
+		return manager.createQuery("select distinct(u) from UsuarioTemp u where u.siape = :siape", 
+				UsuarioTemp.class).setParameter("siape", siape).getSingleResult();
 	}
 	
 

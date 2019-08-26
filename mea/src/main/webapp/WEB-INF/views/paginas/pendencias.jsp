@@ -33,6 +33,14 @@
 		background-color: lightblue;
 	}
 	
+	.verde{
+		background-color: lightgreen;
+	}
+	
+	.vermelho{
+		background-color: red;
+	}
+	
 </style>
 
 <table class="table ">
@@ -50,9 +58,9 @@
 						<td id="idt${cont.index }" class="negrito">${tp.tipoPendencia }</td>
 				    </c:when>
 				    <c:otherwise>
-				        <td id="idt${cont.index }" class="siape${cont.index }">${tp.codigoPendencia }</td> 
-						<td id="idt${cont.index }" class="">${tp.nomeRquisitante }</td> 
-						<td id="idt${cont.index }" class="">${tp.tipoPendencia }</td>
+				        <td class="siape${cont.index }">${tp.codigoPendencia }</td> 
+						<td class="">${tp.nomeRquisitante }</td> 
+						<td class="">${tp.tipoPendencia }</td>
 				    </c:otherwise>
 				</c:choose>
 			</tr>
@@ -61,27 +69,60 @@
 </table>	
 
 <!-- The Modal -->
-<div class="modal" id="myModal">
+<div class="modal" id="meuModal">
   <div class="modal-dialog">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Modal Heading</h4>
+        <h4 class="modal-title">Comparativo</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
-      <table class="table ">
+      <!-- <table class="table ">
 		<tr>
 			<th>Código da Pendência</th>
 			<th>Nome do Requisitante</th>
 			<th>Tipo de Pendência</th>
-		</tr id="#codSiape">
-				<tr>
-					
-				</tr>
+		</tr>
+		<tr>
+			<td id="respSiape"></td>
+			<td id="respNome"></td>
+		</tr>
 	</table>
+	
+	<table class="table ">
+		<tr>
+			<th>Código da Pendência</th>
+			<th>Nome do Requisitante</th>
+			<th>Tipo de Pendência</th>
+		</tr>
+		<tr>
+			<td id="respSiape"></td>
+			<td id="respNome"></td>
+		</tr>
+	</table> -->
+	
+	<form class="container">
+	  <div class="form-group">
+	    <div class="col">
+	      <label>Siape registrado</label>
+	      <input id="formSiape" type="text" class="form-control" readonly>
+	    </div>
+	    <br>
+	    <div class="form-group">
+		    <div class="col">
+		      <label>Nome registrado</label>
+		      <input id="formNomeReg" type="text" class="form-control" readonly>
+		    </div>
+		    <div class="col">
+		      <label>Nome digitado</label>
+		      <input id="formNomeDig" type="text" class="form-control" >
+		    </div>
+	    </div>
+	  </div>
+	</form>
 
       <!-- Modal footer -->
       <div class="modal-footer">
@@ -103,25 +144,48 @@
 		
 		console.log("sit: "+situacao);
 		console.log(document.querySelector("#nPend").textContent);
-		//if(situacao){
 			$.get("${pageContext.request.contextPath}/paginas/checa",	{	
 					codigo: codigoPendencia }
 				      ,	function(response) {	
-				    	  console.log("response: "+response.quantidade);
-				    	  console.log("response2: "+response.usrRep.nome);
 				    	  document.querySelector("#nPend").textContent = "Pendências("+response.quantidade+")";
 				    	  
-				    	  let dados = document.querySelectorAll('#idt'+cont);			    		
+				    	  if(situacao){
+				    	  
+					    	  let dados = document.querySelectorAll('#idt'+cont);			    		
+					    		
+					    		dados.forEach(dado => {
+					    	        dado.classList.remove('negrito');
+					    		});
 				    		
-				    		dados.forEach(dado => {
-				    			console.log('sadfdas');
-				    	        console.log(dado.textContent);
-				    	        dado.classList.remove('negrito');
-				    		});
+				    	  }
+				    	  
+			    	$("#meuModal").modal();
+			  		document.querySelector("#formSiape").setAttribute("value", response.usrRep.siape);
+			  		document.querySelector("#formNomeReg").setAttribute("value", response.usrRep.nome);
+			  		var nomeReg = response.usrRep.nome;
+			  		
+			  		console.log("asdfsa");
+			  		console.log("é igual? "+typeof response.usrTemp.nome);
+			  		console.log("é igual? "+response.usrTemp.nome);
+			  		console.log("é igual? "+typeof nomeReg);
+			  		console.log("é igual? "+nomeReg);
+			  		
+			  		document.querySelector("#formNomeDig").setAttribute("value", response.usrTemp.nome);
+			  		
+			  		if(nomeReg == response.usrTemp.nome){
+			  			document.querySelector("#formNomeDig").classList.add("vermelho"  ? "verde": console.log("não"));
+			  	//		document.querySelector("#formNomeDig").classList.add("form-control");
+			  		//	document.querySelector("#formNomeDig").classList.add("verde");
+			  		} else {
+			  			document.querySelector("#formNomeDig").removeAttribute("class");
+			  			document.querySelector("#formNomeDig").classList.add("form-control");
+			  			document.querySelector("#formNomeDig").classList.add("vermelho");
+			  		}
+			  		
+			  		
 			});
-	//	}
-		$("#myModal").modal();
-		document.querySelector("#codSiape").textContent = document.querySelector('.siape'+cont).textContent;
+		
+		
 		
 		
 	}
