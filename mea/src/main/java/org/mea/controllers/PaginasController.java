@@ -8,7 +8,10 @@ import org.mea.infra.FileSaver;
 import org.mea.models.Pendencias;
 import org.mea.models.RepFuncionarios;
 import org.mea.models.TiposPendencias;
+import org.mea.models.UserQTD;
+import org.mea.models.UsrRep;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,9 +45,14 @@ public class PaginasController {
     }
 	
 	@RequestMapping("/checa")
-    public @ResponseBody Integer gato(String codigo) {
+    public @ResponseBody UserQTD gato(String codigo) {
 		pendenciaDAO.atualizar(codigo);
-		return pend.getQuantidade();
+		UserQTD userQTD = new UserQTD();
+		UsrRep userRep = new UsrRep();
+		userRep.setNome("Endrio");
+		userQTD.setUerRep(userRep);
+		userQTD.setQuantidade(pend.getQuantidade());
+		return userQTD;
 	}
 	
 	@RequestMapping("form")

@@ -72,9 +72,16 @@
       </div>
 
       <!-- Modal body -->
-      <div class="modal-body">
-        <h2 id="codSiape"></h2>
-      </div>
+      <table class="table ">
+		<tr>
+			<th>Código da Pendência</th>
+			<th>Nome do Requisitante</th>
+			<th>Tipo de Pendência</th>
+		</tr id="#codSiape">
+				<tr>
+					
+				</tr>
+	</table>
 
       <!-- Modal footer -->
       <div class="modal-footer">
@@ -96,25 +103,30 @@
 		
 		console.log("sit: "+situacao);
 		console.log(document.querySelector("#nPend").textContent);
-		if(situacao){
+		//if(situacao){
 			$.get("${pageContext.request.contextPath}/paginas/checa",	{	
 					codigo: codigoPendencia }
 				      ,	function(response) {	
-				    	  console.log("response: "+response)
-				    	  document.querySelector("#nPend").textContent = "Pendências("+response+")";
+				    	  console.log("response: "+response.quantidade);
+				    	  console.log("response2: "+response.usrRep.nome);
+				    	  document.querySelector("#nPend").textContent = "Pendências("+response.quantidade+")";
 				    	  
 				    	  let dados = document.querySelectorAll('#idt'+cont);			    		
 				    		
 				    		dados.forEach(dado => {
+				    			console.log('sadfdas');
 				    	        console.log(dado.textContent);
 				    	        dado.classList.remove('negrito');
 				    		});
 			});
-		}
+	//	}
 		$("#myModal").modal();
 		document.querySelector("#codSiape").textContent = document.querySelector('.siape'+cont).textContent;
+		
+		
 	}
 	
 </script>
 
 </tags:pageTemplate>
+
