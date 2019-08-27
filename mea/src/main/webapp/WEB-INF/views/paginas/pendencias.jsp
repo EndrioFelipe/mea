@@ -34,11 +34,13 @@
 	}
 	
 	.verde{
-		background-color: lightgreen;
+		color: #4F8A10;
+    	background-color: #DFF2BF;
 	}
 	
 	.vermelho{
-		background-color: red;
+		color: #D8000C;
+    	background-color: #FFD2D2;;
 	}
 	
 </style>
@@ -79,36 +81,11 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
-      <!-- Modal body -->
-      <!-- <table class="table ">
-		<tr>
-			<th>Código da Pendência</th>
-			<th>Nome do Requisitante</th>
-			<th>Tipo de Pendência</th>
-		</tr>
-		<tr>
-			<td id="respSiape"></td>
-			<td id="respNome"></td>
-		</tr>
-	</table>
-	
-	<table class="table ">
-		<tr>
-			<th>Código da Pendência</th>
-			<th>Nome do Requisitante</th>
-			<th>Tipo de Pendência</th>
-		</tr>
-		<tr>
-			<td id="respSiape"></td>
-			<td id="respNome"></td>
-		</tr>
-	</table> -->
-	
 	<form class="container">
 	  <div class="form-group">
 	    <div class="col">
 	      <label>Siape registrado</label>
-	      <input id="formSiape" type="text" class="form-control" readonly>
+	      <input id="formSiape" type="text" class="form-control" disabled>
 	    </div>
 	    <br>
 	    <div class="form-group">
@@ -118,7 +95,7 @@
 		    </div>
 		    <div class="col">
 		      <label>Nome digitado</label>
-		      <input id="formNomeDig" type="text" class="form-control" >
+		      <input id="formNomeDig" type="text" class="form-control" onkeyup="chaveDinamica()">
 		    </div>
 	    </div>
 	  </div>
@@ -126,7 +103,7 @@
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" onClick="fechaModal()" class="btn btn-danger" >Close</button>
       </div>
 
     </div>
@@ -138,17 +115,16 @@
 
 <script>
 	
+	var usrRepNome;
 	
 	function gato(codigoPendencia, cont, situacao) {
 		/*tem que ir testando trocando get por post e vice-versa nesse $.get. Use o chrome pra ver os erros*/
 		
-		console.log("sit: "+situacao);
-		console.log(document.querySelector("#nPend").textContent);
 			$.get("${pageContext.request.contextPath}/paginas/checa",	{	
 					codigo: codigoPendencia }
 				      ,	function(response) {	
 				    	  document.querySelector("#nPend").textContent = "Pendências("+response.quantidade+")";
-				    	  
+				    	  usrRepNome = response.usrRep.nome;
 				    	  if(situacao){
 				    	  
 					    	  let dados = document.querySelectorAll('#idt'+cont);			    		
@@ -160,34 +136,48 @@
 				    	  }
 				    	  
 			    	$("#meuModal").modal();
-			  		document.querySelector("#formSiape").setAttribute("value", response.usrRep.siape);
-			  		document.querySelector("#formNomeReg").setAttribute("value", response.usrRep.nome);
-			  		var nomeReg = response.usrRep.nome;
-			  		
-			  		console.log("asdfsa");
-			  		console.log("é igual? "+typeof response.usrTemp.nome);
-			  		console.log("é igual? "+response.usrTemp.nome);
-			  		console.log("é igual? "+typeof nomeReg);
-			  		console.log("é igual? "+nomeReg);
-			  		
-			  		document.querySelector("#formNomeDig").setAttribute("value", response.usrTemp.nome);
-			  		
-			  		if(nomeReg == response.usrTemp.nome){
-			  			document.querySelector("#formNomeDig").classList.add("vermelho"  ? "verde": console.log("não"));
-			  	//		document.querySelector("#formNomeDig").classList.add("form-control");
-			  		//	document.querySelector("#formNomeDig").classList.add("verde");
+			    	
+			    	console.log('entrou modal');
+			    	
+			    	document.querySelector("#formSiape").setAttribute("value", response.usrRep.siape);
+			  		colocaValor('#formNomeReg', 'value', response.usrRep.nome);
+			  		colocaValor('#formNomeDig', 'value', response.usrTemp.nome);
+			  					  		
+			  		if(response.usrRep.nome.toUpperCase() == document.querySelector('#formNomeDig').value.toUpperCase()){
+			  			cor('verde');
 			  		} else {
-			  			document.querySelector("#formNomeDig").removeAttribute("class");
-			  			document.querySelector("#formNomeDig").classList.add("form-control");
-			  			document.querySelector("#formNomeDig").classList.add("vermelho");
+			  			cor('vermelho');
 			  		}
+			  		
+			  		
+			  		function colocaValor(seletor, atributo, valor){
+			  			document.querySelector(seletor).value = valor;
+			  		}
+			  		
 			  		
 			  		
 			});
 		
+	}
+	
+	function cor(classe){
+			document.querySelector("#formNomeDig").removeAttribute("class");
+			document.querySelector("#formNomeDig").classList.add("form-control");
+			document.querySelector("#formNomeDig").classList.add(classe);
+		}
+	
+	function fechaModal(){
+		$("#meuModal").modal('hide');
+		console.log('fecha modal: '+document.querySelector("#formNomeDig").value);
+	}
+	
+	function chaveDinamica(){
 		
-		
-		
+		if(usrRepNome.toUpperCase() == document.querySelector('#formNomeDig').value.toUpperCase()){
+  			cor('verde');
+  		} else {
+  			cor('vermelho');
+  		}
 	}
 	
 </script>
