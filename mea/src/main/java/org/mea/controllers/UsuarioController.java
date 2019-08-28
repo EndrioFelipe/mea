@@ -55,8 +55,6 @@ public class UsuarioController {
 			ModelAndView modelAndView = new ModelAndView("");
 			return modelAndView;
 		}
-	    	
-	    
 	    
 	}
 	
@@ -65,13 +63,11 @@ public class UsuarioController {
 	@RequestMapping(method=RequestMethod.POST)
 	public ModelAndView gravar(UsuarioTemp usuarioTemp, RedirectAttributes redirectAttributes) {
 		
-		System.out.println(usuarioTemp.getSiape());
-		
 		try {
 			usuarioDAO.findUserRep(usuarioTemp.getSiape());
 			pendenciaDAO.gravarUsuarioTemp(usuarioTemp);
 			pendenciaDAO.gravar(new TiposPendencias(usuarioTemp.getSiape(), usuarioTemp.getNome(), "Cadastro de Usuário", true));
-			redirectAttributes.addFlashAttribute("resposta", "requisição enviada para homologação.");
+			redirectAttributes.addFlashAttribute("resposta", "Requisição enviada para homologação.");
 		} catch (NoResultException e) {
 			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("resposta", "Seu número de siape não consta no nosso banco de dados.");
@@ -79,7 +75,6 @@ public class UsuarioController {
 		} catch (DataIntegrityViolationException e) {
 			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("resposta", "Você já fez uma requisição, aguarde o encerramento da mesma.");
-
 		}
 		
 		return new ModelAndView("redirect:../mea");	
@@ -88,6 +83,13 @@ public class UsuarioController {
 	@RequestMapping("verificacaoCadastro")
 	public ModelAndView form() {
 		ModelAndView modelAndView = new ModelAndView("/profile/verificacaoCadastro");		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="cadastroUsuario", method=RequestMethod.POST)
+	public ModelAndView cadastroUsuario(UsuarioF usuario) {
+		System.out.println("nome: "+usuario.getNome());
+		ModelAndView modelAndView = new ModelAndView("/profile/cadastroUsuario");		
 		return modelAndView;
 	}
 	

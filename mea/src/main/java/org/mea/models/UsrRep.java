@@ -8,7 +8,7 @@ public class UsrRep {
 	@Id
 	private String siape;
 	private String nome;
-	private String codUo;
+	private String codeUo;
 	private String nomeReg;
 	private String aaa;
 	private String ddd;
@@ -23,12 +23,12 @@ public class UsrRep {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}	
+	public String getCodeUo() {
+		return codeUo;
 	}
-	public String getCodUo() {
-		return codUo;
-	}
-	public void setCodUo(String codUo) {
-		this.codUo = codUo;
+	public void setCodeUo(String codeUo) {
+		this.codeUo = codeUo;
 	}
 	public String getNomeReg() {
 		return nomeReg;

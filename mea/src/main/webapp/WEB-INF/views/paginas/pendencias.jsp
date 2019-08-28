@@ -43,6 +43,11 @@
     	background-color: #FFD2D2;;
 	}
 	
+	.container-form {
+		padding-right: 50px;
+		padding-left: 50px;
+	}
+	
 </style>
 
 <table class="table ">
@@ -72,39 +77,62 @@
 
 <!-- The Modal -->
 <div class="modal" id="meuModal">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Comparativo</h4>
+        <h4 class="modal-title">Cadastro de usuário</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
-	<form class="container">
-	  <div class="form-group">
-	    <div class="col">
-	      <label>Siape registrado</label>
-	      <input id="formSiape" type="text" class="form-control" disabled>
-	    </div>
-	    <br>
-	    <div class="form-group">
+	<form:form action="${s:mvcUrl('UC#cadastroUsuario').build() }">
+	  <div class="form-group container-form">
+	    <div class="row">
 		    <div class="col">
-		      <label>Nome registrado</label>
+		      <label>Siape</label>
+		      <input id="formSiape" type="text" class="form-control" disabled>
+		    </div>
+	    </div>
+	    <hr>
+	    <div class="row">
+		    <div class="col">
+		      <label>Nome</label>
 		      <input id="formNomeReg" type="text" class="form-control" readonly>
 		    </div>
 		    <div class="col">
-		      <label>Nome digitado</label>
-		      <input id="formNomeDig" type="text" class="form-control" onkeyup="chaveDinamica()">
+		      <label>Nome Digitado</label>
+		      <input id="formNomeDig" type="text" name="nome" class="form-control" onkeyup="chaveDinamica()">
+		    </div>
+	    </div>
+	    <hr>
+	    <div class="row">
+		    <div class="col">
+		      <label>Código da Unidade Organizacional</label>
+		      <input id="formCUOReg" type="text" class="form-control" readonly>
+		    </div>
+		    <div class="col">
+		      <label>Código da Unidade Organizacional digitado</label>
+		      <input id="formCUODig" type="text" class="form-control" onkeyup="chaveDinamica()">
+		    </div>
+	    </div>
+	    <hr>
+	    <div class="row">
+		    <div class="col">
+		      <label>Nome da Regional</label>
+		      <input id="formRegionalReg" type="text" class="form-control" readonly>
+		    </div>
+		    <div class="col">
+		      <label>Nome da Regional digitado</label>
+		      <input id="formRegionalDig" type="text" class="form-control" onkeyup="chaveDinamica()">
 		    </div>
 	    </div>
 	  </div>
-	</form>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" onClick="fechaModal()" class="btn btn-danger" >Close</button>
-      </div>
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	        <button type="submit" class="btn btn-danger" >Cadastrar</button>
+	      </div>
+    </form:form>
 
     </div>
   </div>
@@ -135,22 +163,32 @@
 				    		
 				    	  }
 				    	  
-			    	$("#meuModal").modal();
+		    	    colocaValor('#formNomeReg', response.usrRep.nome);
+			  		colocaValor('#formNomeDig', response.usrTemp.nome);			  		
+			  		
+			  		colocaValor('#formCUOReg', response.usrRep.codeUo);
+			  		colocaValor('#formCUODig', response.usrTemp.codUo);
+			  		
+			  		colocaValor('#formRegionalReg', response.usrRep.nomeReg);
+			  		colocaValor('#formRegionalDig', response.usrTemp.regional);	 
+			  		
+					verifica('#formNomeReg', '#formNomeDig');
+					verifica('#formRegionalReg', '#formRegionalDig');
+				    	  
+			    	$("#meuModal").modal();		    
 			    	
-			    	console.log('entrou modal');
 			    	
 			    	document.querySelector("#formSiape").setAttribute("value", response.usrRep.siape);
-			  		colocaValor('#formNomeReg', 'value', response.usrRep.nome);
-			  		colocaValor('#formNomeDig', 'value', response.usrTemp.nome);
-			  					  		
-			  		if(response.usrRep.nome.toUpperCase() == document.querySelector('#formNomeDig').value.toUpperCase()){
-			  			cor('verde');
-			  		} else {
-			  			cor('vermelho');
-			  		}
 			  		
 			  		
-			  		function colocaValor(seletor, atributo, valor){
+			  		console.log('é igual? '+document.querySelector('#formNomeReg').value.toUpperCase() == document.querySelector('#formNomeDig').value.toUpperCase());
+			  		
+			  		function verifica(seletor1, seletor2) {
+				  		(document.querySelector(seletor1).value.toUpperCase() == document.querySelector(seletor2).value.toUpperCase()) ?
+				  				cor(seletor2, 'verde') : cor(seletor2, 'vermelho');				  			
+				  		}			  		
+			  		
+			  		function colocaValor(seletor, valor){
 			  			document.querySelector(seletor).value = valor;
 			  		}
 			  		
@@ -160,10 +198,10 @@
 		
 	}
 	
-	function cor(classe){
-			document.querySelector("#formNomeDig").removeAttribute("class");
-			document.querySelector("#formNomeDig").classList.add("form-control");
-			document.querySelector("#formNomeDig").classList.add(classe);
+	function cor(seletor, classe){
+			document.querySelector(seletor).removeAttribute("class");
+			document.querySelector(seletor).classList.add("form-control");
+			document.querySelector(seletor).classList.add(classe);
 		}
 	
 	function fechaModal(){

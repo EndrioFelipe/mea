@@ -22,6 +22,9 @@ public class UsuarioF implements UserDetails{
 	private static final long serialVersionUID = 1L;
 	@Id
 	private String userName;
+	private String siape;
+	private String codUo;
+	private String nomeReg;
 	private String nome;
     private String senha;
     
@@ -35,6 +38,24 @@ public class UsuarioF implements UserDetails{
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}		
+	public String getSiape() {
+		return siape;
+	}
+	public void setSiape(String siape) {
+		this.siape = siape;
+	}
+	public String getCodUo() {
+		return codUo;
+	}
+	public void setCodUo(String codUo) {
+		this.codUo = codUo;
+	}
+	public String getNomeReg() {
+		return nomeReg;
+	}
+	public void setNomeReg(String nomeReg) {
+		this.nomeReg = nomeReg;
 	}
 	public String getNome() {
 		return nome;
@@ -89,10 +110,5 @@ public class UsuarioF implements UserDetails{
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
-	
-
-	
-	
 	
 }

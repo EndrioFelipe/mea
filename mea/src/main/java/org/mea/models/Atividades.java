@@ -98,7 +98,8 @@ public class Atividades {
 	public void setArquivoPath(String arquivoPath) {
 		this.arquivoPath = arquivoPath;
 	}
-	@Override
+
+	/*	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -117,7 +118,7 @@ public class Atividades {
 		if (id != other.id)
 			return false;
 		return true;
-	}
+	}*/
 		
 	
 }
