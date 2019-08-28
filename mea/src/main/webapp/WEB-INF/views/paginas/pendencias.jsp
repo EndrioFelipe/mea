@@ -43,9 +43,19 @@
     	background-color: #FFD2D2;;
 	}
 	
+	.amarelo{
+		color: #9F6000;
+    	background-color: #FEEFB3;
+	}
+	
 	.container-form {
 		padding-right: 50px;
 		padding-left: 50px;
+	}
+	
+	
+	.table-form td {
+		padding: 0 15px;
 	}
 	
 </style>
@@ -95,16 +105,16 @@
 		    </div>
 	    </div>
 	    <hr>
-	    <div class="row">
-		    <div class="col">
-		      <label>Nome</label>
-		      <input id="formNomeReg" type="text" class="form-control" readonly>
-		    </div>
-		    <div class="col">
-		      <label>Nome Digitado</label>
-		      <input id="formNomeDig" type="text" name="nome" class="form-control" onkeyup="chaveDinamica()">
-		    </div>
-	    </div>
+	    <table class="table-form">
+		    <tr>
+		      
+		      <td><input id="formNomeReg" type="text" class="form-control" readonly></td>
+		    
+		      <td><input id="formNomeDig" type="text" name="nome" class="form-control" onkeyup="chaveDinamica('#formNomeReg', '#formNomeDig')"></td>
+		  
+		      <td><a>copiar</a></td>
+		    </tr>
+	    </table>
 	    <hr>
 	    <div class="row">
 		    <div class="col">
@@ -113,7 +123,7 @@
 		    </div>
 		    <div class="col">
 		      <label>Código da Unidade Organizacional digitado</label>
-		      <input id="formCUODig" type="text" class="form-control" onkeyup="chaveDinamica()">
+		      <input id="formCUODig" type="text" class="form-control" onkeyup="chaveDinamica('#formCUOReg', '#formCUODig')">
 		    </div>
 	    </div>
 	    <hr>
@@ -124,7 +134,7 @@
 		    </div>
 		    <div class="col">
 		      <label>Nome da Regional digitado</label>
-		      <input id="formRegionalDig" type="text" class="form-control" onkeyup="chaveDinamica()">
+		      <input id="formRegionalDig" type="text" class="form-control" onkeyup="chaveDinamica('#formRegionalReg', '#formRegionalDig')">
 		    </div>
 	    </div>
 	  </div>
@@ -143,7 +153,6 @@
 
 <script>
 	
-	var usrRepNome;
 	
 	function gato(codigoPendencia, cont, situacao) {
 		/*tem que ir testando trocando get por post e vice-versa nesse $.get. Use o chrome pra ver os erros*/
@@ -163,34 +172,37 @@
 				    		
 				    	  }
 				    	  
-		    	    colocaValor('#formNomeReg', response.usrRep.nome);
-			  		colocaValor('#formNomeDig', response.usrTemp.nome);			  		
-			  		
-			  		colocaValor('#formCUOReg', response.usrRep.codeUo);
-			  		colocaValor('#formCUODig', response.usrTemp.codUo);
-			  		
-			  		colocaValor('#formRegionalReg', response.usrRep.nomeReg);
-			  		colocaValor('#formRegionalDig', response.usrTemp.regional);	 
-			  		
-					verifica('#formNomeReg', '#formNomeDig');
-					verifica('#formRegionalReg', '#formRegionalDig');
-				    	  
-			    	$("#meuModal").modal();		    
-			    	
-			    	
-			    	document.querySelector("#formSiape").setAttribute("value", response.usrRep.siape);
-			  		
-			  		
-			  		console.log('é igual? '+document.querySelector('#formNomeReg').value.toUpperCase() == document.querySelector('#formNomeDig').value.toUpperCase());
-			  		
-			  		function verifica(seletor1, seletor2) {
-				  		(document.querySelector(seletor1).value.toUpperCase() == document.querySelector(seletor2).value.toUpperCase()) ?
-				  				cor(seletor2, 'verde') : cor(seletor2, 'vermelho');				  			
-				  		}			  		
-			  		
-			  		function colocaValor(seletor, valor){
-			  			document.querySelector(seletor).value = valor;
-			  		}
+					    	  
+			    	    colocaValor('#formNomeReg', response.usrRep.nome);
+				  		colocaValor('#formNomeDig', response.usrTemp.nome);			  		
+				  		
+				  		colocaValor('#formCUOReg', response.usrRep.codeUo);
+				  		colocaValor('#formCUODig', response.usrTemp.codUo);
+				  		
+				  		colocaValor('#formRegionalReg', response.usrRep.nomeReg);
+				  		colocaValor('#formRegionalDig', response.usrTemp.regional);	 
+				  		
+						verifica('#formNomeReg', '#formNomeDig');
+						verifica('#formCUOReg', '#formCUODig');
+						verifica('#formRegionalReg', '#formRegionalDig');
+											
+					    	  
+				    	$("#meuModal").modal();		    
+				    	
+				    	
+				    	document.querySelector("#formSiape").setAttribute("value", response.usrRep.siape);
+				  		
+				  		
+				  		console.log('é igual? '+document.querySelector('#formNomeReg').value.toUpperCase() == document.querySelector('#formNomeDig').value.toUpperCase());
+				  		
+				  		function verifica(seletor1, seletor2) {
+					  		(document.querySelector(seletor1).value.toUpperCase() == document.querySelector(seletor2).value.toUpperCase()) ?
+					  				cor(seletor2, 'verde') : cor(seletor2, 'vermelho');				  			
+					  		}			  		
+				  		
+				  		function colocaValor(seletor, valor){
+				  			document.querySelector(seletor).value = valor;
+				  		}
 			  		
 			  		
 			  		
@@ -209,12 +221,12 @@
 		console.log('fecha modal: '+document.querySelector("#formNomeDig").value);
 	}
 	
-	function chaveDinamica(){
+	function chaveDinamica(seletor1, seletor2){
 		
-		if(usrRepNome.toUpperCase() == document.querySelector('#formNomeDig').value.toUpperCase()){
-  			cor('verde');
+		if(document.querySelector(seletor1).value.toUpperCase() == document.querySelector(seletor2).value.toUpperCase()){
+  			cor(seletor2, 'verde');
   		} else {
-  			cor('vermelho');
+  			cor(seletor2, 'amarelo');
   		}
 	}
 	
