@@ -53,17 +53,20 @@
 		padding-left: 50px;
 	}
 	
-	
-	.table-form td {
-		padding: 0 15px;
+	.column {
+		padding-right: 15px;
+		padding-bottom: 20px;
 	}
+	
+	
+	
 	
 </style>
 
 <table class="table ">
 	<tr>
 		<th>Código da Pendência</th>
-		<th>Nome do Requisitante</th>
+		<th>Nome do Requerente</th>
 		<th>Tipo de Pendência</th>
 	</tr>
 	<c:forEach items="${tiposPendencias}" var="tp" varStatus="cont" >
@@ -85,6 +88,7 @@
 	</c:forEach>
 </table>	
 
+
 <!-- The Modal -->
 <div class="modal" id="meuModal">
   <div class="modal-dialog modal-lg">
@@ -105,18 +109,53 @@
 		    </div>
 	    </div>
 	    <hr>
-	    <table class="table-form">
-		    <tr>
-		      
-		      <td><input id="formNomeReg" type="text" class="form-control" readonly></td>
+	    <label>Nome</label>
+	    <table width="100%">
+	    	<col width="45%">
+  			<col width="45%">
+  			<col width="10%">
 		    
-		      <td><input id="formNomeDig" type="text" name="nome" class="form-control" onkeyup="chaveDinamica('#formNomeReg', '#formNomeDig')"></td>
-		  
-		      <td><a>copiar</a></td>
-		    </tr>
+		    <c:set var="count" value="-1"/>
+		    
+			    <tr class="">
+				      <c:set var="count" value="${count +1}"/>
+				      
+				      <td class="column element"><input id="formReg${count }" type="text" class="form-control" readonly></td>
+				    
+				      <td class="column element"><input id="formDig${count }" type="text" name="nome" class="form-control" onkeyup="chaveDinamica('#formNomeReg', '#formNomeDig')"></td>
+				  
+					  <td class="column">copiar</td>
+				      
+				    
+			    </tr>
+			    <tr class="">
+				    
+				      <c:set var="count" value="${count +1}"/>
+				      
+				      <td class="column element"><input id="formReg${count }" type="text" class="form-control" readonly></td>
+				    
+				      <td class="column element"><input id="formDig${count }" type="text" name="nome" class="form-control" onkeyup="chaveDinamica('#formCUOReg', '#formCUODig')"></td>
+				  
+					  <td class="column">copiar</td>
+				      
+				    
+			    </tr>
+			    <tr class="">
+				    
+				      <c:set var="count" value="${count +1}"/>
+				      
+				      <td class="column element"><input id="formReg${count }" type="text" class="form-control" readonly></td>
+				    
+				      <td class="column element"><input id="formDig${count }" type="text" name="nome" class="form-control" onkeyup="chaveDinamica('#formRegionalReg', '#formRegionalDig')"></td>
+				  
+					  <td class="column">copiar</td>
+				      
+				    
+			    </tr>
+		    
 	    </table>
 	    <hr>
-	    <div class="row">
+	    <!-- <div class="row">
 		    <div class="col">
 		      <label>Código da Unidade Organizacional</label>
 		      <input id="formCUOReg" type="text" class="form-control" readonly>
@@ -137,7 +176,7 @@
 		      <input id="formRegionalDig" type="text" class="form-control" onkeyup="chaveDinamica('#formRegionalReg', '#formRegionalDig')">
 		    </div>
 	    </div>
-	  </div>
+	  </div> -->
 	      <!-- Modal footer -->
 	      <div class="modal-footer">
 	        <button type="submit" class="btn btn-danger" >Cadastrar</button>
@@ -151,11 +190,23 @@
 
 
 
+
+
 <script>
+
+	
+	
+	
+	
+	//console.log('attr: '+document.querySelector('.var').getAttribute('value'));
+	
+	
 	
 	
 	function gato(codigoPendencia, cont, situacao) {
 		/*tem que ir testando trocando get por post e vice-versa nesse $.get. Use o chrome pra ver os erros*/
+		
+		
 		
 			$.get("${pageContext.request.contextPath}/paginas/checa",	{	
 					codigo: codigoPendencia }
@@ -172,22 +223,32 @@
 				    		
 				    	  }
 				    	  
+				    	$("#meuModal").modal();	
+				    	
+				    	
 					    	  
-			    	    colocaValor('#formNomeReg', response.usrRep.nome);
-				  		colocaValor('#formNomeDig', response.usrTemp.nome);			  		
+			    	    colocaValor('#formReg0', response.usrRep.nome);
+				  		colocaValor('#formDig0', response.usrTemp.nome);			  		
 				  		
-				  		colocaValor('#formCUOReg', response.usrRep.codeUo);
-				  		colocaValor('#formCUODig', response.usrTemp.codUo);
+				  		colocaValor('#formReg1', response.usrRep.codeUo);
+				  		colocaValor('#formDig1', response.usrTemp.codUo);
 				  		
-				  		colocaValor('#formRegionalReg', response.usrRep.nomeReg);
-				  		colocaValor('#formRegionalDig', response.usrTemp.regional);	 
+				  		colocaValor('#formReg2', response.usrRep.nomeReg);
+				  		colocaValor('#formDig2', response.usrTemp.regional);	 
 				  		
-						verifica('#formNomeReg', '#formNomeDig');
-						verifica('#formCUOReg', '#formCUODig');
-						verifica('#formRegionalReg', '#formRegionalDig');
+				  		var allElements = document.querySelectorAll('.element');
+				  						  		
+				  		
+				  		for(var index = 0; index < allElements.length; index++) {
+							verifica('#formReg'+index, '#formDig'+index);
+						}
+				  		
+				  		//verifica('#formNomeReg', '#formNomeDig');
+						//verifica('#formCUOReg', '#formCUODig');
+						//verifica('#formRegionalReg', '#formRegionalDig');
 											
 					    	  
-				    	$("#meuModal").modal();		    
+				    		    
 				    	
 				    	
 				    	document.querySelector("#formSiape").setAttribute("value", response.usrRep.siape);
@@ -196,6 +257,8 @@
 				  		console.log('é igual? '+document.querySelector('#formNomeReg').value.toUpperCase() == document.querySelector('#formNomeDig').value.toUpperCase());
 				  		
 				  		function verifica(seletor1, seletor2) {
+				  			console.log("seletor1 "+seletor1);
+				  			console.log('valor: '+document.querySelector(seletor1).value);
 					  		(document.querySelector(seletor1).value.toUpperCase() == document.querySelector(seletor2).value.toUpperCase()) ?
 					  				cor(seletor2, 'verde') : cor(seletor2, 'vermelho');				  			
 					  		}			  		
@@ -213,6 +276,7 @@
 	function cor(seletor, classe){
 			document.querySelector(seletor).removeAttribute("class");
 			document.querySelector(seletor).classList.add("form-control");
+			document.querySelector(seletor).classList.add("bunda");
 			document.querySelector(seletor).classList.add(classe);
 		}
 	
