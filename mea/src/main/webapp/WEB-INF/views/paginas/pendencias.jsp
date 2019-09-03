@@ -222,20 +222,25 @@
 					    		});
 				    		
 				    	  }
+				    	
 				    	  
-				    	$("#meuModal").modal();	
+				    	$("#meuModal").modal();	  
+				    	  
+				    	var responseList = [response.usrRep.nome, response.usrTemp.nome, 
+				    						 response.usrRep.codeUo, response.usrTemp.codUo,
+				    						 response.usrRep.nomeReg, response.usrTemp.regional];
 				    	
+				        var count = 0;
+				    	for (var i = 0; i < responseList.length/2; i++){
+				    		for (var j = 0; j < responseList.length; j = count){
+					    		insertValue('#formReg'+i, responseList[count]);
+					    		count++;
+					    		insertValue('#formDig'+i, responseList[count]);
+					    		count++;
+					    		break;
+					    	}
+				    	} 
 				    	
-					    	  
-			    	    colocaValor('#formReg0', response.usrRep.nome);
-				  		colocaValor('#formDig0', response.usrTemp.nome);			  		
-				  		
-				  		colocaValor('#formReg1', response.usrRep.codeUo);
-				  		colocaValor('#formDig1', response.usrTemp.codUo);
-				  		
-				  		colocaValor('#formReg2', response.usrRep.nomeReg);
-				  		colocaValor('#formDig2', response.usrTemp.regional);	 
-				  		
 				  		var allElements = document.querySelectorAll('.element');
 				  						  		
 				  		
@@ -243,13 +248,6 @@
 							verifica('#formReg'+index, '#formDig'+index);
 						}
 				  		
-				  		//verifica('#formNomeReg', '#formNomeDig');
-						//verifica('#formCUOReg', '#formCUODig');
-						//verifica('#formRegionalReg', '#formRegionalDig');
-											
-					    	  
-				    		    
-				    	
 				    	
 				    	document.querySelector("#formSiape").setAttribute("value", response.usrRep.siape);
 				  		
@@ -257,13 +255,14 @@
 				  		console.log('é igual? '+document.querySelector('#formNomeReg').value.toUpperCase() == document.querySelector('#formNomeDig').value.toUpperCase());
 				  		
 				  		function verifica(seletor1, seletor2) {
-				  			console.log("seletor1 "+seletor1);
-				  			console.log('valor: '+document.querySelector(seletor1).value);
+				  			
 					  		(document.querySelector(seletor1).value.toUpperCase() == document.querySelector(seletor2).value.toUpperCase()) ?
 					  				cor(seletor2, 'verde') : cor(seletor2, 'vermelho');				  			
 					  		}			  		
 				  		
-				  		function colocaValor(seletor, valor){
+				  		function insertValue(seletor, valor){
+				  			console.log('seletor '+seletor);
+				  			console.log('valor '+valor);
 				  			document.querySelector(seletor).value = valor;
 				  		}
 			  		
