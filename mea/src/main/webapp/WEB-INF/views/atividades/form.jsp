@@ -52,7 +52,7 @@
 		
 		<div class="form-group">
 			<label for="status">Status</label>
-			<select class="form-control" name="status" >
+			<select class="form-control" name="status" onchange="currentSelector(this)">
 				<option value="${estados[0] }">Não Iniciada</option>
 				<option value="${estados[1] }">Em Andamento</option>
 				<option value="${estados[2] }">Concluída</option>
@@ -61,7 +61,7 @@
 	      
 		 <div class="form-group">
 	        <label>Porcentagem de Conclusão</label>
-	        <input class="form-control" type="number" name="porcentagem" />
+	        <input class="form-control" type="number" id="porcentage" name="porcentagem" value="0" readonly/>
 	    </div>
 	    
 	    <div class="form-group">
@@ -91,7 +91,31 @@
 	        uiLibrary: 'bootstrap4'
 	    });
      
-	
+		function currentSelector (valor) {
+			console.log('valor: '+valor.value);
+			if(valor.value=='EM_ANDAMENTO'){
+				document.querySelector('#porcentage').value = '';
+				//document.querySelector('#porcentage').removeAttribute('value');
+				document.querySelector('#porcentage').removeAttribute('readonly');
+				document.querySelector('#porcentage').setAttribute('placeholder','Digite a porcentagem entre 0-100. Utilize apenas números.');
+			} else if (valor.value=='CONCLUIDA') {
+				document.querySelector('#porcentage').removeAttribute('placeholder');
+				document.querySelector('#porcentage').setAttribute('readonly','readonly');
+				//document.querySelector('#porcentage').removeAttribute('value');
+				//document.querySelector('#porcentage').setAttribute('value', 100);
+				document.querySelector('#porcentage').value = 100;
+			} else {
+				document.querySelector('#porcentage').removeAttribute('placeholder');
+				document.querySelector('#porcentage').setAttribute('readonly','readonly');
+				//document.querySelector('#porcentage').removeAttribute('value');
+				//document.querySelector('#porcentage').setAttribute('value', 0);
+				document.querySelector('#porcentage').value = 0;
+			}
+			
+		}
+		
+		
+		
 		function desabilitar () {
 	        	var x  = document.querySelectorAll(".form-check-input");
 	        	for(var i = 0, j = 0; i < x.length; i++){
