@@ -9,7 +9,7 @@
 <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 
 
-<tags:pageTemplate titulo="Equipe">
+<tags:pageTemplate titulo="Pendencias">
 
 <style>
 	.table{
@@ -70,7 +70,7 @@
 		<th>Tipo de Pendência</th>
 	</tr>
 	<c:forEach items="${tiposPendencias}" var="tp" varStatus="cont" >
-			<tr onClick="gato(${tp.codigoPendencia }, ${cont.index }, ${tp.situacao })">
+			<tr onClick="gato(${tp.codigoPendencia }, ${cont.index }, ${tp.situacao })" data-toggle="modal" data-target="#meuModal">
 				<c:choose>
 				    <c:when test="${tp.situacao eq true}">
 				      	<td id="idt${cont.index }" class="negrito siape${cont.index }">${tp.codigoPendencia }</td> 
@@ -88,6 +88,8 @@
 	</c:forEach>
 </table>	
 
+
+</tags:pageTemplate>
 
 <!-- The Modal -->
 <div class="modal" id="meuModal">
@@ -122,7 +124,7 @@
 				      
 				      <td class="column element"><input id="formReg${count }" type="text" class="form-control" readonly></td>
 				    
-				      <td class="column element"><input id="formDig${count }" type="text" name="nome" class="form-control" onkeyup="chaveDinamica('#formNomeReg', '#formNomeDig')"></td>
+				      <td class="column "><input id="formDig${count }" type="text" name="nome" class="form-control" onkeyup="chaveDinamica('#formNomeReg', '#formNomeDig')"></td>
 				  
 					  <td class="column">copiar</td>
 				      
@@ -134,7 +136,7 @@
 				      
 				      <td class="column element"><input id="formReg${count }" type="text" class="form-control" readonly></td>
 				    
-				      <td class="column element"><input id="formDig${count }" type="text" name="nome" class="form-control" onkeyup="chaveDinamica('#formCUOReg', '#formCUODig')"></td>
+				      <td class="column "><input id="formDig${count }" type="text" name="nome" class="form-control" onkeyup="chaveDinamica('#formCUOReg', '#formCUODig')"></td>
 				  
 					  <td class="column">copiar</td>
 				      
@@ -146,7 +148,7 @@
 				      
 				      <td class="column element"><input id="formReg${count }" type="text" class="form-control" readonly></td>
 				    
-				      <td class="column element"><input id="formDig${count }" type="text" name="nome" class="form-control" onkeyup="chaveDinamica('#formRegionalReg', '#formRegionalDig')"></td>
+				      <td class="column "><input id="formDig${count }" type="text" name="nome" class="form-control" onkeyup="chaveDinamica('#formRegionalReg', '#formRegionalDig')"></td>
 				  
 					  <td class="column">copiar</td>
 				      
@@ -155,29 +157,6 @@
 		    
 	    </table>
 	    <hr>
-	    <!-- <div class="row">
-		    <div class="col">
-		      <label>Código da Unidade Organizacional</label>
-		      <input id="formCUOReg" type="text" class="form-control" readonly>
-		    </div>
-		    <div class="col">
-		      <label>Código da Unidade Organizacional digitado</label>
-		      <input id="formCUODig" type="text" class="form-control" onkeyup="chaveDinamica('#formCUOReg', '#formCUODig')">
-		    </div>
-	    </div>
-	    <hr>
-	    <div class="row">
-		    <div class="col">
-		      <label>Nome da Regional</label>
-		      <input id="formRegionalReg" type="text" class="form-control" readonly>
-		    </div>
-		    <div class="col">
-		      <label>Nome da Regional digitado</label>
-		      <input id="formRegionalDig" type="text" class="form-control" onkeyup="chaveDinamica('#formRegionalReg', '#formRegionalDig')">
-		    </div>
-	    </div>
-	  </div> -->
-	      <!-- Modal footer -->
 	      <div class="modal-footer">
 	        <button type="submit" class="btn btn-danger" >Cadastrar</button>
 	      </div>
@@ -189,19 +168,12 @@
 
 
 
-
-
-
 <script>
 
 	
 	
 	
-	
-	//console.log('attr: '+document.querySelector('.var').getAttribute('value'));
-	
-	
-	
+		
 	
 	function gato(codigoPendencia, cont, situacao) {
 		/*tem que ir testando trocando get por post e vice-versa nesse $.get. Use o chrome pra ver os erros*/
@@ -224,7 +196,7 @@
 				    	  }
 				    	
 				    	  
-				    	$("#meuModal").modal();	  
+				    	//$("#meuModal").modal();	  
 				    	  
 				    	var responseList = [response.usrRep.nome, response.usrTemp.nome, 
 				    						 response.usrRep.codeUo, response.usrTemp.codUo,
@@ -295,5 +267,5 @@
 	
 </script>
 
-</tags:pageTemplate>
+
 
