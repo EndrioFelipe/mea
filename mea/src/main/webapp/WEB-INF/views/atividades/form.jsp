@@ -102,7 +102,7 @@
 				document.querySelector('#porcentage').removeAttribute('placeholder');
 				document.querySelector('#porcentage').setAttribute('readonly','readonly');
 				//document.querySelector('#porcentage').removeAttribute('value');
-				//document.querySelector('#porcentage').setAttribute('value', 100);
+			//	//document.querySelector('#porcentage').setAttribute('value', 100);
 				document.querySelector('#porcentage').value = 100;
 			} else {
 				document.querySelector('#porcentage').removeAttribute('placeholder');
