@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.mea.models.RoleF;
 import org.mea.models.UsrRep;
 import org.mea.models.UsuarioF;
 import org.mea.models.UsuarioTemp;
@@ -52,6 +53,11 @@ public class UsuarioDAO implements UserDetailsService{
 	public UsuarioTemp findUsuarioTemp(String siape) {
 		return manager.createQuery("select distinct(u) from UsuarioTemp u where u.siape = :siape", 
 				UsuarioTemp.class).setParameter("siape", siape).getSingleResult();
+	}
+	
+	public List<RoleF> roles () {
+		return manager.createQuery("select distinct(r) from RoleF r", 
+				RoleF.class).getResultList();
 	}
 	
 

@@ -8,6 +8,7 @@ import org.mea.daos.UsuarioDAO;
 import org.mea.infra.FileSaver;
 import org.mea.models.Pendencias;
 import org.mea.models.RepFuncionarios;
+import org.mea.models.RoleF;
 import org.mea.models.TiposPendencias;
 import org.mea.models.UserQTD;
 import org.mea.models.UsrRep;
@@ -44,8 +45,11 @@ public class PaginasController {
 	@RequestMapping("pendencias")
     public ModelAndView pagPendencias(){
 		List<TiposPendencias> pendencias = pendenciaDAO.listar();
+		List<RoleF> roles = usuarioDAO.roles();
+		roles.forEach(e -> System.out.println("roles: "+e.getNome()));
 		ModelAndView modelandview = new ModelAndView("paginas/pendencias");
 		modelandview.addObject("tiposPendencias", pendencias);
+		modelandview.addObject("authRoles", roles);
         return modelandview;
     }
 	

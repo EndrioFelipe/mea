@@ -86,7 +86,10 @@
 			</tr>
 			
 	</c:forEach>
-</table>	
+</table>
+
+
+				
 
 
 </tags:pageTemplate>
@@ -107,24 +110,27 @@
 	    <div class="row">
 		    <div class="col">
 		      <label>Siape</label>
-		      <input id="formSiape" type="text" class="form-control" disabled>
+		      <input id="formSiape" type="text" name="siape" class="form-control" readonly>
 		    </div>
 	    </div>
 	    <hr>
-	    <label>Nome</label>
 	    <table width="100%">
 	    	<col width="45%">
   			<col width="45%">
   			<col width="10%">
 		    
 		    <c:set var="count" value="-1"/>
+		    	<tr>
+		    		<th class="column" >Dados Registrados</th>
+		    		<th class="column" >Dados Recebidos</th>
+		    	</tr>
 		    
 			    <tr class="">
 				      <c:set var="count" value="${count +1}"/>
 				      
 				      <td class="column element"><input id="formReg${count }" type="text" class="form-control" readonly></td>
 				    
-				      <td class="column "><input id="formDig${count }" type="text" name="nome" class="form-control" onkeyup="chaveDinamica('#formNomeReg', '#formNomeDig')"></td>
+				      <td class="column "><input id="formDig${count }" type="text" name="nome" class="form-control" onkeyup="chaveDinamica('#formReg${count }', '#formDig${count }')"></td>
 				  
 					  <td class="column">copiar</td>
 				      
@@ -136,7 +142,7 @@
 				      
 				      <td class="column element"><input id="formReg${count }" type="text" class="form-control" readonly></td>
 				    
-				      <td class="column "><input id="formDig${count }" type="text" name="nome" class="form-control" onkeyup="chaveDinamica('#formCUOReg', '#formCUODig')"></td>
+				      <td class="column "><input id="formDig${count }" type="text" name="codUo" class="form-control" onkeyup="chaveDinamica('#formReg${count }', '#formDig${count }')"></td>
 				  
 					  <td class="column">copiar</td>
 				      
@@ -148,12 +154,19 @@
 				      
 				      <td class="column element"><input id="formReg${count }" type="text" class="form-control" readonly></td>
 				    
-				      <td class="column "><input id="formDig${count }" type="text" name="nome" class="form-control" onkeyup="chaveDinamica('#formRegionalReg', '#formRegionalDig')"></td>
+				      <td class="column "><input id="formDig${count }" type="text" name="nomeReg" class="form-control" onkeyup="chaveDinamica('#formReg${count }', '#formDig${count }')"></td>
 				  
 					  <td class="column">copiar</td>
 				      
 				    
 			    </tr>
+			    
+			    
+			    	
+			   		 <input type="hidden" name="roles[0].nome" value="${authRoles[0].nome }" /> 
+			   		
+			   					    
+			   
 		    
 	    </table>
 	    <hr>

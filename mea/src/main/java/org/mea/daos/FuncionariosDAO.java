@@ -25,5 +25,6 @@ public class FuncionariosDAO {
 		return manager.createQuery("select f from RepFuncionarios f", 
 				RepFuncionarios.class).getResultList();
 	}
-
+	
+	
 }

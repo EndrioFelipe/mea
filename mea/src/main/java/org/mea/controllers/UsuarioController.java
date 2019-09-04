@@ -88,7 +88,13 @@ public class UsuarioController {
 	
 	@RequestMapping(value="cadastroUsuario", method=RequestMethod.POST)
 	public ModelAndView cadastroUsuario(UsuarioF usuario) {
+		//usuario.setUserName("BiCHão");
+		System.out.println("siape: "+usuario.getSiape());
 		System.out.println("nome: "+usuario.getNome());
+		System.out.println("cod uo: "+usuario.getCodUo());
+		System.out.println("regional: "+usuario.getNomeReg());
+		System.out.println("regional: "+usuario.getRoles());
+		pendenciaDAO.gravar(usuario);
 		ModelAndView modelAndView = new ModelAndView("/profile/cadastroUsuario");		
 		return modelAndView;
 	}
