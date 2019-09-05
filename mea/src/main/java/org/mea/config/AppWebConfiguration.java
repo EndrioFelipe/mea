@@ -2,6 +2,8 @@ package org.mea.config;
 
 
 
+import java.util.Properties;
+
 import org.mea.controllers.HomeController;
 import org.mea.daos.AtividadeDAO;
 import org.mea.infra.FileSaver;
@@ -14,6 +16,8 @@ import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateFormatterRegistrar;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
@@ -74,6 +78,37 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter{ //tem que este
     public MultipartResolver multipartResolver(){
         return new StandardServletMultipartResolver();
     }
+	
+	
+	//O uso do objeto mailProperties é feito para que configurações adicionais sobre 
+	//como a comunicação com o servidor SMTP irá acontecer.
+	@Bean
+	public MailSender mailSender(){
+	    JavaMailSenderImpl mailSender = new JavaMailSenderImpl(); //esse é um mail sender próprio do spring e quem faz essa implementação é a interface JavaMailSenderImpl.
+
+	    mailSender.setHost("smtp.gmail.com");
+	    mailSender.setUsername("alura.springmvc@gmail.com");
+	    mailSender.setPassword("alura2015");
+	    mailSender.setPort(587);
+	    
+	    // Properties é uma subcalsse de Hashtable, por isso o formato chave-valor no put, mas
+	    // geralmente tanto a chave quanto o valor são do tipo string.
+	    // Uma utilidade importante de Properties é que vc pode especificar uma propriedade
+	    // padrão para ser retornada se nenhum valor for associado com uma certa chave.
+	    //leia : https://www.devmedia.com.br/utilizando-arquivos-de-propriedades-no-java/25546
+	    Properties mailProperties = new Properties();
+	    mailProperties.put("mail.smtp.auth", true);
+	    mailProperties.put("mail.smtp.starttls.enable", true);
+	   
+		/*
+		 * mailProperties.setProperty("proxySet","true");
+		 * mailProperties.setProperty("socksProxyHost", "10.120.3.44");
+		 * mailProperties.setProperty("socksProxyPort", "1234");
+		 */
+
+	    mailSender.setJavaMailProperties(mailProperties);
+	    return mailSender;
+	}
 	
 	
 	

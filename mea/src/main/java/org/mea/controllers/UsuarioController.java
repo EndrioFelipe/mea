@@ -1,5 +1,6 @@
 package org.mea.controllers;
 
+import java.net.ConnectException;
 import java.security.Principal;
 
 import javax.persistence.NoResultException;
@@ -13,6 +14,8 @@ import org.mea.models.UsuarioF;
 import org.mea.models.UsuarioTemp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +40,8 @@ public class UsuarioController {
 	@Autowired
 	PendenciaDAO pendenciaDAO;
 	
+	@Autowired
+	private MailSender sender;
 	
 	
 	@RequestMapping(value="{userName}", method=RequestMethod.GET)
@@ -87,16 +92,27 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(value="cadastroUsuario", method=RequestMethod.POST)
-	public ModelAndView cadastroUsuario(UsuarioF usuario) {
-		//usuario.setUserName("BiCHão");
+	public ModelAndView cadastroUsuario(UsuarioF usuario) throws ConnectException {
+		usuario.setUserName("Teste9");
 		System.out.println("siape: "+usuario.getSiape());
 		System.out.println("nome: "+usuario.getNome());
 		System.out.println("cod uo: "+usuario.getCodUo());
 		System.out.println("regional: "+usuario.getNomeReg());
 		System.out.println("regional: "+usuario.getRoles());
 		pendenciaDAO.gravar(usuario);
+		//enviaEmail();		
 		ModelAndView modelAndView = new ModelAndView("/profile/cadastroUsuario");		
 		return modelAndView;
+	}
+	
+	private void enviaEmail() {
+		SimpleMailMessage email = new SimpleMailMessage();
+		email.setSubject("Cadastro realizado com sucesso");
+		email.setTo("endrio.souza@hotmail.com");
+		email.setText("cadastro feito");
+		email.setFrom("endrio.souza@hotmail.com");
+		
+		sender.send(email);
 	}
 	
 	

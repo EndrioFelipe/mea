@@ -153,7 +153,22 @@
 	    <groupId>com.fasterxml.jackson.core</groupId>
 	    <artifactId>jackson-databind</artifactId>
 	    <version>2.5.1</version>
-	</dependency>  
+	</dependency> 
+	
+	<!-- Email -->
+	<dependency>
+	    <groupId>javax.mail</groupId>
+	    <artifactId>mail</artifactId>
+	    <version>1.4.7</version>
+	</dependency>
+	
+	<!-- ########### SPRING-CONTEXT-SUPPORT (Para funcionar o Spring Mail) ############ -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>3.0.5.RELEASE</version>
+        </dependency>
+	 
 </dependencies>
 
 
