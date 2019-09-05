@@ -7,6 +7,21 @@
   <packaging>war</packaging>
   <build>
     <finalName>mea</finalName>   
+    
+    <plugins>
+	      <plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-jar-plugin</artifactId>
+	        <version>3.1.2</version>
+	        <executions>
+	          <execution>
+	            <goals>
+	              <goal>test-jar</goal>
+	            </goals>
+	          </execution>
+	        </executions>
+	      </plugin>
+	</plugins>
      
   </build>
   <properties>
@@ -169,6 +184,13 @@
             <version>3.0.5.RELEASE</version>
         </dependency>
 	 
+	 <!-- JUnit -->
+	 <dependency>
+	    <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	    <version>4.12</version>
+	    <scope>test</scope>
+	</dependency>
 </dependencies>
 
 

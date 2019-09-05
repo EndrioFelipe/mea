@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>Olá, ${usuario.nome}</h2>
+	<p>página não encontrada.</p>
 </body>
 </html>

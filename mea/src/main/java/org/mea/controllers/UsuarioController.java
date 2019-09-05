@@ -17,6 +17,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,10 +58,10 @@ public class UsuarioController {
 			 return modelAndView;
 		} else {
 			System.out.println("não");
-			ModelAndView modelAndView = new ModelAndView("");
+			ModelAndView modelAndView = new ModelAndView("/acesso/acessoProibido");
 			return modelAndView;
 		}
-	    
+		
 	}
 	
 	
@@ -114,7 +115,6 @@ public class UsuarioController {
 		
 		sender.send(email);
 	}
-	
 	
 	
 }
