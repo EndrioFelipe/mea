@@ -27,9 +27,9 @@ public class AtividadeDAO {
 				Atividades.class).getResultList();
 	}
 	
-	public List<Atividades> listarFunc() {
-		return manager.createQuery("select distinct(a) from Atividades a join fetch a.func", 
-				Atividades.class).getResultList();
-	}
+//	public List<Atividades> listarFunc() {
+//		return manager.createQuery("select distinct(a) from Atividades a join fetch a.func", 
+//				Atividades.class).getResultList();
+//	}
 	
 }

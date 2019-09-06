@@ -5,8 +5,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
-
-<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+<%-- 
+<script src="http://code.jquery.com/jquery-1.8.3.js"></script> --%>
 
 
 <tags:pageTemplate titulo="Pendencias">
@@ -169,7 +169,7 @@
 			   
 		    
 	    </table>
-	    <hr>
+	   
 	      <div class="modal-footer">
 	        <button type="submit" class="btn btn-danger" >Cadastrar</button>
 	      </div>

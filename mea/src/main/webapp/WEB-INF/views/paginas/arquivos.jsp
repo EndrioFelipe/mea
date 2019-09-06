@@ -15,9 +15,9 @@
 	  <table class="table">
 	    <thead class="thead-dark">
 	      <tr>
-	        <th>Firstname</th>
-	        <th>Lastname</th>
-	        <th>Email</th>
+	        <th>Nome do Arquivo</th>
+	        <th>Descrição</th>
+	        <th>Status</th>
 	      </tr>
 	    </thead>
 	    <tbody>
