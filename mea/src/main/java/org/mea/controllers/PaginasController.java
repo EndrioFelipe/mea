@@ -14,7 +14,6 @@ import org.mea.models.UserQTD;
 import org.mea.models.UsrRep;
 import org.mea.models.UsuarioTemp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -81,21 +80,27 @@ public class PaginasController {
 	    return modelAndView;
 	}
 	
+	@RequestMapping(value="arquivos", method=RequestMethod.GET)
+	public ModelAndView fileList(){
+	    ModelAndView modelAndView = new ModelAndView("paginas/arquivos");
+	    return modelAndView;
+	}	
+	
 	@RequestMapping(method=RequestMethod.POST)	
 	public ModelAndView gravar(MultipartFile file, RepFuncionarios repFuncionarios)  {
 	
 	
-	if(file != null && !file.getOriginalFilename().isEmpty()) {
-		System.out.println("dfsggdf");
-		String path = fileSaver.write("resources/arquivos/fotos", file);
-		repFuncionarios.setCaminhoFoto(path);
-	}
-				
-////	if(result.hasErrors()){
-////        return form(atividade);
-////    }		
-//    
-     funcionariosDAO.gravar(repFuncionarios);
-	 return new ModelAndView("redirect:paginas/equipe");
+		if(file != null && !file.getOriginalFilename().isEmpty()) {
+			System.out.println("dfsggdf");
+			String path = fileSaver.write("resources/arquivos/fotos", file);
+			repFuncionarios.setCaminhoFoto(path);
+		}
+					
+	////	if(result.hasErrors()){
+	////        return form(atividade);
+	////    }		
+	//    
+	     funcionariosDAO.gravar(repFuncionarios);
+		 return new ModelAndView("redirect:paginas/equipe");
 	}
 }

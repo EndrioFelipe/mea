@@ -1,33 +1,13 @@
-<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ include file = "/WEB-INF/views/cabecalho.jsp" %>   
+    pageEncoding="UTF-8"%> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
 
-<html>
-<head>
+<tags:pageTemplate titulo="formEquipe">
 
-<c:url value="/resources" var="Path"/>
-<link href="${Path}/css/cssTest.css" rel="stylesheet" type="text/css"  />
-<link rel="stylesheet" href="${Path}/css/bootstrap.min.css" /> 
-<link rel="stylesheet" href="${Path}/css/croppie.css" />
-<script src="${Path}/js/croppie.js"></script>
-<script src="${Path}/js/popper.min.js"></script>  
-<script src="${Path}/js/jquery.min.js"></script>
-<script src="${Path}/js/bootstrap.min.js"></script>
-
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-	#my-image, #use {
-	  display: none;
-	}
-</style>
-</head>
-<body class="container">
 	<form:form class="form-group" action="${ s:mvcUrl('PC#gravar').build() }" method="post" commandName="repFuncionarios" id="meuForm" enctype="multipart/form-data">
 		
 		<div class="form-group">
@@ -56,9 +36,7 @@
 			
 	</form:form>
 	
-	 
-
-</body>
+</tags:pageTemplate>
 
 <script>
 	var input = document.querySelector('#imagemCarregada');
@@ -128,4 +106,3 @@
 
 
 </script>
-</html>

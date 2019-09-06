@@ -89,7 +89,7 @@ public class AtividadesController {
 	        return form(atividade);
 	    }		
 	    
-	     //atividadeDAO.gravar(atividade);
+	     atividadeDAO.gravar(atividade);
 		 return new ModelAndView("redirect:atividades");
 		}
 	

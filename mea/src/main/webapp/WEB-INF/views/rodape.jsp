@@ -115,11 +115,10 @@
 	  </div>
 	
 	  <div class="footer-copyright text-center py-3" id="data">
-	  		
 	  </div>
 	  
 	  <div style="font-size:0.7em;margin:10px 0px; text-align:right">
-	  	Desenvolvido por Endrio Felipe Assis de Souza
+	  	<!-- Desenvolvido por Endrio Felipe Assis de Souza -->
 	  </div>
 	
 	</footer>

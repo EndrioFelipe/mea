@@ -5,6 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<style>
+	body {
+		margin: 0 30px;
+	}
+</style>
+
 </head>
 <body>
 	<h1>Acesso Negado</h1>
