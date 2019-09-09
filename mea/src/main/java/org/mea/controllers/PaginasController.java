@@ -6,6 +6,7 @@ import org.mea.daos.FuncionariosDAO;
 import org.mea.daos.PendenciaDAO;
 import org.mea.daos.UsuarioDAO;
 import org.mea.infra.FileSaver;
+import org.mea.models.Arquivo;
 import org.mea.models.Pendencias;
 import org.mea.models.RepFuncionarios;
 import org.mea.models.RoleF;
@@ -80,16 +81,12 @@ public class PaginasController {
 	    return modelAndView;
 	}
 	
-	@RequestMapping(value="arquivos", method=RequestMethod.GET)
-	public ModelAndView fileList(){
-	    ModelAndView modelAndView = new ModelAndView("paginas/arquivos");
-	    return modelAndView;
-	}	
-	
+		
 	@RequestMapping(method=RequestMethod.POST)	
 	public ModelAndView gravar(MultipartFile file, RepFuncionarios repFuncionarios)  {
 	
-	
+		System.out.println("equipe");
+		System.out.println("nome do arquivo: "+file.getOriginalFilename());
 		if(file != null && !file.getOriginalFilename().isEmpty()) {
 			System.out.println("dfsggdf");
 			String path = fileSaver.write("resources/arquivos/fotos", file);
@@ -103,4 +100,6 @@ public class PaginasController {
 	     funcionariosDAO.gravar(repFuncionarios);
 		 return new ModelAndView("redirect:paginas/equipe");
 	}
+	
+	
 }

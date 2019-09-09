@@ -92,7 +92,7 @@
 		.topnav {
 		  overflow: hidden;
 		  background-color: #e9e9e9;
-		  margin-bottom: 30px;
+		   margin-bottom: 30px;
 		}
 		
 		.topnav a {
@@ -178,7 +178,7 @@
 		  <a class="active" href="/mea">Home <span class="sr-only">(current)</span></a>
 		  <a href="/mea/atividades">Atividades</a>
 		  <a href="/mea/paginas/equipe">Equipe</a>
-		  <a href="/mea/paginas/arquivos">Arquivos</a>
+		  <a href="/mea/arquivo/arquivos">Arquivos</a>
 		  <a id="nPend" href="/mea/paginas/pendencias">Pendências(${pendencias.quantidade})</a>
 		  <div class="login-container">
 			 
@@ -198,7 +198,7 @@
 			        </div> 
 			      
 		        
-				</security:authorize>
+			</security:authorize>
 			 
 			 
 			 <security:authorize access="!isAuthenticated()">
@@ -214,7 +214,7 @@
 		  
 		  
 		  </div>
-		
+		</div>
 		
 		
 

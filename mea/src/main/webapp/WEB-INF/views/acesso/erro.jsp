@@ -19,6 +19,7 @@
 	<ol>
 		<li>Você tentou acessar uma página de usuário inexistente.</li>
 		<li>Você tentou gravar um arquivo em uma pasta que não existe.</li>
+		<li>Você tentou colocar um formato de data não suportado.</li>
 	</ol>
 </body>
 </html>
