@@ -1,7 +1,9 @@
 package org.mea.controllers;
 
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.mea.daos.ArquivoDAO;
 import org.mea.infra.FileSaver;
 import org.mea.models.Arquivo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +20,20 @@ public class ArquivoController {
 	@Autowired
 	FileSaver fileSaver;
 	
+	@Autowired
+	ArquivoDAO arquivoDAO;
+	
 	@RequestMapping(value="arquivos", method=RequestMethod.GET)
 	public ModelAndView fileList(){
+		List<Arquivo> listaArquivos = new ArrayList<>();
+		listaArquivos = arquivoDAO.listar();		
 	    ModelAndView modelAndView = new ModelAndView("arquivo/arquivos");
+	    modelAndView.addObject("arquivos", listaArquivos);
 	    return modelAndView;
 	}	
 	
 	@RequestMapping("formArquivo")
-	public ModelAndView form(Arquivo arquivo) {
+	public ModelAndView formArquivo(Arquivo arquivo) {
 		ModelAndView modelandview = new ModelAndView("arquivo/formArquivo");
 		return modelandview;
 	}
@@ -33,18 +41,20 @@ public class ArquivoController {
 	@RequestMapping(method=RequestMethod.POST)	
 	public ModelAndView gravarArquivo(MultipartFile file, Arquivo arquivo)  {
 	
-		System.out.println("data: "+arquivo.getDataUpload());
-		System.out.println("file: "+file.getOriginalFilename());
+		
 		if(file != null && !file.getOriginalFilename().isEmpty()) {
 			System.out.println("dfsggdf");
 			String path = fileSaver.write("resources/arquivos/doc", file);
 			arquivo.setArquivoPath(path);
 		}
+		
+		arquivo.setNome(file.getOriginalFilename());
+		
+		arquivoDAO.gravar(arquivo);
 					
 	////	if(result.hasErrors()){
 	////        return form(atividade);
-	////    }		
-	//    
+	////    }	
 	    
 		 return new ModelAndView("redirect:arquivo/arquivos");
 	}

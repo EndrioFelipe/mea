@@ -29,10 +29,12 @@
 </tags:pageTemplate>
 
 <script>
-	var x = new Date('2013-05-23');
+	/* var x = new Date('2013-05-23');
 	var y = new Date('2013-04-23');
-	console.log(+y > +x);
+	console.log(+y > +x); */
 
 	let today = new Date();
 	document.querySelector('.uploadDate').value = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
+	
+	
 </script>
