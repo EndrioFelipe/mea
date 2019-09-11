@@ -94,7 +94,8 @@ public class UsuarioController {
 	
 	@RequestMapping(value="cadastroUsuario", method=RequestMethod.POST)
 	public ModelAndView cadastroUsuario(UsuarioF usuario) throws ConnectException {
-		usuario.setUserName("Teste9");
+		usuario.setUserName(usuario.getNome());
+		usuario.setSenha("$2a$10$Uyyw80P39/qSg9pBK4U7Gu6u0NRJB.EfgZeaeGZLCNOiB6oUmU2dC");
 		System.out.println("siape: "+usuario.getSiape());
 		System.out.println("nome: "+usuario.getNome());
 		System.out.println("cod uo: "+usuario.getCodUo());

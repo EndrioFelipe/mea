@@ -43,6 +43,7 @@
 	    
 	   
 	  </table>
+	  <p><button onclick="sortTable()">Sort</button></p>
 	  
 	</div>
 
@@ -60,6 +61,56 @@
 		lista[cont].textContent = 'há '+diffDays+' dias.';
 		cont++;
 	});
+	
+	
+	function sortTable() {
+		  var table, rows, switching, i, x, y, shouldSwitch;
+		  table = document.querySelector(".table");
+		  switching = true;
+		  /*Make a loop that will continue until
+		  no switching has been done:*/
+		  while (switching) {
+		    //start by saying: no switching is done:
+		    switching = false;
+		    rows = table.rows;
+		    /*Loop through all table rows (except the
+		    first, which contains table headers):*/
+		    for (i = 1; i < (rows.length - 1); i++) {
+		      //start by saying there should be no switching:
+		      shouldSwitch = false;
+		      
+		      //esse [0] depois do ("TD") significa a coluna que vc vai pegar
+		      console.log('x'+i+': '+rows[i].getElementsByTagName("TD")[2].textContent)
+		      console.log('y'+(i+1)+': '+rows[i + 1].getElementsByTagName("TD")[2].textContent)
+		      
+		      
+
+		      x = parseInt(rows[i].getElementsByTagName("TD")[2].textContent.replace(/\D/g, ''));
+		      y = parseInt(rows[i + 1].getElementsByTagName("TD")[2].textContent.replace(/\D/g, ''));
+		      //compara os elementos de uma linha e a que vem depois dela
+		      /*x = rows[i].getElementsByTagName("TD")[0];
+		      y = rows[i + 1].getElementsByTagName("TD")[0];*/
+
+
+		      
+		      console.log('xxxxxxx:? '+ x)
+		      
+		      //check if the two rows should switch place:
+		      /* if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) { */
+			  if (x > y) { 			   
+		        //if so, mark as a switch and break the loop:
+		        shouldSwitch = true;
+		        break;
+		      } 
+		    }
+		    if (shouldSwitch) {
+		      /*If a switch has been marked, make the switch
+		      and mark that a switch has been done:*/
+		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		      switching = true;
+		    }
+		  }
+		}
 </script>
 
 </tags:pageTemplate>
