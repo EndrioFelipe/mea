@@ -41,7 +41,7 @@
 		   		
 		 <c:forEach items="${repFuncionarios}" varStatus="cont" >
 			<div class="form-check">
-				<input class="form-check-input" type="checkbox"  name="" value="${repFuncionarios[cont.index].nome}" id="check${cont.index}"  />
+				<input class="form-check-input" type="checkbox"  name="" value="${repFuncionarios[cont.index].nome}"  />
 				<label >
 					${repFuncionarios[cont.index].nome}
 				</label>
@@ -85,6 +85,8 @@
 			
 		</form:form>
 		
+		<a onClick="teste()">sadfdas</a>
+		
 	<script type="text/javascript">
 	
 		$('#datepicker').datepicker({
@@ -114,17 +116,37 @@
 			
 		}
 		
-		
+		function teste () {
+			let y  = document.querySelectorAll(".form-check-input");
+        	var c = 0;
+        	console.log()
+		}
 		
 		function desabilitar () {
-	        	var x  = document.querySelectorAll(".form-check-input");
-	        	for(var i = 0, j = 0; i < x.length; i++){
-	        		if(document.querySelector("#check"+i).checked){
-	        			document.getElementById("check"+i).setAttribute("name", "func["+j+"].nome");
-	        			j++;	        			
-	        		}	        		
-	        	}   
+	        	
+
+			let x  = document.querySelectorAll(".form-check-input");
+        	var c = 0;
+        	x.forEach(w => {
+        			if(w.checked) {
+        				w.setAttribute("name", "func["+c+"].nome");
+        				console.log(w);
+        			}
+        			c++;
+        		}); 
+        	
+        	
+        	/* var x  = document.querySelectorAll(".form-check-input");
+        	for(var i = 0, j = 0; i < x.length; i++){
+        		if(document.querySelector("#check"+i).checked){
+        			document.getElementById("check"+i).setAttribute("name", "func["+j+"].nome");
+        			j++;	        			
+        		}	        		
+        	}   */
+        	
+        	
 	        } 
+		
 	</script>
 </body>
 </tags:pageTemplate>

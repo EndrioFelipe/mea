@@ -18,6 +18,9 @@
 	<div class="container">
 	  <h2>Arquivos</h2>
 	  <p>espaço para descrição</p>
+	  
+	  <input type="text" id="myInput" onkeyup="search()" placeholder="Search for names.." title="Type in a name">
+	  
 	  <table class="table">
 	    
 	    	 <thead class="thead-dark">
@@ -60,8 +63,30 @@
 		let diffDays = Math.round(Math.abs((secondDate.getTime() - novo.getTime())/(oneDay)));
 		lista[cont].textContent = 'há '+diffDays+' dias.';
 		cont++;
-	});
+	}); 
 	
+	function search(){
+		 var input, filter, table, tr, td, i, txtValue;
+		  input = document.getElementById("myInput");
+		  filter = input.value.toUpperCase();
+		  console.log("input: "+input.value.toUpperCase())
+		  table = document.querySelector(".table");
+		  tr = table.getElementsByTagName("tr");
+		  for (i = 0; i < tr.length; i++) {
+		    td = tr[i].getElementsByTagName("td")[0];
+		    console.log('td: '+td);
+		    if (td) {
+		    	console.log("aqui");
+		      txtValue = td.textContent || td.innerText;
+		      console.log('indexof: '+txtValue.toUpperCase().indexOf(filter));
+		      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+		        tr[i].style.display = "";
+		      } else {
+		        tr[i].style.display = "none";
+		      }
+		    }       
+		  }
+	}
 	
 	function sortTable() {
 		  var table, rows, switching, i, x, y, shouldSwitch;
