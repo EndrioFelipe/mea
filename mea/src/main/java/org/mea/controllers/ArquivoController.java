@@ -1,5 +1,6 @@
 package org.mea.controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,10 @@ public class ArquivoController {
 	
 	@RequestMapping(value="arquivos", method=RequestMethod.GET)
 	public ModelAndView fileList(){		
-	    ModelAndView modelAndView = new ModelAndView("arquivo/arquivos");
+		List<Arquivo> lista = new ArrayList<>(); 
+		ModelAndView modelAndView = new ModelAndView("arquivo/arquivos");
+	    lista = arquivoDAO.listar();
+	    modelAndView.addObject("arquivos", lista);
 	    return modelAndView;
 	}	
 	
@@ -68,6 +72,11 @@ public class ArquivoController {
     public @ResponseBody List<Arquivo> selectFolder() {
 		List<Arquivo> lista = new ArrayList<>();
 		lista = arquivoDAO.listar();
+		SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+		lista.forEach(e -> s.format(e.getDataUpload().getTime()));
+		
+		
+		//String a = s.format(c.getTime());
 		return lista;
 	}
 }

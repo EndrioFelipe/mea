@@ -122,22 +122,57 @@
 	</div>
 	
 	<div id="ff" onclick="teste('Pasta2')">clica aqui</div>
+	
+	<td class="dateToday" title="${ arquivo.dataUpload.time}">
+				        	<fmt:formatDate pattern="dd/MM/yyyy" value="${ arquivo.dataUpload.time}"/>
+				        </td> 
 
 <script>
+
 	
 	var fileList = [];
 		$.get("${pageContext.request.contextPath}/arquivo/pasta",	{	
 			 }
 		      ,	function(response) {	
 		    	  fileList = response;
+		    	  console.log("response: "+ Date.parse(response[0].dataUpload));
 		      });
 
 	    function teste(pasta){
-	    	console.log(pasta);
-	    	fileList
-	    		.forEach(d => console.log(d.descricao));
+	    	var folderList = fileList
+	    		.filter(e => e.pasta.nome == pasta);
+	    	
+	    		
+	    		/* folderList.map(f => {
+	    			return  */
+	    		document.querySelector('#body44').innerHTML = 
+	    			folderList.map(e =>
+    					'<tr>'
+    						+'<td>'+e.dataUpload.time+'</td>'
+    						+'<td>'+e.descricao+'</td>'
+    						+'<td>'
+    							+'<fmt:formatDate pattern="dd/MM/yyyy" value=""/>'
+    							+'</td>'
+    					+'</tr>'
+	    				
+	    			).join('');
 	    }
+	    		
+	    		
+	    /* `<tr>
+		<td>`+e.dataUpload.time+`</td>
+		<td>`+e.descricao+`</td>
+		<td class="dateToday" >
+    		asdf
+    	</td> 
+	 </tr>` */
+	    		
+	    		
+	    		
+	    		
 		
+		//<td><a class="word" href="${pageContext.request.contextPath}/${arquivo.arquivoPath}">f.nome</a></td>
+	    
 		/* var b = ${arquivo.pasta.nome == 'Pasta2'};
 		document.querySelector("#body44").innerHTML =
 		
