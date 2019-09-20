@@ -10,9 +10,89 @@
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css" />
  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
 
+<style>
+	.file {
+    background:#eee;
+    background:-moz-linear-gradient(top, #ddd 0, #eee 15%, #fff 40%, #fff 70%, #eee 100%);
+    background:-webkit-linear-gradient(top, #ddd 0, #eee 15%, #fff 40%, #fff 70%, #eee 100%);
+    border:1px solid #ccc;
+    -moz-border-radius:3px 15px 3px 3px;
+    -webkit-border-radius:3px 15px 3px 3px;
+    border-radius:3px 15px 3px 3px;
+    -moz-box-shadow:inset rgba(255,255,255,0.8) 0 1px 1px;
+    -webkit-box-shadow:inset rgba(255,255,255,0.8) 0 1px 1px;
+    box-shadow:inset rgba(255,255,255,0.8) 0 1px 1px;
+    display: inline-block;
+    width: 20px;
+    height: 25px;
+    position:relative;
+    text-indent:-9999em;
+    margin-bottom: -8px;
+    margin-top: 12px;
+  }
+  .file:before {
+    content: '';
+    position: absolute;
+    right:0;
+    width: 10px;
+    height: 10px;
+    background:#ccc;
+    background:-moz-linear-gradient(45deg, #fff 0,  #eee 50%, #ccc 100%);
+    background:-webkit-linear-gradient(45deg, #fff 0,  #eee 50%, #ccc 100%);
+    box-shadow:rgba(0,0,0,0.05) -1px 1px 1px, inset white 0 0 1px;
+    border-bottom:1px solid #ccc;
+    border-left:1px solid #ccc;
+    -moz-border-radius:0 14px 0 0;
+    -webkit-border-radius:0 14px 0 0;
+    border-radius:0 10px 0 0;
+  }
 
+  .file:after {
+    content:"";
+    display:block;
+    position:absolute;
+    left:0;
+    top:0;
+    width: 40%;
+    margin: 10px 20% 0;
+    background:#ccc;
+    background:-moz-linear-gradient(top, #ccc 0, #ccc 20%, #fff 20%, #fff 40%, #ccc 40%, #ccc 60%, #fff 60%, #fff 80%, #ccc 80%, #ccc 100%);
+    background:-webkit-linear-gradient(top, #ccc 0, #ccc 20%, #fff 20%, #fff 40%, #ccc 40%, #ccc 60%, #fff 60%, #fff 80%, #ccc 80%, #ccc 100%);
+    height: 8px;
+  }
+
+
+  .folder {
+    width: 30px;
+    height: 20px;
+    display: inline-block;
+    margin: auto;
+    position: relative;
+    background-color: #708090;
+    border-radius: 0 3px 3px 3px;
+    /*box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.59);*/
+    margin-bottom: -8px;
+    margin-top: 12px;
+  }
+
+  .folder:before {
+    content: '';
+    width: 50%;
+    height: 0.2em;
+    border-radius: 0 20px 0 0;
+    background-color: #708090;
+    position: absolute;
+    top: -0.2em;
+    left: 0px;
+  }
+	
+</style>
 <tags:pageTemplate titulo="Arquivos">
-
+  	
+  	<span><div class="file"></div></span>
+	
+	<a href="https://www.google.com/"><span><div class="folder"></div></span></a>
+	
 	<a class="nav-link" href="${pageContext.request.contextPath}/arquivo/formArquivo">cadastro de arquivos</a>
 
 	<div class="container">
@@ -31,17 +111,8 @@
 		        <th></th>
 		      </tr>
 		    </thead>
-		    <tbody>
-		    	<c:forEach items="${arquivos }" var="arquivo" >
-			      <tr>
-			      	<td><a class="word" href="${pageContext.request.contextPath}/${arquivo.arquivoPath}">${arquivo.nome }</a></td>
-			        <td>${arquivo.descricao }</td>
-			        <td class="dateToday" title="${ arquivo.dataUpload.time}">
-			        	<fmt:formatDate pattern="dd/MM/yyyy" value="${ arquivo.dataUpload.time}"/>
-			        </td> 
-			        <td></td>
-			      </tr>			      
-	 		   </c:forEach>
+		    <tbody id="body44">
+		    	
 		    </tbody>
 	    
 	   
@@ -49,8 +120,52 @@
 	  <p><button onclick="sortTable()">Sort</button></p>
 	  
 	</div>
+	
+	<div id="ff" onclick="teste('Pasta2')">clica aqui</div>
 
 <script>
+	
+	var fileList = [];
+		$.get("${pageContext.request.contextPath}/arquivo/pasta",	{	
+			 }
+		      ,	function(response) {	
+		    	  fileList = response;
+		      });
+
+	    function teste(pasta){
+	    	console.log(pasta);
+	    	fileList
+	    		.forEach(d => console.log(d.descricao));
+	    }
+		
+		/* var b = ${arquivo.pasta.nome == 'Pasta2'};
+		document.querySelector("#body44").innerHTML =
+		
+			`<c:forEach items="${arquivos }" var="arquivo" >
+				<c:set var = "gg" value = "pasta"/>
+			    <c:if test="${arquivo.pasta.nome == pasta}">
+			      	  <tr>
+				      	<td><a class="word" href="${pageContext.request.contextPath}/${arquivo.arquivoPath}">${arquivo.nome }</a></td>
+				        <td>${arquivo.descricao }</td>
+				        <td class="dateToday" title="${ arquivo.dataUpload.time}">
+				        	<fmt:formatDate pattern="dd/MM/yyyy" value="${ arquivo.dataUpload.time}"/>
+				        </td> 
+				        <td></td>
+				      </tr>	
+			    </c:if>
+			 </c:forEach> ` */
+
+      <%-- <tr>
+      	<td><a class="word" href="${pageContext.request.contextPath}/${arquivo.arquivoPath}">${arquivo.nome }</a></td>
+        <td>${arquivo.descricao }</td>
+        <td class="dateToday" title="${ arquivo.dataUpload.time}">
+        	<fmt:formatDate pattern="dd/MM/yyyy" value="${ arquivo.dataUpload.time}"/>
+        </td> 
+        <td></td>
+      </tr>	 --%>		      
+	   	
+	
+	
 	var lista =[];
 	lista = document.querySelectorAll('.dateToday');	
 	var secondDate = new Date();

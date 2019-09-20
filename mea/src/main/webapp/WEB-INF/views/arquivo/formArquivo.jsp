@@ -17,6 +17,19 @@
 	        <input class="form-control" type="text" name="descricao" />
 	    </div>
 	    
+	    <div class="form-group col-md-4">
+	      <label for="inputState">State</label>
+	      <select id="inputState" class="form-control" name="pasta.nome">
+	        <option selected>Choose...</option>
+	        <c:forEach items="${pastas }" var="pasta">
+				<option value="${pasta.nome }">${pasta.nome }</option>
+			</c:forEach>
+	      </select>
+	    </div>
+	    
+	    
+	    
+	    
 		<input class="uploadDate" type="hidden" data-date-format="dd/mm/yyyy" name="dataUpload" /> 
 	    
 	    <input type="file" name="file" />
@@ -25,6 +38,9 @@
 		<button type="submit" class="btn btn-primary submitForm">Cadastrar Arquivo</button> 
 			
 	</form:form>
+	
+	
+	
 	
 </tags:pageTemplate>
 

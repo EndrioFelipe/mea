@@ -1,12 +1,17 @@
 package org.mea.models;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -17,7 +22,8 @@ public class Arquivo {
 		@GeneratedValue(strategy=GenerationType.IDENTITY)
 		private int id;
 		private String nome;
-		private String pasta;
+		@ManyToOne(fetch=FetchType.EAGER)
+		private Pasta pasta;
 		
 		@Lob
 		private String descricao;
@@ -43,11 +49,11 @@ public class Arquivo {
 			this.nome = nome;
 		}
 		
-		public String getPasta() {
+		public Pasta getPasta() {
 			return pasta;
 		}
 
-		public void setPasta(String pasta) {
+		public void setPasta(Pasta pasta) {
 			this.pasta = pasta;
 		}
 

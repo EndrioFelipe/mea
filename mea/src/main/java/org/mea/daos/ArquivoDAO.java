@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.mea.models.Arquivo;
-import org.mea.models.RepFuncionarios;
+import org.mea.models.Pasta;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,15 +14,22 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ArquivoDAO {
 	@PersistenceContext
-    private EntityManager manager;
-	
-	public void gravar(Arquivo arquivo){
-        manager.persist(arquivo);
-    }
-	
-	public List<Arquivo> listar () {
-		return manager.createQuery("select distinct(a) from Arquivo a", 
-				Arquivo.class).getResultList();
+	private EntityManager manager;
+
+	public void gravar(Arquivo arquivo) {
+		manager.persist(arquivo);
 	}
+
+	public List<Arquivo> listar() {
+		return manager.createQuery("select distinct(a) from Arquivo a join fetch a.pasta ", Arquivo.class)
+				.getResultList();
+	}
+
 	
+	public List<Pasta> listarPastas () { 
+		return manager.createQuery("select distinct(p) from Pasta p ",Pasta.class)
+				.getResultList(); 
+		}
+	 
+
 }

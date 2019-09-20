@@ -6,10 +6,15 @@ import java.util.List;
 import org.mea.daos.ArquivoDAO;
 import org.mea.infra.FileSaver;
 import org.mea.models.Arquivo;
+import org.mea.models.Pasta;
+import org.mea.models.UserQTD;
+import org.mea.models.UsrRep;
+import org.mea.models.UsuarioTemp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,17 +29,17 @@ public class ArquivoController {
 	ArquivoDAO arquivoDAO;
 	
 	@RequestMapping(value="arquivos", method=RequestMethod.GET)
-	public ModelAndView fileList(){
-		List<Arquivo> listaArquivos = new ArrayList<>();
-		listaArquivos = arquivoDAO.listar();		
+	public ModelAndView fileList(){		
 	    ModelAndView modelAndView = new ModelAndView("arquivo/arquivos");
-	    modelAndView.addObject("arquivos", listaArquivos);
 	    return modelAndView;
 	}	
 	
 	@RequestMapping("formArquivo")
 	public ModelAndView formArquivo(Arquivo arquivo) {
 		ModelAndView modelandview = new ModelAndView("arquivo/formArquivo");
+		List<Pasta> lista = new ArrayList<>(); 
+		lista = arquivoDAO.listarPastas();
+		modelandview.addObject("pastas", lista);
 		return modelandview;
 	}
 	
@@ -57,5 +62,12 @@ public class ArquivoController {
 	////    }	
 	    
 		 return new ModelAndView("redirect:arquivo/arquivos");
+	}
+	
+	@RequestMapping("/pasta")
+    public @ResponseBody List<Arquivo> selectFolder() {
+		List<Arquivo> lista = new ArrayList<>();
+		lista = arquivoDAO.listar();
+		return lista;
 	}
 }
