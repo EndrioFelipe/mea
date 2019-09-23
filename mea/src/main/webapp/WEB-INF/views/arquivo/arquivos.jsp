@@ -121,7 +121,7 @@
 	  
 	</div>
 	
-	<div id="ff" onclick="teste('Pasta2')">clica aqui</div>
+	<div id="ff" onclick="teste('Pasta1')">clica aqui</div>
 	
 	<td class="dateToday" title="${ arquivo.dataUpload.time}">
 				        	<fmt:formatDate pattern="dd/MM/yyyy" value="${ arquivo.dataUpload.time}"/>
@@ -135,30 +135,33 @@
 			 }
 		      ,	function(response) {	
 		    	  fileList = response;
-		    	  console.log("response: "+ Date.parse(response[0].dataUpload));
 		      });
+		
+		var secondDate = new Date();
+		var oneDay = 24*60*60*1000;
+		
 
-	    function teste(pasta){
-	    	var folderList = fileList
-	    		.filter(e => e.pasta.nome == pasta);
-	    	
+    function teste(pasta){
+    	var folderList = fileList
+    		.filter(e => e.pasta.nome == pasta);
+    	
+    		document.querySelector('#body44').innerHTML = 
+    			folderList.map((e) => { 
+   					let current = new Date(e.dataUpload);
+   					var diffDays = Math.round(Math.abs((secondDate.getTime() - current.getTime()) / (oneDay)));
+   					console.log('e path: '+typeof e.arquivoPath);
+    				return `
+	    				<tr>
+    						<td><a href=${pageContext.request.contextPath}/`+e.arquivoPath+`>`+e.nome+`</a></td>
+    						<td>`+e.descricao+`</td>
+    						<td>`+(diffDays != 1 ? diffDays+' dias atrás' : diffDays+' dia atrás')+`</td>
+    					</tr>
+   						`
+    				
+    			}).join('');
+    }
 	    		
-	    		/* folderList.map(f => {
-	    			return  */
-	    		document.querySelector('#body44').innerHTML = 
-	    			folderList.map(e =>
-    					'<tr>'
-    						+'<td>'+e.dataUpload.time+'</td>'
-    						+'<td>'+e.descricao+'</td>'
-    						+'<td>'
-    							+'<fmt:formatDate pattern="dd/MM/yyyy" value=""/>'
-    							+'</td>'
-    					+'</tr>'
-	    				
-	    			).join('');
-	    }
-	    		
-	    		
+   // <td><a href="${pageContext.request.contextPath}/resources/arquivos/doc/ash.png">`+e.nome+`</a></td>	
 	    /* `<tr>
 		<td>`+e.dataUpload.time+`</td>
 		<td>`+e.descricao+`</td>
@@ -187,7 +190,7 @@
 				        </td> 
 				        <td></td>
 				      </tr>	
-			    </c:if>
+			    </c:if>var secondDate = new Date();
 			 </c:forEach> ` */
 
       <%-- <tr>
@@ -201,19 +204,20 @@
 	   	
 	
 	
-	var lista =[];
+	/* var lista =[];
 	lista = document.querySelectorAll('.dateToday');	
 	var secondDate = new Date();
 	secondDate.setHours(0,0,0,0);
 	var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
 	var cont = 0;
-	lista.forEach(e => {		
+	lista.forEach(e => {	
+		console.log("e: "+e);
 		e = e.firstChild.nodeValue.trim().replace(/\b[/]/g, ',');
 		let novo = new Date (e.slice(6, 10)+','+e.slice(3, 5)+','+e.slice(0, 2));
 		let diffDays = Math.round(Math.abs((secondDate.getTime() - novo.getTime())/(oneDay)));
 		lista[cont].textContent = 'há '+diffDays+' dias.';
 		cont++;
-	}); 
+	});  */
 	
 	function search(){
 		 var input, filter, table, tr, td, i, txtValue;
