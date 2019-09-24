@@ -6,8 +6,10 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
 
- <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css" />
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css">
+ 
+ <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
 
 <style>
@@ -26,6 +28,7 @@
     width: 20px;
     height: 25px;
     position:relative;
+    	bottom: 15px;
     text-indent:-9999em;
     margin-bottom: -8px;
     margin-top: 12px;
@@ -63,8 +66,8 @@
 
 
   .folder {
-    width: 30px;
-    height: 20px;
+    width: 60px;
+    height: 40px;
     display: inline-block;
     margin: auto;
     position: relative;
@@ -73,6 +76,13 @@
     /*box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.59);*/
     margin-bottom: -8px;
     margin-top: 12px;
+  }
+  
+  .f2 {
+  	width: 20px;
+    height: 15px;
+    position: relative;
+    	bottom: 10px;
   }
 
   .folder:before {
@@ -85,47 +95,84 @@
     top: -0.2em;
     left: 0px;
   }
+  
+  h4 {
+  	margin-top: 20px !important;
+  	font-size: 1rem !important;
+  	margin-left: 5%;
+  	max-width: 10%;
+  		
+  }
+  
+  .col-lg-4 {
+  	max-width: 10% !important;
+  	min-width: 5% !important;
+  	margin: 0 2%;
+  	cursor: pointer; 
+  }
+  
+  #myInput{
+  	margin-bottom: 20px;
+  }
+  
 	
 </style>
 <tags:pageTemplate titulo="Arquivos">
   	
-  	<span><div class="file"></div></span>
+  	<%-- <span><div class="file"></div></span> --%>
+	 
+	 <div class="container marketing">
+ 		<div class="row">
+ 			<c:forEach items="${pastas }" var="pasta">
+				<div class="col-lg-4">	
+					<a data-toggle="modal" data-target="#meuModal" onclick="folderSelection('${pasta.nome }')"><span><div class="folder"></div></span></a>
+					<h4>${pasta.nome }</h4>
+				</div>
+			</c:forEach>
+		</div>
+	</div>					
+	 	
 	
-	<a href="https://www.google.com/"><span><div class="folder"></div></span></a>
 	
 	<a class="nav-link" href="${pageContext.request.contextPath}/arquivo/formArquivo">cadastro de arquivos</a>
 
-	<div class="container">
-	  <h2>Arquivos</h2>
-	  <p>espaço para descrição</p>
-	  
-	  <input type="text" id="myInput" onkeyup="search()" placeholder="Search for names.." title="Type in a name">
-	  
-	  <table class="table">
-	    
-	    	 <thead class="thead-dark">
-		      <tr>
-		        <th>Nome do Arquivo</th>
-		        <th>Descrição</th>
-		        <th>Último upload</th>
-		        <th></th>
-		      </tr>
-		    </thead>
-		    <tbody id="body44">
-		    	
-		    </tbody>
-	    
-	   
-	  </table>
-	  <p><button onclick="sortTable()">Sort</button></p>
-	  
+	
+	
+	<!-- The Modal -->
+	<div class="modal" id="meuModal">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <div class="container">
+			  <input type="text" id="myInput" onkeyup="search()" placeholder="Procurar arquivo..." title="Type in a name">
+			  
+			  <table class="table">
+			    
+			    	 <thead class="thead-dark">
+				      <tr>
+				      	<th>Tipo</th>
+				        <th>Nome do Arquivo</th>
+				        <th>Descrição</th>
+				        <th>Último upload</th>
+				        <th></th>
+				      </tr>
+				    </thead>
+				    <tbody id="body44">
+				    	
+				    </tbody>
+			    
+			   
+			  </table>
+			  <p><button onclick="sortTable()">Organizar</button></p>
+			  
+			</div>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 	
-	<div id="ff" onclick="teste('Pasta1')">clica aqui</div>
-	
-	<td class="dateToday" title="${ arquivo.dataUpload.time}">
-				        	<fmt:formatDate pattern="dd/MM/yyyy" value="${ arquivo.dataUpload.time}"/>
-				        </td> 
 
 <script>
 
@@ -138,23 +185,28 @@
 		      });
 		
 		var secondDate = new Date();
+		secondDate.setHours(0,0,0,0);
 		var oneDay = 24*60*60*1000;
 		
 
-    function teste(pasta){
+    function folderSelection(pasta){
     	var folderList = fileList
     		.filter(e => e.pasta.nome == pasta);
     	
     		document.querySelector('#body44').innerHTML = 
     			folderList.map((e) => { 
    					let current = new Date(e.dataUpload);
+   					current.setHours(0,0,0,0);
    					var diffDays = Math.round(Math.abs((secondDate.getTime() - current.getTime()) / (oneDay)));
-   					console.log('e path: '+typeof e.arquivoPath);
     				return `
 	    				<tr>
+    						<td>
+    							<span><div class="file" title="arquivo"></div></span>
+    						</td>
     						<td><a href=${pageContext.request.contextPath}/`+e.arquivoPath+`>`+e.nome+`</a></td>
     						<td>`+e.descricao+`</td>
     						<td>`+(diffDays != 1 ? diffDays+' dias atrás' : diffDays+' dia atrás')+`</td>
+    						<td><i class="fa fa-trash" aria-hidden="true"></i></td>
     					</tr>
    						`
     				
@@ -227,7 +279,7 @@
 		  table = document.querySelector(".table");
 		  tr = table.getElementsByTagName("tr");
 		  for (i = 0; i < tr.length; i++) {
-		    td = tr[i].getElementsByTagName("td")[0];
+		    td = tr[i].getElementsByTagName("td")[1];
 		    console.log('td: '+td);
 		    if (td) {
 		    	console.log("aqui");
@@ -264,8 +316,8 @@
 		      
 		      
 
-		      x = parseInt(rows[i].getElementsByTagName("TD")[2].textContent.replace(/\D/g, ''));
-		      y = parseInt(rows[i + 1].getElementsByTagName("TD")[2].textContent.replace(/\D/g, ''));
+		      x = parseInt(rows[i].getElementsByTagName("TD")[3].textContent.replace(/\D/g, ''));
+		      y = parseInt(rows[i + 1].getElementsByTagName("TD")[3].textContent.replace(/\D/g, ''));
 		      //compara os elementos de uma linha e a que vem depois dela
 		      /*x = rows[i].getElementsByTagName("TD")[0];
 		      y = rows[i + 1].getElementsByTagName("TD")[0];*/

@@ -31,10 +31,10 @@ public class ArquivoController {
 	
 	@RequestMapping(value="arquivos", method=RequestMethod.GET)
 	public ModelAndView fileList(){		
-		List<Arquivo> lista = new ArrayList<>(); 
+		List<Pasta> lista = new ArrayList<>(); 
 		ModelAndView modelAndView = new ModelAndView("arquivo/arquivos");
-	    lista = arquivoDAO.listar();
-	    modelAndView.addObject("arquivos", lista);
+	    lista = arquivoDAO.listarPastas();
+	    modelAndView.addObject("pastas", lista);
 	    return modelAndView;
 	}	
 	

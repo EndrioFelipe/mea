@@ -14,6 +14,7 @@ import org.mea.models.UsuarioF;
 import org.mea.models.UsuarioTemp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
@@ -94,15 +95,15 @@ public class UsuarioController {
 	
 	@RequestMapping(value="cadastroUsuario", method=RequestMethod.POST)
 	public ModelAndView cadastroUsuario(UsuarioF usuario) throws ConnectException {
-		usuario.setUserName(usuario.getNome());
+		usuario.setUserName("bbb");
 		usuario.setSenha("$2a$10$Uyyw80P39/qSg9pBK4U7Gu6u0NRJB.EfgZeaeGZLCNOiB6oUmU2dC");
 		System.out.println("siape: "+usuario.getSiape());
 		System.out.println("nome: "+usuario.getNome());
 		System.out.println("cod uo: "+usuario.getCodUo());
 		System.out.println("regional: "+usuario.getNomeReg());
 		System.out.println("regional: "+usuario.getRoles());
+		enviaEmail();		
 		pendenciaDAO.gravar(usuario);
-		//enviaEmail();		
 		ModelAndView modelAndView = new ModelAndView("/profile/cadastroUsuario");		
 		return modelAndView;
 	}
@@ -114,7 +115,12 @@ public class UsuarioController {
 		email.setText("cadastro feito");
 		email.setFrom("endrio.souza@hotmail.com");
 		
-		sender.send(email);
+		try {
+			sender.send(email);
+		} catch (MailException e) {
+			System.out.println("uma exceção genérica");
+			e.printStackTrace();
+		}
 	}
 	
 	
