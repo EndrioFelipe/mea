@@ -111,10 +111,21 @@
   	cursor: pointer; 
   }
   
+  .fa-trash{
+  	cursor: pointer; 
+  }
+  
   #myInput{
   	margin-bottom: 20px;
   }
   
+  #testeModal{
+  	z-index: 1200;
+  }
+  
+  #meuModal{
+  	z-index: 1100;
+  }
 	
 </style>
 <tags:pageTemplate titulo="Arquivos">
@@ -135,8 +146,8 @@
 	
 	
 	<a class="nav-link" href="${pageContext.request.contextPath}/arquivo/formArquivo">cadastro de arquivos</a>
-
 	
+		
 	
 	<!-- The Modal -->
 	<div class="modal" id="meuModal">
@@ -173,6 +184,7 @@
 	  </div>
 	</div>
 	
+	<div class="modal" id="testeModal"></div>
 
 <script>
 
@@ -206,12 +218,13 @@
     						<td><a href=${pageContext.request.contextPath}/`+e.arquivoPath+`>`+e.nome+`</a></td>
     						<td>`+e.descricao+`</td>
     						<td>`+(diffDays != 1 ? diffDays+' dias atrás' : diffDays+' dia atrás')+`</td>
-    						<td><i class="fa fa-trash" aria-hidden="true"></i></td>
+    						<td><i class="fa fa-trash" aria-hidden="true" onclick=novoModal(`+e.id+`,'`+e.pasta.nome+`')></i></td>
     					</tr>
    						`
-    				
     			}).join('');
-    }
+    		
+    		
+    	}
 	    		
    // <td><a href="${pageContext.request.contextPath}/resources/arquivos/doc/ash.png">`+e.nome+`</a></td>	
 	    /* `<tr>
@@ -222,7 +235,51 @@
     	</td> 
 	 </tr>` */
 	    		
-	    		
+	function deletar(id, pasta){
+		 console.log(pasta);
+		 console.log(id);
+		 $.get("${pageContext.request.contextPath}/arquivo/deletar",	{id: id}
+	      ,	function(response) {	
+	    	  //fileList = [arquivoPath: null, dataUpload: 1569294000000, descricao: "ddd", id: 11,  nome: "saf"];
+	    	  fileList = response;
+	    	  folderSelection(pasta);
+	    	  console.log(fileList);
+	      });
+	 	$('#testeModal').modal('hide');
+	 }
+	 
+	 function novoModal(id, pasta){
+		console.log(pasta);
+		console.log(id);
+		$('#testeModal').modal();
+		document.querySelector('#testeModal').innerHTML = 			
+			`
+			  <div class="modal-dialog modal-sm">
+			    <div class="modal-content">
+			      <!-- Modal Header -->
+			      <div class="container">
+			      	<div class="modal-header">
+			          
+			          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			        </div>
+			        
+			       		<h5 class="modal-title">Você realmente deseja excluir este item?</h5>
+			        
+			        
+					<div class="modal-footer">
+						<button type="button" onclick=deletar(`+id+`,'`+pasta+`') class="btn btn-success" >Sim</button>
+						<button type="button" data-dismiss="modal" class="btn btn-danger" >Não</button>
+			      	</div>
+			      </div>
+			    </div>
+			  </div>
+			
+			`;
+	}
+	 
+	 
+	 
+	
 	    		
 	    		
 		

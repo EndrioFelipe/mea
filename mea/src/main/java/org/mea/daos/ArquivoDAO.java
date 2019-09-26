@@ -19,7 +19,16 @@ public class ArquivoDAO {
 	public void gravar(Arquivo arquivo) {
 		manager.persist(arquivo);
 	}
-
+	
+	 public Arquivo findOne(Integer id) {
+	        return manager.find(Arquivo.class, id);
+	}
+	
+	public List<Arquivo> deletar(Integer id) {
+		manager.remove(findOne(id));
+		return listar();
+	}
+	
 	public List<Arquivo> listar() {
 		return manager.createQuery("select distinct(a) from Arquivo a join fetch a.pasta ", Arquivo.class)
 				.getResultList();
@@ -31,5 +40,6 @@ public class ArquivoDAO {
 				.getResultList(); 
 		}
 	 
+	
 
 }

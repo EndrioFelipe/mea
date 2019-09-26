@@ -79,4 +79,12 @@ public class ArquivoController {
 		//String a = s.format(c.getTime());
 		return lista;
 	}
+	
+	@RequestMapping("/deletar")
+    public @ResponseBody List<Arquivo> deleteFile(Integer id) {	
+		List<Arquivo> lista = new ArrayList<>();
+		lista = arquivoDAO.deletar(id);
+		//String a = s.format(c.getTime());
+		return lista;
+	}
 }
