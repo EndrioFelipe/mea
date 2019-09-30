@@ -1,11 +1,14 @@
 package org.mea.models;
 
 import java.io.Serializable;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.mea.daos.PendenciaDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,6 +27,8 @@ public class Pendencias implements Serializable{
 	}
 	
 	public int getQuantidade(){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(auth.getName());
 		List<TiposPendencias> pendenciasQtd = pendenciaDAO.listarChecados();
 		System.out.println(" método getQuantidade sem parâmetros");
 		

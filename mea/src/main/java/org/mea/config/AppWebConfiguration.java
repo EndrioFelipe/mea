@@ -136,4 +136,6 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter{ //tem que este
 		configurer.enable();//o método enable() deste objeto habilita o servlet padrão do servidor de aplicação
 		}
 	
+	
+	
 }

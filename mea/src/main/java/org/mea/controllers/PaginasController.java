@@ -1,5 +1,6 @@
 package org.mea.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.mea.daos.FuncionariosDAO;

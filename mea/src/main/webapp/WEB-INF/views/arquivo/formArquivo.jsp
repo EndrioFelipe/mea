@@ -6,6 +6,14 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
 
+<style>
+	.error{
+		font-size: 0.7em;
+		color: red;
+	}
+	
+</style>
+
 <tags:pageTemplate titulo="formEquipe">
 	
 	
@@ -13,19 +21,29 @@
 	<form:form class="form-group" action="${ s:mvcUrl('AC#gravarArquivo').build() }" method="post" commandName="arquivo" id="myFileForm" enctype="multipart/form-data">
 			    
 	    <div class="form-group">
+	        <label>Nome do arquivo </label>
+	        <input class="form-control" type="text" name="nome"/>
+	        <form:errors class="error" path="nome"></form:errors>
+	    </div>
+	    <div class="form-group">
 	        <label>Descrição do arquivo </label>
-	        <input class="form-control" type="text" name="descricao" />
+	        <input class="form-control" type="text" name="descricao"/>
+	        <form:errors class="error" path="descricao"></form:errors>
 	    </div>
 	    
-	    <div class="form-group col-md-4">
+	    <div class="form-group">
+	        <input class="form-control" type="hidden" name="pasta.nome" value="${pasta}"/>
+	    </div>
+	    
+	    <%-- <div class="form-group col-md-4">
 	      <label for="inputState">State</label>
 	      <select id="inputState" class="form-control" name="pasta.nome">
 	        <option selected>Choose...</option>
-	        <c:forEach items="${pastas }" var="pasta">
-				<option value="${pasta.nome }">${pasta.nome }</option>
-			</c:forEach>
+	       
+				<option value="${pasta}">${pasta}</option>
+			
 	      </select>
-	    </div>
+	    </div> --%>
 	    
 	    
 	    
@@ -51,6 +69,14 @@
 
 	let today = new Date();
 	document.querySelector('.uploadDate').value = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
+	
+	function validateForm() {
+		  var x = document.forms["myForm"]["fname"].value;
+		  if (x == "") {
+		    alert("Name must be filled out");
+		    return false;
+		  }
+		}
 	
 	
 </script>

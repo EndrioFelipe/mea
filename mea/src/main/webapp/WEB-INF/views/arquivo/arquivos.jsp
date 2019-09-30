@@ -134,21 +134,17 @@
 	 
 	 <div class="container marketing">
  		<div class="row">
- 			<c:forEach items="${pastas }" var="pasta">
+ 			<c:forEach items="${pastas }" var="pasta" varStatus="cont">
 				<div class="col-lg-4">	
 					<a data-toggle="modal" data-target="#meuModal" onclick="folderSelection('${pasta.nome }')"><span><div class="folder"></div></span></a>
 					<h4>${pasta.nome }</h4>
+					
 				</div>
 			</c:forEach>
 		</div>
 	</div>					
-	 	
 	
-	
-	<a class="nav-link" href="${pageContext.request.contextPath}/arquivo/formArquivo">cadastro de arquivos</a>
-	
-		
-	
+
 	<!-- The Modal -->
 	<div class="modal" id="meuModal">
 	  <div class="modal-dialog modal-lg">
@@ -157,7 +153,10 @@
 	      <div class="modal-header">
 	        <div class="container">
 			  <input type="text" id="myInput" onkeyup="search()" placeholder="Procurar arquivo..." title="Type in a name">
-			  
+<%-- 			  <a class="nav-link" href="${pageContext.request.contextPath}/arquivo/formArquivo">cadastro de arquivos</a>
+ --%>		  
+ 			  <a>aaa${pastas[0].nome }</a>
+ 			  <div id="direciona"></div>	 
 			  <table class="table">
 			    
 			    	 <thead class="thead-dark">
@@ -174,8 +173,9 @@
 				    </tbody>
 			    
 			   
-			  </table>
+			  </table>			  
 			  <p><button onclick="sortTable()">Organizar</button></p>
+			 
 			  
 			</div>
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -202,38 +202,40 @@
 		
 
     function folderSelection(pasta){
-    	var folderList = fileList
-    		.filter(e => e.pasta.nome == pasta);
     	
-    		document.querySelector('#body44').innerHTML = 
-    			folderList.map((e) => { 
-   					let current = new Date(e.dataUpload);
-   					current.setHours(0,0,0,0);
-   					var diffDays = Math.round(Math.abs((secondDate.getTime() - current.getTime()) / (oneDay)));
-    				return `
-	    				<tr>
-    						<td>
-    							<span><div class="file" title="arquivo"></div></span>
-    						</td>
-    						<td><a href=${pageContext.request.contextPath}/`+e.arquivoPath+`>`+e.nome+`</a></td>
-    						<td>`+e.descricao+`</td>
-    						<td>`+(diffDays != 1 ? diffDays+' dias atrás' : diffDays+' dia atrás')+`</td>
-    						<td><i class="fa fa-trash" aria-hidden="true" onclick=novoModal(`+e.id+`,'`+e.pasta.nome+`')></i></td>
-    					</tr>
-   						`
-    			}).join('');
+    	var folderList = fileList
+		.filter(e => e.pasta.nome == pasta);
+    	
+    	var pasta = pasta;
+    	
+    	document.querySelector('#direciona').innerHTML= 
+    	`
+    		<a class="nav-link" href=${pageContext.request.contextPath}/arquivo/formArquivo/?pasta=`+pasta+`>cadastrar arquivo</a> 
+    	` 
+    	/*  `
+    		<a class="nav-link" href=${pageContext.request.contextPath}/arquivo/formArquivo/`+pasta+`>cadastrar arquivo</a> 
+    	` ; */
+    	
+   		document.querySelector('#body44').innerHTML = 
+   			folderList.map((e) => { 
+  					let current = new Date(e.dataUpload);
+  					current.setHours(0,0,0,0);
+  					var diffDays = Math.round(Math.abs((secondDate.getTime() - current.getTime()) / (oneDay)));
+   				return `
+    				<tr>
+   						<td>
+   							<span><div class="file" title="arquivo"></div></span>
+   						</td>
+   						<td><a href=${pageContext.request.contextPath}/`+e.arquivoPath+`>`+e.nome+`</a></td>
+   						<td>`+e.descricao+`</td>
+   						<td>`+(diffDays != 1 ? diffDays+' dias atrás' : diffDays+' dia atrás')+`</td>
+   						<td><i class="fa fa-trash" aria-hidden="true" onclick=novoModal(`+e.id+`,'`+e.pasta.nome+`')></i></td>
+   					</tr>
+  						`
+   			}).join('');
     		
     		
     	}
-	    		
-   // <td><a href="${pageContext.request.contextPath}/resources/arquivos/doc/ash.png">`+e.nome+`</a></td>	
-	    /* `<tr>
-		<td>`+e.dataUpload.time+`</td>
-		<td>`+e.descricao+`</td>
-		<td class="dateToday" >
-    		asdf
-    	</td> 
-	 </tr>` */
 	    		
 	function deletar(id, pasta){
 		 console.log(pasta);
@@ -277,57 +279,6 @@
 			`;
 	}
 	 
-	 
-	 
-	
-	    		
-	    		
-		
-		//<td><a class="word" href="${pageContext.request.contextPath}/${arquivo.arquivoPath}">f.nome</a></td>
-	    
-		/* var b = ${arquivo.pasta.nome == 'Pasta2'};
-		document.querySelector("#body44").innerHTML =
-		
-			`<c:forEach items="${arquivos }" var="arquivo" >
-				<c:set var = "gg" value = "pasta"/>
-			    <c:if test="${arquivo.pasta.nome == pasta}">
-			      	  <tr>
-				      	<td><a class="word" href="${pageContext.request.contextPath}/${arquivo.arquivoPath}">${arquivo.nome }</a></td>
-				        <td>${arquivo.descricao }</td>
-				        <td class="dateToday" title="${ arquivo.dataUpload.time}">
-				        	<fmt:formatDate pattern="dd/MM/yyyy" value="${ arquivo.dataUpload.time}"/>
-				        </td> 
-				        <td></td>
-				      </tr>	
-			    </c:if>var secondDate = new Date();
-			 </c:forEach> ` */
-
-      <%-- <tr>
-      	<td><a class="word" href="${pageContext.request.contextPath}/${arquivo.arquivoPath}">${arquivo.nome }</a></td>
-        <td>${arquivo.descricao }</td>
-        <td class="dateToday" title="${ arquivo.dataUpload.time}">
-        	<fmt:formatDate pattern="dd/MM/yyyy" value="${ arquivo.dataUpload.time}"/>
-        </td> 
-        <td></td>
-      </tr>	 --%>		      
-	   	
-	
-	
-	/* var lista =[];
-	lista = document.querySelectorAll('.dateToday');	
-	var secondDate = new Date();
-	secondDate.setHours(0,0,0,0);
-	var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
-	var cont = 0;
-	lista.forEach(e => {	
-		console.log("e: "+e);
-		e = e.firstChild.nodeValue.trim().replace(/\b[/]/g, ',');
-		let novo = new Date (e.slice(6, 10)+','+e.slice(3, 5)+','+e.slice(0, 2));
-		let diffDays = Math.round(Math.abs((secondDate.getTime() - novo.getTime())/(oneDay)));
-		lista[cont].textContent = 'há '+diffDays+' dias.';
-		cont++;
-	});  */
-	
 	function search(){
 		 var input, filter, table, tr, td, i, txtValue;
 		  input = document.getElementById("myInput");

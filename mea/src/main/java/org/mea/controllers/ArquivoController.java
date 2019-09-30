@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.mea.daos.ArquivoDAO;
 import org.mea.infra.FileSaver;
 import org.mea.models.Arquivo;
@@ -11,10 +13,16 @@ import org.mea.models.Pasta;
 import org.mea.models.UserQTD;
 import org.mea.models.UsrRep;
 import org.mea.models.UsuarioTemp;
+import org.mea.validation.ArquivoValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,6 +37,11 @@ public class ArquivoController {
 	@Autowired
 	ArquivoDAO arquivoDAO;
 	
+	@InitBinder
+	public void initBinder(WebDataBinder binder){
+	    binder.addValidators(new ArquivoValidation());
+	}
+	
 	@RequestMapping(value="arquivos", method=RequestMethod.GET)
 	public ModelAndView fileList(){		
 		List<Pasta> lista = new ArrayList<>(); 
@@ -38,17 +51,26 @@ public class ArquivoController {
 	    return modelAndView;
 	}	
 	
+//	@RequestMapping("formArquivo/{pasta}")
+//	public ModelAndView formArquivo(@PathVariable("pasta") String pasta, Arquivo arquivo) {
+//		System.out.println("pasta: "+pasta);
+//		ModelAndView modelandview = new ModelAndView("arquivo/formArquivo");
+//		modelandview.addObject("pasta", pasta);
+//		return modelandview;
+//	}
+	
 	@RequestMapping("formArquivo")
-	public ModelAndView formArquivo(Arquivo arquivo) {
+	public ModelAndView formArquivo(@RequestParam(value="pasta", required=true) String pasta, String arquivoNome ) {
+		Arquivo arquivo = new Arquivo();
+		arquivo.setNome(arquivoNome);
+		System.out.println("pasta: "+pasta);
 		ModelAndView modelandview = new ModelAndView("arquivo/formArquivo");
-		List<Pasta> lista = new ArrayList<>(); 
-		lista = arquivoDAO.listarPastas();
-		modelandview.addObject("pastas", lista);
+		modelandview.addObject("pasta", pasta);
 		return modelandview;
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)	
-	public ModelAndView gravarArquivo(MultipartFile file, Arquivo arquivo)  {
+	public ModelAndView gravarArquivo(MultipartFile file, @Valid Arquivo arquivo, BindingResult result)  {
 	
 		
 		if(file != null && !file.getOriginalFilename().isEmpty()) {
@@ -61,9 +83,9 @@ public class ArquivoController {
 		
 		arquivoDAO.gravar(arquivo);
 					
-	////	if(result.hasErrors()){
-	////        return form(atividade);
-	////    }	
+		if(result.hasErrors()){
+	        return formArquivo(arquivo.getPasta().getNome(), arquivo.getNome());
+	    }	
 	    
 		 return new ModelAndView("redirect:arquivo/arquivos");
 	}
