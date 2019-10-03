@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/arquivo")
@@ -70,16 +71,20 @@ public class ArquivoController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)	
-	public ModelAndView gravarArquivo(MultipartFile file, @Valid Arquivo arquivo, BindingResult result)  {
-	
+	public ModelAndView gravarArquivo(MultipartFile file, @Valid Arquivo arquivo, BindingResult result,  RedirectAttributes redirectAttributes)  {
+		
 		
 		if(file != null && !file.getOriginalFilename().isEmpty()) {
 			System.out.println("dfsggdf");
 			String path = fileSaver.write("resources/arquivos/doc", file);
 			arquivo.setArquivoPath(path);
+		} else {
+			redirectAttributes.addFlashAttribute("resposta", "Coloca o arquivo aí, filhão!");
+			return new ModelAndView("redirect:arquivo/formArquivo/?pasta="+arquivo.getPasta().getNome()+"");
 		}
 		
-		arquivo.setNome(file.getOriginalFilename());
+		System.out.println("Nulo? "+arquivo.getNome().equals(""));
+		arquivo.setNome(arquivo.getNome().equals("")? file.getOriginalFilename() : arquivo.getNome());
 		
 		arquivoDAO.gravar(arquivo);
 					
@@ -103,9 +108,18 @@ public class ArquivoController {
 	}
 	
 	@RequestMapping("/deletar")
-    public @ResponseBody List<Arquivo> deleteFile(Integer id) {	
+    public @ResponseBody List<Arquivo> deleteFile(Integer... id) {	
 		List<Arquivo> lista = new ArrayList<>();
-		lista = arquivoDAO.deletar(id);
+
+		try {
+			for(int i = 0; i < id.length; i++) {
+				lista = arquivoDAO.deletar(id[i]);
+			}
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//
 		//String a = s.format(c.getTime());
 		return lista;
 	}

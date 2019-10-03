@@ -13,6 +13,9 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
 
 <style>
+	
+	body { display:none; }
+	
 	.file {
     background:#eee;
     background:-moz-linear-gradient(top, #ddd 0, #eee 15%, #fff 40%, #fff 70%, #eee 100%);
@@ -126,13 +129,22 @@
   #meuModal{
   	z-index: 1100;
   }
+  
+  .modal-dialog{
+    overflow-y: initial !important
+	}
+  .modal-body{
+    height: 500px;
+    overflow-y: auto;
+  }
 	
 </style>
 <tags:pageTemplate titulo="Arquivos">
   	
   	<%-- <span><div class="file"></div></span> --%>
 	 
-	 <div class="container marketing">
+	  
+	 <div class="container marketing" >
  		<div class="row">
  			<c:forEach items="${pastas }" var="pasta" varStatus="cont">
 				<div class="col-lg-4">	
@@ -146,19 +158,20 @@
 	
 
 	<!-- The Modal -->
-	<div class="modal" id="meuModal">
+	<div class="modal" id="meuModal" >
 	  <div class="modal-dialog modal-lg">
 	    <div class="modal-content">
 	      <!-- Modal Header -->
 	      <div class="modal-header">
-	        <div class="container">
+	        <div class="container modal-body">
 			  <input type="text" id="myInput" onkeyup="search()" placeholder="Procurar arquivo..." title="Type in a name">
+			  <p><button onclick="sortTable()">Organizar</button></p>
+			  <p><button id="aa">testar</button></p>
 <%-- 			  <a class="nav-link" href="${pageContext.request.contextPath}/arquivo/formArquivo">cadastro de arquivos</a>
  --%>		  
- 			  <a>aaa${pastas[0].nome }</a>
  			  <div id="direciona"></div>	 
 			  <table class="table">
-			    
+			    	 
 			    	 <thead class="thead-dark">
 				      <tr>
 				      	<th>Tipo</th>
@@ -166,17 +179,12 @@
 				        <th>Descrição</th>
 				        <th>Último upload</th>
 				        <th></th>
+				        <th></th>
 				      </tr>
 				    </thead>
 				    <tbody id="body44">
-				    	
 				    </tbody>
-			    
-			   
 			  </table>			  
-			  <p><button onclick="sortTable()">Organizar</button></p>
-			 
-			  
 			</div>
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
 	      </div>
@@ -185,10 +193,9 @@
 	</div>
 	
 	<div class="modal" id="testeModal"></div>
-
-<script>
-
 	
+<script>
+		
 	var fileList = [];
 		$.get("${pageContext.request.contextPath}/arquivo/pasta",	{	
 			 }
@@ -196,63 +203,82 @@
 		    	  fileList = response;
 		      });
 		
-		var secondDate = new Date();
-		secondDate.setHours(0,0,0,0);
-		var oneDay = 24*60*60*1000;
+	document.querySelector("body").style.display = "block";
+			
 		
+	var secondDate = new Date();
+	secondDate.setHours(0,0,0,0);
+	var oneDay = 24*60*60*1000;
+	
+	var gato;
 
     function folderSelection(pasta){
     	
     	var folderList = fileList
 		.filter(e => e.pasta.nome == pasta);
     	
-    	var pasta = pasta;
+    	//var pasta = pasta;
     	
     	document.querySelector('#direciona').innerHTML= 
     	`
     		<a class="nav-link" href=${pageContext.request.contextPath}/arquivo/formArquivo/?pasta=`+pasta+`>cadastrar arquivo</a> 
-    	` 
+    	` ;
     	/*  `
     		<a class="nav-link" href=${pageContext.request.contextPath}/arquivo/formArquivo/`+pasta+`>cadastrar arquivo</a> 
     	` ; */
+    	
     	
    		document.querySelector('#body44').innerHTML = 
    			folderList.map((e) => { 
   					let current = new Date(e.dataUpload);
   					current.setHours(0,0,0,0);
   					var diffDays = Math.round(Math.abs((secondDate.getTime() - current.getTime()) / (oneDay)));
+  					gato = e.pasta.nome;
+  					
    				return `
     				<tr>
-   						<td>
+   						
+   						<td >
    							<span><div class="file" title="arquivo"></div></span>
    						</td>
    						<td><a href=${pageContext.request.contextPath}/`+e.arquivoPath+`>`+e.nome+`</a></td>
    						<td>`+e.descricao+`</td>
    						<td>`+(diffDays != 1 ? diffDays+' dias atrás' : diffDays+' dia atrás')+`</td>
    						<td><i class="fa fa-trash" aria-hidden="true" onclick=novoModal(`+e.id+`,'`+e.pasta.nome+`')></i></td>
+   						<td>
+   						<input type="checkbox" id="scales" value=`+e.id+`>
+						</td>
    					</tr>
   						`
    			}).join('');
     		
+    		console.log(gato);
     		
-    	}
+	    	document.getElementById("aa").addEventListener('click', function(){
 	    		
-	function deletar(id, pasta){
-		 console.log(pasta);
-		 console.log(id);
-		 $.get("${pageContext.request.contextPath}/arquivo/deletar",	{id: id}
-	      ,	function(response) {	
-	    	  //fileList = [arquivoPath: null, dataUpload: 1569294000000, descricao: "ddd", id: 11,  nome: "saf"];
-	    	  fileList = response;
-	    	  folderSelection(pasta);
-	    	  console.log(fileList);
-	      });
-	 	$('#testeModal').modal('hide');
-	 }
+	    		
+	    		var a = document.querySelectorAll('#scales');
+	    		//console.log('teste:> '+a[0].value);
+	    		// console.log(a);
+	    		var allChecked = [];
+	    		
+	    		for(var i = 0, j = 0; i < a.length; i++){
+	    			if(a[i].checked == true){
+    					allChecked[j] = a[i].value;
+    					j++;
+    				}
+		    	} 
+	    		
+	    		novoModal(allChecked, gato);
+	    	});
+	    	
+    	}
+    
 	 
-	 function novoModal(id, pasta){
-		console.log(pasta);
-		console.log(id);
+	 function novoModal(array, pasta){
+		
+		console.log("novo modal pasta "+pasta);
+		console.log("novo modal array: "+ typeof array);
 		$('#testeModal').modal();
 		document.querySelector('#testeModal').innerHTML = 			
 			`
@@ -261,23 +287,53 @@
 			      <!-- Modal Header -->
 			      <div class="container">
 			      	<div class="modal-header">
-			          
 			          <button type="button" class="close" data-dismiss="modal">&times;</button>
 			        </div>
-			        
 			       		<h5 class="modal-title">Você realmente deseja excluir este item?</h5>
-			        
-			        
 					<div class="modal-footer">
-						<button type="button" onclick=deletar(`+id+`,'`+pasta+`') class="btn btn-success" >Sim</button>
-						<button type="button" data-dismiss="modal" class="btn btn-danger" >Não</button>
+ 						<button type="button" id="push" class="btn btn-success" >Sim</button> 
+ 						<button type="button" data-dismiss="modal" class="btn btn-danger" >Não</button>
 			      	</div>
 			      </div>
 			    </div>
 			  </div>
 			
 			`;
+		document.querySelector(".btn-success").focus();
+		document.querySelector("#push").addEventListener('click', function(){
+			deletar(array, pasta);
+		});
 	}
+	 
+	 function deletar(input, pasta){
+			let arrayTemp = [];
+			
+			if(typeof input == 'number'){
+				arrayTemp[0] = input;
+				console.log('aqui: '+arrayTemp[0]);
+			} else {
+				arrayTemp = input;
+			}
+			
+			console.log('aqui: '+arrayTemp[0]);
+			
+			var id = [];
+			for(var i = 0; i < arrayTemp.length; i++){
+				id[i] = parseInt(arrayTemp[i]);
+			}
+			
+			jQuery.ajaxSettings.traditional = true;			 
+			
+			 $.get("${pageContext.request.contextPath}/arquivo/deletar",	{id: id}
+		      ,	function(response) {	
+		    	  //fileList = [arquivoPath: null, dataUpload: 1569294000000, descricao: "ddd", id: 11,  nome: "saf"];
+		    	  fileList = response;
+		    	  folderSelection(pasta);
+		    	  console.log(fileList);
+		      }); 
+		    $('#testeModal').modal('hide');
+			 
+		 }
 	 
 	function search(){
 		 var input, filter, table, tr, td, i, txtValue;

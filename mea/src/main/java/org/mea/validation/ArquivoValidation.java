@@ -15,7 +15,6 @@ public class ArquivoValidation implements Validator{
 	@Override
 	public void validate(Object target, Errors errors) {
 		ValidationUtils.rejectIfEmpty(errors, "descricao", "field.required");
-	    ValidationUtils.rejectIfEmpty(errors, "nome", "field.required");
 	    
 	    Arquivo arquivo = (Arquivo) target;
 		
