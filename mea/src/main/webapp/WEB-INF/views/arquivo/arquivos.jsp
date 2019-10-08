@@ -137,11 +137,126 @@
     height: 500px;
     overflow-y: auto;
   }
+  
+  .navbar-icon-top .navbar-nav .nav-link > .fa {
+	  position: relative;
+	  width: 36px;
+	  font-size: 24px;
+	}
+	
+	.navbar-icon-top .navbar-nav .nav-link > .fa > .badge {
+	  font-size: 0.75rem;
+	  position: absolute;
+	  right: 0;
+	  font-family: sans-serif;
+	}
+	
+	.navbar-icon-top .navbar-nav .nav-link > .fa {
+	  top: 3px;
+	  line-height: 12px;
+	}
+	
+	.navbar-icon-top .navbar-nav .nav-link > .fa > .badge {
+	  top: -10px;
+	}
+	
+	@media (min-width: 576px) {
+	  .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link {
+	    text-align: center;
+	    display: table-cell;
+	    height: 70px;
+	    vertical-align: middle;
+	    padding-top: 0;
+	    padding-bottom: 0;
+	  }
+	
+	  .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link > .fa {
+	    display: block;
+	    width: 48px;
+	    margin: 2px auto 4px auto;
+	    top: 0;
+	    line-height: 24px;
+	  }
+	
+	  .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link > .fa > .badge {
+	    top: -7px;
+	  }
+	}
+	
+	@media (min-width: 768px) {
+	  .navbar-icon-top.navbar-expand-md .navbar-nav .nav-link {
+	    text-align: center;
+	    display: table-cell;
+	    height: 70px;
+	    vertical-align: middle;
+	    padding-top: 0;
+	    padding-bottom: 0;
+	  }
+	
+	  .navbar-icon-top.navbar-expand-md .navbar-nav .nav-link > .fa {
+	    display: block;
+	    width: 48px;
+	    margin: 2px auto 4px auto;
+	    top: 0;
+	    line-height: 24px;
+	  }
+	
+	  .navbar-icon-top.navbar-expand-md .navbar-nav .nav-link > .fa > .badge {
+	    top: -7px;
+	  }
+	}
+	
+	@media (min-width: 992px) {
+	  .navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link {
+	    text-align: center;
+	    display: table-cell;
+	    height: 70px;
+	    vertical-align: middle;
+	    padding-top: 0;
+	    padding-bottom: 0;
+	  }
+	
+	  .navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link > .fa {
+	    display: block;
+	    width: 48px;
+	    margin: 2px auto 4px auto;
+	    top: 0;
+	    line-height: 24px;
+	  }
+	
+	  .navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link > .fa > .badge {
+	    top: -7px;
+	  }
+	}
+	
+	@media (min-width: 1200px) {
+	  .navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link {
+	    text-align: center;
+	    display: table-cell;
+	    height: 70px;
+	    vertical-align: middle;
+	    padding-top: 0;
+	    padding-bottom: 0;
+	  }
+	
+	  .navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link > .fa {
+	    display: block;
+	    width: 48px;
+	    margin: 2px auto 4px auto;
+	    top: 0;
+	    line-height: 24px;
+	  }
+	
+	  .navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link > .fa > .badge {
+	    top: -7px;
+	  }
+	}
 	
 </style>
 <tags:pageTemplate titulo="Arquivos">
   	
   	<%-- <span><div class="file"></div></span> --%>
+  	 
 	 
 	  
 	 <div class="container marketing" >
@@ -163,13 +278,91 @@
 	    <div class="modal-content">
 	      <!-- Modal Header -->
 	      <div class="modal-header">
+	      	
 	        <div class="container modal-body">
-			  <input type="text" id="myInput" onkeyup="search()" placeholder="Procurar arquivo..." title="Type in a name">
-			  <p><button onclick="sortTable()">Organizar</button></p>
-			  <p><button id="aa">testar</button></p>
+		       <%--  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+				   <a class="navbar-brand" href="#">
+				    <img src="${pageContext.request.contextPath}/resources/arquivos/fotos/bird.jpg" alt="Logo" style="width:40px;">
+				   </a>
+				   <a class="navbar-brand" href="#">
+				   	<i class="fa fa-sort" onclick="sortTable()"></i>
+				    <!-- <p><button onclick="sortTable()">Organizar</button></p> -->
+				   </a>
+				   <a class="navbar-brand" href="#">
+				    <div id="direciona"></div>
+				   </a>
+				   <a class="navbar-brand" href="#">
+				    <i class="fa fa-trash" id="aa" ></i>
+				   </a>
+				   <a class="navbar-brand" href="#">
+				    <input type="text" id="myInput" onkeyup="search()" placeholder="Procurar arquivo..." title="Type in a name">
+				   </a>
+				</nav>  --%>
+				<nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
+				  <a class="navbar-brand" href="#">
+				    <img src="${pageContext.request.contextPath}/resources/arquivos/fotos/bird.jpg" alt="Logo" style="width:40px;">
+				   </a>
+				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				    <span class="navbar-toggler-icon"></span>
+				  </button>
+				
+				  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+				    <ul class="navbar-nav mr-auto">
+				       <li class="nav-item" onclick="sortTable()">
+					      <a class="nav-link" href="#">
+						      <i class="fa fa-sort" >
+						      </i>
+						      Organizar
+					      </a>
+				      </li>
+				      <li class="nav-item">
+				        <div id="direciona"></div>
+				        
+				      </li>
+					  <li class="nav-item" id="aa">
+					      <a class="nav-link" href="#">
+						      <i class="fa fa-trash" >
+						      </i>
+						      Deletar Tudo
+					      </a>
+				      </li>
+				      <%--    <li class="nav-item dropdown">
+				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				          <i class="fa fa-envelope-o">
+				            <span class="badge badge-primary">11</span>
+				          </i>
+				          Dropdown
+				        </a>
+				        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+				          <a class="dropdown-item" href="#">Action</a>
+				          <a class="dropdown-item" href="#">Another action</a>
+				          <div class="dropdown-divider"></div>
+				          <a class="dropdown-item" href="#">Something else here</a>
+				        </div>
+				      </li>
+				    </ul>
+				    <ul class="navbar-nav ">
+				      <li class="nav-item">
+				        <a class="nav-link" href="#">
+				          <i class="fa fa-bell">
+				            <span class="badge badge-info">11</span>
+				          </i>
+				          Test
+				        </a>
+				      </li> --%>
+				     
+				    </ul>
+				    <form class="form-inline my-2 my-lg-0">
+				      <input class="form-control mr-sm-2" type="text" id="myInput" onkeyup="search()" placeholder="Procurar arquivo..." aria-label="Search">
+				    </form>
+				  </div>
+				</nav>
+			  
+			  
+			  
 <%-- 			  <a class="nav-link" href="${pageContext.request.contextPath}/arquivo/formArquivo">cadastro de arquivos</a>
  --%>		  
- 			  <div id="direciona"></div>	 
+ 			  	 
 			  <table class="table">
 			    	 
 			    	 <thead class="thead-dark">
@@ -213,6 +406,8 @@
 	var gato;
 
     function folderSelection(pasta){
+    	var sideFolder = pasta.split(' ').join('+');
+    	console.log('sidefolder: '+sideFolder);
     	
     	var folderList = fileList
 		.filter(e => e.pasta.nome == pasta);
@@ -220,8 +415,14 @@
     	//var pasta = pasta;
     	
     	document.querySelector('#direciona').innerHTML= 
-    	`
-    		<a class="nav-link" href=${pageContext.request.contextPath}/arquivo/formArquivo/?pasta=`+pasta+`>cadastrar arquivo</a> 
+    	`	
+    		
+    		<a class="nav-link" href=${pageContext.request.contextPath}/arquivo/formArquivo/?pasta=`+sideFolder+`>
+	          <i class="fa fa-file"></i>
+	          
+	          Novo Arquivo
+	          <span class="sr-only">(current)</span>
+	        </a>
     	` ;
     	/*  `
     		<a class="nav-link" href=${pageContext.request.contextPath}/arquivo/formArquivo/`+pasta+`>cadastrar arquivo</a> 
@@ -234,6 +435,7 @@
   					current.setHours(0,0,0,0);
   					var diffDays = Math.round(Math.abs((secondDate.getTime() - current.getTime()) / (oneDay)));
   					gato = e.pasta.nome;
+  					var sideName = e.pasta.nome.split(' ').join('+');
   					
    				return `
     				<tr>
@@ -244,7 +446,9 @@
    						<td><a href=${pageContext.request.contextPath}/`+e.arquivoPath+`>`+e.nome+`</a></td>
    						<td>`+e.descricao+`</td>
    						<td>`+(diffDays != 1 ? diffDays+' dias atrás' : diffDays+' dia atrás')+`</td>
-   						<td><i class="fa fa-trash" aria-hidden="true" onclick=novoModal(`+e.id+`,'`+e.pasta.nome+`')></i></td>
+   						<td>
+   							<i class="fa fa-trash" aria-hidden="true" onclick=novoModal(`+e.id+`,'`+sideName+`')></i>
+   						</td>
    						<td>
    						<input type="checkbox" id="scales" value=`+e.id+`>
 						</td>
@@ -269,16 +473,17 @@
     				}
 		    	} 
 	    		
-	    		novoModal(allChecked, gato);
+	    		if(allChecked.length > 0) {
+	    			novoModal(allChecked, gato);
+	    		}
 	    	});
 	    	
     	}
     
 	 
 	 function novoModal(array, pasta){
-		
-		console.log("novo modal pasta "+pasta);
-		console.log("novo modal array: "+ typeof array);
+		pasta = pasta.split('+').join(' ');
+
 		$('#testeModal').modal();
 		document.querySelector('#testeModal').innerHTML = 			
 			`
@@ -289,7 +494,7 @@
 			      	<div class="modal-header">
 			          <button type="button" class="close" data-dismiss="modal">&times;</button>
 			        </div>
-			       		<h5 class="modal-title">Você realmente deseja excluir este item?</h5>
+			       		<h5 class="modal-title">`+(array.length > 1 ? 'Você realmente deseja excluir estes '+array.length+' itens?' : 'Você realmente deseja excluir este item?')+`</h5>
 					<div class="modal-footer">
  						<button type="button" id="push" class="btn btn-success" >Sim</button> 
  						<button type="button" data-dismiss="modal" class="btn btn-danger" >Não</button>
@@ -326,7 +531,6 @@
 			
 			 $.get("${pageContext.request.contextPath}/arquivo/deletar",	{id: id}
 		      ,	function(response) {	
-		    	  //fileList = [arquivoPath: null, dataUpload: 1569294000000, descricao: "ddd", id: 11,  nome: "saf"];
 		    	  fileList = response;
 		    	  folderSelection(pasta);
 		    	  console.log(fileList);

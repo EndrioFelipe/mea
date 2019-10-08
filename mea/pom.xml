@@ -21,6 +21,32 @@
 	          </execution>
 	        </executions>
 	      </plugin>
+	      <plugin>
+		    <groupId>org.apache.maven.plugins</groupId>
+		    <artifactId>maven-dependency-plugin</artifactId>
+		    <version>2.3</version>
+		    <executions>
+		        <execution>
+		            <phase>package</phase>
+		            <goals><goal>copy</goal></goals>
+		            <configuration>
+		                <artifactItems>
+		                    <artifactItem>
+		                        <groupId>com.github.jsimone</groupId>
+		                        <artifactId>webapp-runner</artifactId>
+		                        <version>9.0.24.1</version>
+		                        <destFileName>webapp-runner.jar</destFileName>
+		                    </artifactItem>
+		                </artifactItems>
+		            </configuration>
+		        </execution>
+		    </executions>
+		</plugin>
+		<plugin>
+	        <groupId>com.heroku.sdk</groupId>
+	        <artifactId>heroku-maven-plugin</artifactId>
+	        <version>2.0.11</version>
+	      </plugin>
 	</plugins>
      
   </build>
@@ -218,6 +244,11 @@
 	    <artifactId>junit</artifactId>
 	    <version>4.12</version>
 	    <scope>test</scope>
+	</dependency>
+	<dependency>
+	    <groupId>org.postgresql</groupId>
+	    <artifactId>postgresql</artifactId>
+	    <version>9.4-1206-jdbc42</version>
 	</dependency>
 </dependencies>
 
