@@ -90,7 +90,7 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter{ //tem que este
         mailSender.setPort(465);
 	    
         mailSender.setUsername("endriofelipesouza@gmail.com");
-        mailSender.setPassword("1035491020");
+        mailSender.setPassword("*******");
         
         
         Properties mailProp = mailSender.getJavaMailProperties();
@@ -106,7 +106,7 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter{ //tem que este
         
 //	    mailSender.setHost("smtp.gmail.com");
 //	    mailSender.setUsername("endriofelipesouza@gmail.com");
-//	    mailSender.setPassword("1035491020");
+//	    mailSender.setPassword("****");
 //	    mailSender.setPort(587);
 	    
 	    // Properties é uma subcalsse de Hashtable, por isso o formato chave-valor no put, mas
